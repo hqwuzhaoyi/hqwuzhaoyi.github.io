@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>react源码-Mental Model | Prajna's blog</title><meta name="keywords" content="react,源码"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Mental model react 的核心可以用 ui&#x3D;fn(state)来表示，更详细可以用 12const state &#x3D; reconcile(update);const UI &#x3D; commit(state);   react源码可以分为如下几个模块：  Scheduler（调度器）： 排序优先级，让优先级高的任务先进行reconcile  Reconciler（协调器）： 找出哪些节点发生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react源码-Mental Model">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2021/03/23/react%20%E6%BA%90%E7%A0%81/1.Mental%20Model/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="Mental model react 的核心可以用 ui&#x3D;fn(state)来表示，更详细可以用 12const state &#x3D; reconcile(update);const UI &#x3D; commit(state);   react源码可以分为如下几个模块：  Scheduler（调度器）： 排序优先级，让优先级高的任务先进行reconcile  Reconciler（协调器）： 找出哪些节点发生">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162602.png">
+<meta property="article:published_time" content="2021-03-23T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="源码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162602.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2021/03/23/react%20%E6%BA%90%E7%A0%81/1.Mental%20Model/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162602.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">react源码-Mental Model</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-23T00:00:00.000Z" title="发表于 2021-03-23 00:00:00">2021-03-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react-%E6%BA%90%E7%A0%81/">react 源码</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="react源码-Mental Model"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Mental-model"><a href="#Mental-model" class="headerlink" title="Mental model"></a>Mental model</h1><p> react 的核心可以用 ui=fn(state)来表示，更详细可以用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = reconcile(update);</span><br><span class="line"><span class="keyword">const</span> UI = commit(state);</span><br></pre></td></tr></table></figure>
+
+<p> react源码可以分为如下几个模块：</p>
+<ul>
+<li><p>Scheduler（调度器）： 排序优先级，让优先级高的任务先进行reconcile</p>
+</li>
+<li><p>Reconciler（协调器）： 找出哪些节点发生了改变，并打上不同的Tag</p>
+</li>
+<li><p>Renderer（渲染器）： 将Reconciler中打好标签的节点渲染到视图上</p>
+</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> Scheduler的作用是调度任务，react15没有Scheduler这部分，所以所有任务没有优先级，也不能中断，只能同步执行。</span><br><span class="line"></span><br><span class="line">​ Reconciler发生在render阶段，render阶段会分别为节点执行beginWork和completeWork（后面会讲），或者计算state，对比节点的差异，为节点赋值相应的effectTag（对应dom节点的增删改）</span><br><span class="line"></span><br><span class="line">​ Renderer发生在commit阶段，commit阶段遍历effectList执行对应的dom操作或部分生命周期</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162541.png" alt="performance"></p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162602.png" alt="Scheduler Reconciler"></p>
+<h2 id="Fiber双缓存"><a href="#Fiber双缓存" class="headerlink" title="Fiber双缓存"></a>Fiber双缓存</h2><p> Fiber（Virtual dom）是内存中用来描述dom阶段的对象</p>
+<p> 在它上面保存了包括这个节点的属性、类型、dom等，Fiber通过child、sibling、return（指向父节点）来形成Fiber树，</p>
+<p> 还保存了更新状态时用于计算state的updateQueue，updateQueue是一种链表结构，上面可能存在多个未计算的update，update也是一种数据结构，上面包含了更新的数据、优先级等，</p>
+<p> 除了这些之外，上面还有和副作用有关的信息。</p>
+<p> 双缓存是指存在两颗Fiber树，current Fiber树描述了当前呈现的dom树，workInProgress Fiber是正在更新的Fiber树，这两颗Fiber树都是在内存中运行的，在workInProgress Fiber构建完成之后会将它作为current Fiber应用到dom上</p>
+<p> 在mount时（首次渲染），会根据jsx对象（Class Component或的render函数者Function Component的返回值），构建Fiber对象，形成Fiber树，然后这颗Fiber树会作为current Fiber应用到真实dom上，在update（状态更新时如setState）的时候，会根据状态变更后的jsx对象和current Fiber做对比形成新的workInProgress Fiber，然后workInProgress Fiber切换成current Fiber应用到真实dom就达到了更新的目的，而这一切都是在内存中发生的，从而减少了对dom好性能的操作。</p>
+<p>这两颗树的节点通过alternate相连.</p>
+<p> 例如下面代码的Fiber双缓存结构如下，在第5章会详细讲解</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      small</span><br><span class="line">      &lt;p&gt;chen&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&quot;root&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162441.png" alt="Fiber双缓存"></p>
+<h2 id="Reconciler（render阶段中）"><a href="#Reconciler（render阶段中）" class="headerlink" title="Reconciler（render阶段中）"></a>Reconciler（render阶段中）</h2><p> 协调器是在render阶段工作的，简单一句话概括就是Reconciler会创建或者更新Fiber节点。在mount的时候会根据jsx生成Fiber对象，在update的时候会根据最新的state形成的jsx对象和current Fiber树对比构建workInProgress Fiber树，这个对比的过程就是diff算法。reconcile时会在这些Fiber上打上Tag标签，在commit阶段把这些标签应用到真实dom上，这些标签代表节点的增删改，如</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> Placement = <span class="comment">/*             */</span> <span class="number">0b0000000000010</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> Update = <span class="comment">/*                */</span> <span class="number">0b0000000000100</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> PlacementAndUpdate = <span class="comment">/*    */</span> <span class="number">0b0000000000110</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> Deletion = <span class="comment">/*              */</span> <span class="number">0b0000000001000</span>;</span><br></pre></td></tr></table></figure>
+
+<p> render阶段遍历Fiber树类似dfs的过程，‘捕获’阶段发生在beginWork函数中，该函数做的主要工作是创建Fiber节点，计算state和diff算法，‘冒泡’阶段发生在completeWork中，该函数主要是做一些收尾工作，例如处理节点的props、和形成一条effectList的链表，该链表是被标记了更新的节点形成的链表</p>
+<p> 深度优先遍历过程如下，图中的数字是顺序，return指向父节点，第8章详细讲解</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162811.png" alt="遍历Fiber树"></p>
+<p> 如果p和h1节点更新了则effectList如下，从rootFiber-&gt;h1-&gt;p,，顺便说下fiberRoot是整个项目的根节点，只存在一个，rootFiber是应用的根节点，可能存在多个，例如多个<code>ReactDOM.render(&lt;App /&gt;, document.getElementById(&quot;root&quot;))</code>创建多个应用节点</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411163103.png" alt="如果p和h1节点更新了则effectList如下"></p>
+<h2 id="Renderer（commit阶段中）"><a href="#Renderer（commit阶段中）" class="headerlink" title="Renderer（commit阶段中）"></a>Renderer（commit阶段中）</h2><p> Renderer是在commit阶段工作的，commit阶段会遍历render阶段形成的effectList，并执行真实dom节点的操作和一些生命周期，不同平台对应的Renderer不同，例如浏览器对应的就是react-dom。</p>
+<p> commit阶段发生在commitRoot函数中，该函数主要遍历effectList，分别用三个函数来处理effectList上的节点，这三个函数是commitBeforeMutationEffects、commitMutationEffects、commitLayoutEffects，他们主要做的事情如下，后面会详细讲解，现在在大脑里有一个结构就行</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411163154.png" alt="Renderer（commit阶段中）"></p>
+<h2 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h2><p> 我们知道了要实现异步可中断的更新，需要浏览器指定一个时间，如果没有时间剩余了就需要暂停任务，requestIdleCallback貌似是个不错的选择，但是它存在兼容和触发不稳定的原因，react17中采用MessageChannel来实现。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">workLoopConcurrent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (workInProgress !== <span class="literal">null</span> &amp;&amp; !shouldYield()) &#123;<span class="comment">//shouldYield判断是否暂停任务</span></span><br><span class="line">    workInProgress = performUnitOfWork(workInProgress);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 在Scheduler中的每的每个任务的优先级使用过期时间表示的，如果一个任务的过期时间离现在很近，说明它马上就要过期了，优先级很高，如果过期时间很长，那它的优先级就低，没有过期的任务存放在timerQueue中，过期的任务存放在taskQueue中，timerQueue和timerQueue都是小顶堆，所以peek取出来的都是离现在时间最近也就是优先级最高的那个任务，然后优先执行它。</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411163528.png" alt="Scheduler"></p>
+<h2 id="Lane"><a href="#Lane" class="headerlink" title="Lane"></a>Lane</h2><p> react之前的版本用expirationTime属性代表优先级，该优先级和IO不能很好的搭配工作（io的优先级高于cpu的优先级），现在有了更加细粒度的优先级表示方法Lane，Lane用二进制位表示优先级，二进制中的1表示位置，同一个二进制数可以有多个相同优先级的位，这就可以表示‘批’的概念，而且二进制方便计算。</p>
+<p> 这好比赛车比赛，在比赛开始的时候会分配一个赛道，比赛开始之后大家都会抢内圈的赛道（react中就是抢优先级高的Lane），比赛的尾声，最后一名赛车如果落后了很多，它也会跑到内圈的赛道，最后到达目的地（对应react中就是饥饿问题，低优先级的任务如果被高优先级的任务一直打断，到了它的过期时间，它也会变成高优先级）</p>
+<p> Lane的二进制位如下，从上往下，优先级递减</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> NoLanes: Lanes = <span class="comment">/*                        */</span> <span class="number">0b0000000000000000000000000000000</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> NoLane: Lane = <span class="comment">/*                          */</span> <span class="number">0b0000000000000000000000000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SyncLane: Lane = <span class="comment">/*                        */</span> <span class="number">0b0000000000000000000000000000001</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SyncBatchedLane: Lane = <span class="comment">/*                 */</span> <span class="number">0b0000000000000000000000000000010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> InputDiscreteHydrationLane: Lane = <span class="comment">/*      */</span> <span class="number">0b0000000000000000000000000000100</span>;</span><br><span class="line"><span class="keyword">const</span> InputDiscreteLanes: Lanes = <span class="comment">/*                    */</span> <span class="number">0b0000000000000000000000000011000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> InputContinuousHydrationLane: Lane = <span class="comment">/*           */</span> <span class="number">0b0000000000000000000000000100000</span>;</span><br><span class="line"><span class="keyword">const</span> InputContinuousLanes: Lanes = <span class="comment">/*                  */</span> <span class="number">0b0000000000000000000000011000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DefaultHydrationLane: Lane = <span class="comment">/*            */</span> <span class="number">0b0000000000000000000000100000000</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DefaultLanes: Lanes = <span class="comment">/*                   */</span> <span class="number">0b0000000000000000000111000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TransitionHydrationLane: Lane = <span class="comment">/*                */</span> <span class="number">0b0000000000000000001000000000000</span>;</span><br><span class="line"><span class="keyword">const</span> TransitionLanes: Lanes = <span class="comment">/*                       */</span> <span class="number">0b0000000001111111110000000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RetryLanes: Lanes = <span class="comment">/*                            */</span> <span class="number">0b0000011110000000000000000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SomeRetryLane: Lanes = <span class="comment">/*                  */</span> <span class="number">0b0000010000000000000000000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SelectiveHydrationLane: Lane = <span class="comment">/*          */</span> <span class="number">0b0000100000000000000000000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> NonIdleLanes = <span class="comment">/*                                 */</span> <span class="number">0b0000111111111111111111111111111</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> IdleHydrationLane: Lane = <span class="comment">/*               */</span> <span class="number">0b0001000000000000000000000000000</span>;</span><br><span class="line"><span class="keyword">const</span> IdleLanes: Lanes = <span class="comment">/*                             */</span> <span class="number">0b0110000000000000000000000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> OffscreenLane: Lane = <span class="comment">/*                   */</span> <span class="number">0b1000000000000000000000000000000</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><p> jsx是ClassComponent的render函数或者FunctionComponent的返回值，可以用来表示组件的内容，在经过babel编译之后，最后会被编译成React.createElement，这就是为什么jsx文件要声明import React from ‘react’的原因，你可以在 babel编译jsx 站点查看jsx被编译后的结果</p>
+<p> React.createElement的源码中做了如下几件事</p>
+<ul>
+<li><p>处理config，把除了保留属性外的其他config赋值给props</p>
+</li>
+<li><p>把children处理后赋值给props.children</p>
+</li>
+<li><p>处理defaultProps</p>
+</li>
+<li><p>调用ReactElement返回一个jsx对象</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">type, config, children</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> propName;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> props = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> key = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> ref = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> self = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> source = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (config != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">//处理config，把除了保留属性外的其他config赋值给props</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> childrenLength = <span class="built_in">arguments</span>.length - <span class="number">2</span>;</span><br><span class="line">  <span class="comment">//把children处理后赋值给props.children</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//处理defaultProps</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ReactElement(</span><br><span class="line">    type,</span><br><span class="line">    key,</span><br><span class="line">    ref,</span><br><span class="line">    self,</span><br><span class="line">    source,</span><br><span class="line">    ReactCurrentOwner.current,</span><br><span class="line">    props,</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ReactElement = <span class="function"><span class="keyword">function</span>(<span class="params">type, key, ref, self, source, owner, props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> element = &#123;</span><br><span class="line">    $$typeof: REACT_ELEMENT_TYPE,<span class="comment">//表示是ReactElement类型</span></span><br><span class="line"></span><br><span class="line">    type: type,<span class="comment">//class或function</span></span><br><span class="line">    key: key,<span class="comment">//key</span></span><br><span class="line">    ref: ref,<span class="comment">//useRef的ref对象</span></span><br><span class="line">    props: props,<span class="comment">//props</span></span><br><span class="line">    _owner: owner,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> element;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<pre><code>  $$typeof表示的是组件的类型，例如在源码中有一个检查是否是合法Element的函数，就是根object.$$typeof === REACT_ELEMENT_TYPE来判断的
+</code></pre>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">isValidElement</span>(<span class="params">object</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="keyword">typeof</span> object === <span class="string">&#x27;object&#x27;</span> &amp;&amp;</span><br><span class="line">    object !== <span class="literal">null</span> &amp;&amp;</span><br><span class="line">    object.$$typeof === REACT_ELEMENT_TYPE</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  如果组件是ClassComponent则type是class本身，如果组件是FunctionComponent创建的，则type是这个function，源码中用    ClassComponent.prototype.isReactComponent来区别二者。注意class或者function创建的组件一定要首字母大写，不然后被当成普通节点，type就是字符串。</p>
+<pre><code>  jsx对象上没有优先级、状态、effectTag等标记，这些标记在Fiber对象上，在mount时Fiber根据jsx对象来构建，在update是根据最新状态的jsx和current Fiber对比，形成新的workInProgress Fiber，最后workInProgress Fiber切换成current Fiber
+</code></pre>
+</li>
+</ul>
+<h2 id="源码目录结构"><a href="#源码目录结构" class="headerlink" title="源码目录结构"></a>源码目录结构</h2><p>源码中主要包括如下部分</p>
+<ul>
+<li>fixtures：为代码贡献者提供的测试React</li>
+<li>packages：主要部分，包含Scheduler，reconciler等</li>
+<li>scripts：react构建相关</li>
+</ul>
+<p>下面来看下packages主要包含的模块</p>
+<ul>
+<li>react：核心Api如：React.createElement、React.Component都在这</li>
+<li>和平台相关render相关的文件夹：</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">react-art：如canvas svg的渲染</span><br><span class="line">react-dom：浏览器环境</span><br><span class="line">react-native-renderer：原生相关</span><br><span class="line">react-noop-renderer：调试或者fiber用</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>试验性的包</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">react-server        # ssr相关</span><br><span class="line">react-fetch         # 请求相关</span><br><span class="line">react-interactions  # 和事件如点击事件相关</span><br><span class="line">react-reconciler    # 构建节点</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>shared：包含公共方法和变量</li>
+<li>辅助包：</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">react-is       # 判断类型</span><br><span class="line">react-client   # 流相关</span><br><span class="line">react-fetch    # 数据请求相关</span><br><span class="line">react-refresh  # 热加载相关</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>scheduler：调度器相关</p>
+</li>
+<li><p>React-reconciler：在render阶段用它来构建fiber节点</p>
+</li>
+</ul>
+<h2 id="怎样调试源码"><a href="#怎样调试源码" class="headerlink" title="怎样调试源码"></a>怎样调试源码</h2><p> 本课程使用的react版本是17.0.1，通过下面几步就可以调试源码了，当然你可以用现成的包含本课程所有demo的项目来调试，建议使用已经构建好的项目，地址：<a target="_blank" rel="noopener" href="https://github.com/xiaochen1024/react_code_build">https://github.com/xiaochen1024/react_code_build</a></p>
+<ul>
+<li>clone源码：git clone <a target="_blank" rel="noopener" href="https://github.com/facebook/react.git">https://github.com/facebook/react.git</a></li>
+<li>依赖安装：npm install or yarn</li>
+<li>build源码：npm build react,react-dom,scheduler –type=NODE</li>
+<li>为源码建立软链：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd build/node_modules/react</span><br><span class="line">npm link</span><br><span class="line">cd build/node_modules/react-dom</span><br><span class="line">npm link</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>create-react-app创建项目</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npx create-react-app demo</span><br><span class="line">npm link react react-dom</span><br></pre></td></tr></table></figure>
+
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2021/03/23/react%20%E6%BA%90%E7%A0%81/1.Mental%20Model/">https://hqwuzhaoyi.github.io/2021/03/23/react%20%E6%BA%90%E7%A0%81/1.Mental%20Model/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/react/">react</a><a class="post-meta__tags" href="/tags/%E6%BA%90%E7%A0%81/">源码</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162602.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/27/react%20%E6%BA%90%E7%A0%81/3.%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0/"><img class="prev-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210322225712.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">react源码-入口函数</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/17/82.bit/"><img class="next-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210317222106.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">bit 私有化部署方案 分布式开发组件</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mental-model"><span class="toc-number">1.</span> <span class="toc-text">Mental model</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fiber%E5%8F%8C%E7%BC%93%E5%AD%98"><span class="toc-number">1.1.</span> <span class="toc-text">Fiber双缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reconciler%EF%BC%88render%E9%98%B6%E6%AE%B5%E4%B8%AD%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">Reconciler（render阶段中）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Renderer%EF%BC%88commit%E9%98%B6%E6%AE%B5%E4%B8%AD%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">Renderer（commit阶段中）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scheduler"><span class="toc-number">1.4.</span> <span class="toc-text">Scheduler</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lane"><span class="toc-number">1.5.</span> <span class="toc-text">Lane</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSX"><span class="toc-number">1.6.</span> <span class="toc-text">JSX</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.7.</span> <span class="toc-text">源码目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E8%B0%83%E8%AF%95%E6%BA%90%E7%A0%81"><span class="toc-number">1.8.</span> <span class="toc-text">怎样调试源码</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2021/03/23/react%20%E6%BA%90%E7%A0%81/1.Mental%20Model/'
+    this.page.identifier = '2021/03/23/react 源码/1.Mental Model/'
+    this.page.title = 'react源码-Mental Model'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

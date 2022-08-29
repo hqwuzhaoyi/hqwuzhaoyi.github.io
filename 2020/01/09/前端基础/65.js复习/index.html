@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>js 复习 | Prajna's blog</title><meta name="keywords" content="JS"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="变量类型和计算强制类型转换字符串拼接&#96;100 + &#39;1&#39; &#x3D; &#39;101&#39;&#96;  &#x3D;&#x3D;运算符  123100 &#x3D;&#x3D; &#39;100&#39; &#x2F;&#x2F; true0 &#x3D;&#x3D; &#39;&#39; &#x2F;&#x2F; truenull &#x3D;&#x3D; undefined &#x2F;&#x2F; tru">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js 复习">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2020/01/09/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/65.js%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="变量类型和计算强制类型转换字符串拼接&#96;100 + &#39;1&#39; &#x3D; &#39;101&#39;&#96;  &#x3D;&#x3D;运算符  123100 &#x3D;&#x3D; &#39;100&#39; &#x2F;&#x2F; true0 &#x3D;&#x3D; &#39;&#39; &#x2F;&#x2F; truenull &#x3D;&#x3D; undefined &#x2F;&#x2F; tru">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png">
+<meta property="article:published_time" content="2020-01-09T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.656Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2020/01/09/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/65.js%E5%A4%8D%E4%B9%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">js 复习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-01-09T00:00:00.000Z" title="发表于 2020-01-09 00:00:00">2020-01-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.656Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="js 复习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="变量类型和计算"><a href="#变量类型和计算" class="headerlink" title="变量类型和计算"></a>变量类型和计算</h1><h2 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h2><h3 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h3><pre><code>`100 + &#39;1&#39; = &#39;101&#39;`
+</code></pre>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="==运算符"></a>==运算符</h3>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">100 &#x3D;&#x3D; &#39;100&#39; &#x2F;&#x2F; true</span><br><span class="line">0 &#x3D;&#x3D; &#39;&#39; &#x2F;&#x2F; true</span><br><span class="line">null &#x3D;&#x3D; undefined &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; true</span><br><span class="line">if (a) &#123;</span><br><span class="line">    &#x2F;&#x2F;执行</span><br><span class="line">&#125;</span><br><span class="line">var b &#x3D; 100</span><br><span class="line">if (b) &#123;</span><br><span class="line">    &#x2F;&#x2F;执行</span><br><span class="line">&#125;</span><br><span class="line">var c &#x3D; &#39;&#39;</span><br><span class="line">if(c) &#123;</span><br><span class="line">    &#x2F;&#x2F;不执行</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(10 &amp;&amp; 0) &#x2F;&#x2F;0</span><br><span class="line">console.log(&#39;&#39; || &#39;abc&#39;) &#x2F;&#x2F;&#39;abc&#39;</span><br><span class="line">console.log(window.abc)</span><br></pre></td></tr></table></figure>
+
+<h2 id="何时使用-和"><a href="#何时使用-和" class="headerlink" title="何时使用 === 和 =="></a>何时使用 === 和 ==</h2><p>只有这种情况用<code>==</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (obj.a &#x3D;&#x3D; null) &#123;</span><br><span class="line">    &#x2F;&#x2F; 这里相当于 obj.a &#x3D;&#x3D;&#x3D; null || obj.a &#x3D;&#x3D;&#x3D; undefined, 简写形式</span><br><span class="line">    &#x2F;&#x2F; 这是jquery源码推荐的写法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;&#125;; obj.a &#x3D; 100;</span><br><span class="line">var arr &#x3D; []; arr.a &#x3D; 100;</span><br><span class="line">function fn () &#123;&#125;;</span><br><span class="line">fn.a &#x3D; 100;</span><br><span class="line"></span><br><span class="line">console.log(obj.__proto__ &#x3D;&#x3D;&#x3D; Object.prototype) &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<p>obj的隐式原型 指向 Object的显式原型,因为obj从Object继承而来</p>
+<h2 id="遍历对象忽略原型"><a href="#遍历对象忽略原型" class="headerlink" title="遍历对象忽略原型"></a>遍历对象忽略原型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var item</span><br><span class="line">for (item in f) &#123;</span><br><span class="line">    &#x2F;&#x2F; 高游览器已经在for in 中屏蔽了来自原型的属性</span><br><span class="line">    &#x2F;&#x2F; 但是这里建议还是加上这个判断,保证程序的健壮性</span><br><span class="line">    if (f.hasOwnProperty(item)) &#123;</span><br><span class="line">        console.log(item)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="intanceof"><a href="#intanceof" class="headerlink" title="intanceof"></a>intanceof</h2><p>instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Car(make, model, year) &#123;</span><br><span class="line">  this.make &#x3D; make;</span><br><span class="line">  this.model &#x3D; model;</span><br><span class="line">  this.year &#x3D; year;</span><br><span class="line">&#125;</span><br><span class="line">const auto &#x3D; new Car(&#39;Honda&#39;, &#39;Accord&#39;, 1998);</span><br><span class="line"></span><br><span class="line">console.log(auto instanceof Car);</span><br><span class="line">&#x2F;&#x2F; expected output: true</span><br><span class="line"></span><br><span class="line">console.log(auto instanceof Object);</span><br><span class="line">&#x2F;&#x2F; expected output: true</span><br></pre></td></tr></table></figure>
+
+<h2 id="原型链例子"><a href="#原型链例子" class="headerlink" title="原型链例子"></a>原型链例子</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function Elem(id) &#123;</span><br><span class="line">    this.elem &#x3D; document.getElementById(id)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Elem.prototype.html &#x3D; function (val) &#123;</span><br><span class="line">    var elem &#x3D; this.elem</span><br><span class="line">    if(val) &#123;</span><br><span class="line">        elem.innerHTML &#x3D; val</span><br><span class="line">        return this</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return elem.innerHTML</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Elem.prototype.on &#x3D; function (type, fn) &#123;</span><br><span class="line">    var elem &#x3D; this.elem</span><br><span class="line">    elem.addEventListener(type, fn)</span><br><span class="line">    return this</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var div1 &#x3D; new Elem(&#39;detail-page&#39;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">console.log(a)</span><br><span class="line">var a &#x3D; 100</span><br><span class="line"></span><br><span class="line">fn(&#39;zhangsan&#39;)</span><br><span class="line">function fn(name) &#123;</span><br><span class="line">    age &#x3D; 20</span><br><span class="line">    console.log(name, age)</span><br><span class="line">    var age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>范围: 一段<code>&lt;script&gt;</code>或者一个函数</li>
+<li>全局: 变量定义,函数声明</li>
+<li>函数: 变量定义,函数申明,this,arguments<br>ps: 注意’函数声明’和’函数表达式’的区别</li>
+</ul>
+<h1 id="this"><a href="#this" class="headerlink" title="this"></a>this</h1><p>先搞明白一个很重要的概念 ———— <strong><code>this</code>的值是在执行的时候才能确认，定义的时候不能确认！</strong> 为什么呢 ———— 因为<code>this</code>是执行上下文环境的一部分，而执行上下文需要在代码执行之前确定，而不是定义的时候。看如下例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name: <span class="string">&#x27;A&#x27;</span>,</span><br><span class="line">    fn: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn()  <span class="comment">// this === a</span></span><br><span class="line">a.fn.call(&#123;<span class="attr">name</span>: <span class="string">&#x27;B&#x27;</span>&#125;)  <span class="comment">// this === &#123;name: &#x27;B&#x27;&#125;</span></span><br><span class="line"><span class="keyword">var</span> fn1 = a.fn</span><br><span class="line">fn1()  <span class="comment">// this === window</span></span><br></pre></td></tr></table></figure>
+
+<p><code>this</code>执行会有不同，主要集中在这几个场景中</p>
+<ul>
+<li>作为构造函数执行</li>
+<li>作为对象属性执行</li>
+<li>作为普通函数执行</li>
+<li>用于<code>call</code> <code>apply</code> <code>bind</code></li>
+</ul>
+<p>前两种情况咱们之前都介绍过了，这里只是统一的提出来，汇总一下，不再详细讲了。这里主要说第三种</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>)</span><br><span class="line">&#125;</span><br><span class="line">fn()  <span class="comment">// window</span></span><br><span class="line">fn.call(&#123;<span class="attr">a</span>:<span class="number">100</span>&#125;)  <span class="comment">// &#123;a:100&#125;  和 call 同理的还有 apply bind</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="作用域和闭包"><a href="#作用域和闭包" class="headerlink" title="作用域和闭包"></a>作用域和闭包</h1><ul>
+<li>自由变量</li>
+<li>作用域链,即自由变量的查找</li>
+<li>闭包的两个场景</li>
+</ul>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>作为有 JS 基础的同学，你应该了解 JS 没有块级作用域。例如</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">&#x27;zhangsan&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(name)</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子可以体会到作用域的概念，作用域就是一个独立的地盘，让变量不会外泄、暴露出去。上面的<code>name</code>就被暴露出去了，因此，<strong>JS 没有块级作用域，只有全局作用域和函数作用域</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">100</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">200</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;fn&#x27;</span>, a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;global&#x27;</span>, a)</span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+
+<p>全局作用域就是最外层的作用域，如果我们写了很多行 JS 代码，变量定义都没有用函数包括，那么他们就全部都在全局作用域中。这样的坏处就是很容易装车。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 张三写的代码中</span></span><br><span class="line"><span class="keyword">var</span> data = &#123;<span class="attr">a</span>:<span class="number">100</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 李四写的代码中</span></span><br><span class="line"><span class="keyword">var</span> data = &#123;<span class="attr">x</span>:<span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是为何 jquery zepto 等库的源码，所有的代码都会放在<code>(function()&#123;....&#125;)()</code>中。因为放在里面的所有变量，都不会被外泄和暴露，不会污染到外面，不会对其他的库或者 JS 脚本造成影响。这是函数作用域的一个体现。</p>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>首先认识一下什么叫做<strong>自由变量</strong>。如下代码中，<code>console.log(a)</code>要得到<code>a</code>变量，但是在当前的作用域中没有定义<code>a</code>（可对比一下<code>b</code>）。当前作用域没有定义的变量，这成为<strong>自由变量</strong>。自由变量如何得到 ———— 向父级作用域寻找。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">100</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">200</span></span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    <span class="built_in">console</span>.log(b)</span><br><span class="line">&#125;</span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+
+<p>如果父级也没呢？再一层一层向上寻找，直到找到全局作用域还是没找到，就宣布放弃。这种一层一层的关系，就是<strong>作用域链</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">100</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">F1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">200</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> c = <span class="number">300</span></span><br><span class="line">        <span class="built_in">console</span>.log(a)</span><br><span class="line">        <span class="built_in">console</span>.log(b)</span><br><span class="line">        <span class="built_in">console</span>.log(c)</span><br><span class="line">    &#125;</span><br><span class="line">    F2()</span><br><span class="line">&#125;</span><br><span class="line">F1()</span><br></pre></td></tr></table></figure>
+
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>直接看一个例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">F1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">100</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f1 = F1()</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">200</span></span><br><span class="line">f1()</span><br></pre></td></tr></table></figure>
+
+<p>自由变量将从作用域链中去寻找，但是<strong>依据的是函数定义时的作用域链，而不是函数执行时</strong>，以上这个例子就是闭包。闭包主要有两个应用场景：</p>
+<ul>
+<li>函数作为返回值，上面的例子就是</li>
+<li>函数作为参数传递，看以下例子</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">F1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">100</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">F2</span>(<span class="params">f1</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">200</span></span><br><span class="line">    <span class="built_in">console</span>.log(f1())</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f1 = F1()</span><br><span class="line">F2(f1)</span><br></pre></td></tr></table></figure>
+
+<h1 id="XMLHttpRequest"><a href="#XMLHttpRequest" class="headerlink" title="XMLHttpRequest"></a>XMLHttpRequest</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">xhr.open(<span class="string">&quot;GET&quot;</span> ,<span class="string">&quot;/api&quot;</span>, <span class="literal">true</span>)</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (xhr.status == <span class="number">200</span>) &#123;</span><br><span class="line">            alert(xhr.responseText)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">xhr.send(<span class="literal">null</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="服务器端设置http-header"><a href="#服务器端设置http-header" class="headerlink" title="服务器端设置http header"></a>服务器端设置http header</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>,<span class="string">&quot;http://a.com, http://b.com&quot;</span>);</span><br><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>,<span class="string">&quot;X-Requested-With&quot;</span>);</span><br><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Methods&quot;</span>,<span class="string">&quot;PUT,POST,GET,DELETE,OPTIONS&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//接收跨域cookies</span></span><br><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Credentials&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2020/01/09/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/65.js%E5%A4%8D%E4%B9%A0/">https://hqwuzhaoyi.github.io/2020/01/09/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/65.js%E5%A4%8D%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JS/">JS</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/01/10/66.wordpress%E5%BB%BA%E7%AB%99/"><img class="prev-cover" src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/wordpress.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">wordpress 建站(ubuntu)</div></div></a></div><div class="next-post pull-right"><a href="/2020/01/06/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/64.htmlcss%E5%A4%8D%E4%B9%A0/"><img class="next-cover" src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/css.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">html,css 复习</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AE%A1%E7%AE%97"><span class="toc-number">1.</span> <span class="toc-text">变量类型和计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.1.</span> <span class="toc-text">强制类型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5"><span class="toc-number">1.1.1.</span> <span class="toc-text">字符串拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.1.2.</span> <span class="toc-text">&#x3D;&#x3D;运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.1.3.</span> <span class="toc-text">if语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.1.4.</span> <span class="toc-text">逻辑运算符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8-%E5%92%8C"><span class="toc-number">1.2.</span> <span class="toc-text">何时使用 &#x3D;&#x3D;&#x3D; 和 &#x3D;&#x3D;</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE"><span class="toc-number">2.</span> <span class="toc-text">原型和原型链</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1%E5%BF%BD%E7%95%A5%E5%8E%9F%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">遍历对象忽略原型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#intanceof"><span class="toc-number">2.2.</span> <span class="toc-text">intanceof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E4%BE%8B%E5%AD%90"><span class="toc-number">2.3.</span> <span class="toc-text">原型链例子</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-number">3.</span> <span class="toc-text">执行上下文</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#this"><span class="toc-number">4.</span> <span class="toc-text">this</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E9%97%AD%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">作用域和闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">5.1.</span> <span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE"><span class="toc-number">5.2.</span> <span class="toc-text">作用域链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-number">5.3.</span> <span class="toc-text">闭包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XMLHttpRequest"><span class="toc-number">6.</span> <span class="toc-text">XMLHttpRequest</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%A8%E5%9F%9F"><span class="toc-number">7.</span> <span class="toc-text">跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AE%BE%E7%BD%AEhttp-header"><span class="toc-number">7.1.</span> <span class="toc-text">服务器端设置http header</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2020/01/09/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/65.js%E5%A4%8D%E4%B9%A0/'
+    this.page.identifier = '2020/01/09/前端基础/65.js复习/'
+    this.page.title = 'js 复习'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

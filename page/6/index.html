@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prajna's blog - personal notes</title><meta name="keywords" content="19970527"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Scent of code">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prajna&#39;s blog">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/page/6/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="Scent of code">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="19970527">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/page/6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-08-29 03:13:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210607232803.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Prajna's blog</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/12/31/62.ssh%E9%85%8D%E7%BD%AE%20(CLION%20WSL%E8%BF%9E%E6%8E%A5)/" title="ssh配置 (CLION WSL连接)">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ssh配置 (CLION WSL连接)"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/12/31/62.ssh%E9%85%8D%E7%BD%AE%20(CLION%20WSL%E8%BF%9E%E6%8E%A5)/" title="ssh配置 (CLION WSL连接)">ssh配置 (CLION WSL连接)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-12-31T00:00:00.000Z" title="发表于 2019-12-31 00:00:00">2019-12-31</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/WSL/">WSL</a></span></div><div class="content">
+安装cmake,gcc和clangsudo apt-get install cmake gcc clang gdb build-essential
+
+安装openssh-serverapt install openssh-server
+
+确认openssh-server版本ssh -V
+
+确认openssh-server状态
+
+
+
+/etc/init.d/ssh status/etc/init.d/ssh restart
+
+
+重新启动 openssh-server/etc/init.d/ssh restart
+
+配置并运行打开的ssh-server。wget https://raw.githubusercontent.com/JetBrains/clion-wsl/master/ubuntu_setup_env.sh &amp;&amp; bash ubuntu_setup_env.sh
+
+测试链接ssh username@localhost -p2222
+
+ssh配置
+
+
+123vim &#x2F;etc&#x2F;ssh&#x2F;sshd_configListenAddress ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/12/31/node/63.MSYS2/" title="MSYS2">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MSYS2"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/12/31/node/63.MSYS2/" title="MSYS2">MSYS2</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-12-31T00:00:00.000Z" title="发表于 2019-12-31 00:00:00">2019-12-31</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/node/">node</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Linux/">Linux</a></span></div><div class="content">MSYS2官网MSYS2源
+123456pacman-key --initpacman -Syupacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-extra-cmake-modulespacman -S mingw-w64-x86_64-makepacman -S mingw-w64-x86_64-gdbpacman -S mingw-w64-x86_64-toolchain
+
+
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/10/28/node/60.koa/" title="koa 笔记">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="koa 笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/10/28/node/60.koa/" title="koa 笔记">koa 笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-10-28T00:00:00.000Z" title="发表于 2019-10-28 00:00:00">2019-10-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/node/">node</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/koa/">koa</a></span></div><div class="content">github:https://github.com/ikcamp/koa2-tutorial/
+npm i koa-bodyparser -Spost请求数据放在ctx.body中
+12345678910111213141516171819202122232425262728293031const Koa &#x3D; require(&#39;koa&#39;) const router &#x3D; require(&#39;koa-router&#39;)() const bodyParser &#x3D; require(&#39;koa-bodyparser&#39;) const app &#x3D; new Koa() app.use(bodyParser()) router.get(&#39;&#x2F;&#39;, async(ctx, next) &#x3D;&gt; &#123;   ctx.response.body &#x3D; &#96;&lt;h1&gt;index page&lt;&#x2F;h1&gt;&#96; &#125;) router.get( ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/10/27/electronic%20muisc/future%20house/" title="future house">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="future house"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/10/27/electronic%20muisc/future%20house/" title="future house">future house</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-10-27T00:00:00.000Z" title="发表于 2019-10-27 00:00:00">2019-10-27</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/electronic-muisc/">electronic muisc</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Future-House/">Future House</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Music/">Music</a></span></div><div class="content">t-racks 5TR5 Stealth Limiter 提升响度
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/10/24/61.%E6%9C%89%E7%BA%BF%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8/" title="有线无线网卡同时使用">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="有线无线网卡同时使用"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/10/24/61.%E6%9C%89%E7%BA%BF%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8/" title="有线无线网卡同时使用">有线无线网卡同时使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-10-24T11:54:00.000Z" title="发表于 2019-10-24 11:54:00">2019-10-24</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/ip/">ip</a></span></div><div class="content">
+无线网卡 tip/ip跃点设为1
+设置route -p add 172.0.0.0 mask 255.0.0.0 172.16.17.1 //网段 子网掩码 网关
+
+</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/10/23/58.manjaro/" title="manjaro安装配置">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="manjaro安装配置"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/10/23/58.manjaro/" title="manjaro安装配置">manjaro安装配置</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-10-23T17:31:00.000Z" title="发表于 2019-10-23 17:31:00">2019-10-23</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Linux/">Linux</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/shell/">shell</a></span></div><div class="content">pacman12345678910111213pacman -S package_name        # 安装软件  pacman -S extra&#x2F;package_name  # 安装不同仓库中的版本pacman -Syu                   # 升级整个系统，y是更新数据库，yy是强制更新，u是升级软件pacman -Ss string             # 在包数据库中查询软件pacman -Si package_name       # 显示软件的详细信息pacman -Sc                    # 清除软件缓存，即&#x2F;var&#x2F;cache&#x2F;pacman&#x2F;pkg目录下的文件pacman -R package_name        # 删除单个软件pacman -Rs package_name       # 删除指定软件及其没有被其他已安装软件使用的依赖关系pacman -Qs string             # 查询已安装的软件包pacman -Qi package_name   ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/09/30/59.shell%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="terminal快捷键">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="terminal快捷键"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/30/59.shell%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="terminal快捷键">terminal快捷键</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-30T17:31:00.000Z" title="发表于 2019-09-30 17:31:00">2019-09-30</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Linux/">Linux</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/shell/">shell</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/WSL/">WSL</a></span></div><div class="content">
+
+
+快捷键
+功能
+
+
+
+Tab
+自动补全
+
+
+Ctrl+a
+光标移动到开始位置
+
+
+Ctrl+e
+光标移动到最末尾
+
+
+Ctrl+k
+删除此处至末尾的所有内容
+
+
+Ctrl+u
+删除此处至开始的所有内容
+
+
+Ctrl+d
+删除当前字符
+
+
+Ctrl+h
+删除当前字符前一个字符
+
+
+Ctrl+w
+删除此处到左边的单词
+
+
+Ctrl+y
+粘贴由Ctrl+u， Ctrl+d， Ctrl+w删除的单词
+
+
+Ctrl+l
+相当于clear，即清屏
+
+
+Ctrl+r
+查找历史命令
+
+
+Ctrl+b
+向回移动光标
+
+
+Ctrl+f
+向前移动光标
+
+
+Ctrl+t
+将光标位置的字符和前一个字符进行位置交换
+
+
+Ctrl+&amp;
+恢复 ctrl+h 或者 ctrl+d 或者 ctrl+w 删除的内容
+
+
+Ctrl+S
+暂停屏幕输出
+
+
+Ctrl+Q
+继续屏幕输出
+
+
+Ctrl+Left-Arrow
+光标移动到上一个单词的词首
+
+
+Ctrl+Right-Arrow
+光标移动到下一个单词的词尾
+
+
+Ctrl+p
+向上显示缓存命令
+
+
+Ctrl+n
+向下显示缓存命令
+
+
+Ctrl+d
+关闭终端
+
+
+Ct ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/09/30/59.vim/" title="Vim命令">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vim命令"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/30/59.vim/" title="Vim命令">Vim命令</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-30T17:31:00.000Z" title="发表于 2019-09-30 17:31:00">2019-09-30</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span></div><div class="content">Vim的几种模式
+正常模式：可以使用快捷键命令，或按:输入命令行。
+插入模式：可以输入文本，在正常模式下，按i、a、o等都可以进入插入模式。
+可视模式：正常模式下按v可以进入可视模式， 在可视模式下，移动光标可以选择文本。按V进入可视行模式， 总是整行整行的选中。ctrl+v进入可视块模式。
+替换模式：正常模式下，按R进入。
+
+启动Vim
+vim -c cmd file: 在打开文件前，先执行指定的命令；
+vim -r file:     恢复上次异常退出的文件；
+vim -R file:     以只读的方式打开文件，但可以强制保存；
+vim -M file:     以只读的方式打开文件，不可以强制保存；
+vim -y num file: 将编辑窗口的大小设为num行；
+vim + file:      从文件的末尾开始；
+vim +num file:   从第num行开始；
+vim +/string file: 打开file，并将光标停留在第一个找到的string上。
+vim --remote file: 用已有的vim进程打开指定的文件。 如果你不想启用多个vim会话，这个很有 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/09/30/node/57.node%E7%AC%94%E8%AE%B0/" title="node 笔记">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="node 笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/30/node/57.node%E7%AC%94%E8%AE%B0/" title="node 笔记">node 笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-30T00:00:00.000Z" title="发表于 2019-09-30 00:00:00">2019-09-30</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/node/">node</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/node/">node</a></span></div><div class="content">__dirname 绝对路径__filename 绝对路径加文件名
+自定义事件myEmitter = new events.EventEmitter();myEmitter.on(&#39;some&#39;, function() &#123;&#125;);myEmitter.emit(&#39;some&#39;);
+工具类utilutil.inherits(Person, events.EventEmitter); 相当于es6的class extends
+文件 都有异步:
+fs.readFile 读文件
+fs.writeFile 写文件
+fs.unlink(&#39;123.txt&#39;) 删除文件
+fs.mkdirSync() 创建文件夹
+fs.rmdirSync() 删除文件夹
+
+流linux的标准输入标准输出流
+ls | grep w  检索关键字w的文件ls | grep w | grep js 双重检索 
+执行一个shell命令行时通常会自动打开三个标准文件，即标准输入文件（stdin），通常对应终端的键盘；标准输出文件（stdout）和标准错误输出文件（std ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/09/30/58.wsl/" title="WSL">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WSL"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/30/58.wsl/" title="WSL">WSL</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-30T00:00:00.000Z" title="发表于 2019-09-30 00:00:00">2019-09-30</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Linux/">Linux</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/WSL/">WSL</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E4%B8%AA%E4%BA%BA%E9%85%8D%E7%BD%AE/">个人配置</a></span></div><div class="content">wsl2 端口映射把所有地址的 80 端口监听到本地 80,局域网可以通过 80 访问 wsl2
+123netsh interface portproxy add v4tov4 listenaddress=* listenport=80 connectaddress=127.0.0.1 connectport=80 protocol=tcpnetsh interface portproxy delete v4tov4 listenport=80 protocol=tcp
+
+切换默认 root 用户找到 ubuntu 安装目录，一般在C:\Program Files\WindowsApps\CanonicalGroupLimited.Ubuntu18.04onWindows_1804.2019.522.0_x64__79rhkp1fndgsc文件夹下面。
+1234.&#x2F;ubuntu1804.exe config --default-user root# 重启WSL服务net stop LxssManagernet start LxssManager
+
+gitgit config  ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#content-inner">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#content-inner">13</a><a class="extend next" rel="next" href="/page/7/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Wu Zhaoyi</div><div class="author-info__description">Scent of code</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hqwuzhaoyi"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 生命周期"/></a><div class="content"><a class="title" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期">rust 生命周期</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 所有权"/></a><div class="content"><a class="title" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权">rust 所有权</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 初学"/></a><div class="content"><a class="title" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学">rust 初学</a><time datetime="2022-02-03T00:00:00.000Z" title="发表于 2022-02-03 00:00:00">2022-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具"><img src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js 实用工具"/></a><div class="content"><a class="title" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具">js 实用工具</a><time datetime="2021-12-16T00:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试"><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/Raspberry_PI.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派初试"/></a><div class="content"><a class="title" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试">树莓派初试</a><time datetime="2021-12-15T00:00:00.000Z" title="发表于 2021-12-15 00:00:00">2021-12-15</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/electronic-muisc/"><span class="card-category-list-name">electronic muisc</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/node/"><span class="card-category-list-name">node</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react/"><span class="card-category-list-name">react</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react-ddd/"><span class="card-category-list-name">react ddd</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react-%E6%BA%90%E7%A0%81/"><span class="card-category-list-name">react 源码</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/rust/"><span class="card-category-list-name">rust</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/vue/"><span class="card-category-list-name">vue</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/webpack/"><span class="card-category-list-name">webpack</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/BEM/" style="font-size: 1.21em; color: #999ea4">BEM</a> <a href="/tags/CSS/" style="font-size: 1.21em; color: #999ea4">CSS</a> <a href="/tags/DDD/" style="font-size: 1.33em; color: #99a2af">DDD</a> <a href="/tags/ES6/" style="font-size: 1.16em; color: #999b9e">ES6</a> <a href="/tags/Future-House/" style="font-size: 1.1em; color: #999">Future House</a> <a href="/tags/Git/" style="font-size: 1.1em; color: #999">Git</a> <a href="/tags/HTML/" style="font-size: 1.16em; color: #999b9e">HTML</a> <a href="/tags/HTML5/" style="font-size: 1.16em; color: #999b9e">HTML5</a> <a href="/tags/IE/" style="font-size: 1.21em; color: #999ea4">IE</a> <a href="/tags/IndexDB/" style="font-size: 1.16em; color: #999b9e">IndexDB</a> <a href="/tags/JS/" style="font-size: 1.5em; color: #99a9bf">JS</a> <a href="/tags/JSONP/" style="font-size: 1.1em; color: #999">JSONP</a> <a href="/tags/Linux/" style="font-size: 1.27em; color: #99a0a9">Linux</a> <a href="/tags/Music/" style="font-size: 1.27em; color: #99a0a9">Music</a> <a href="/tags/Nginx/" style="font-size: 1.1em; color: #999">Nginx</a> <a href="/tags/Problem/" style="font-size: 1.1em; color: #999">Problem</a> <a href="/tags/React/" style="font-size: 1.33em; color: #99a2af">React</a> <a href="/tags/Server/" style="font-size: 1.1em; color: #999">Server</a> <a href="/tags/TypeScript/" style="font-size: 1.1em; color: #999">TypeScript</a> <a href="/tags/Vue/" style="font-size: 1.39em; color: #99a4b4">Vue</a> <a href="/tags/WSL/" style="font-size: 1.21em; color: #999ea4">WSL</a> <a href="/tags/bit/" style="font-size: 1.1em; color: #999">bit</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/docker/" style="font-size: 1.16em; color: #999b9e">docker</a> <a href="/tags/eslint/" style="font-size: 1.1em; color: #999">eslint</a> <a href="/tags/github/" style="font-size: 1.1em; color: #999">github</a> <a href="/tags/ip/" style="font-size: 1.1em; color: #999">ip</a> <a href="/tags/jQuery/" style="font-size: 1.21em; color: #999ea4">jQuery</a> <a href="/tags/koa/" style="font-size: 1.16em; color: #999b9e">koa</a> <a href="/tags/less/" style="font-size: 1.27em; color: #99a0a9">less</a> <a href="/tags/linux/" style="font-size: 1.1em; color: #999">linux</a> <a href="/tags/md/" style="font-size: 1.16em; color: #999b9e">md</a> <a href="/tags/ngrok/" style="font-size: 1.1em; color: #999">ngrok</a> <a href="/tags/node/" style="font-size: 1.27em; color: #99a0a9">node</a> <a href="/tags/react/" style="font-size: 1.44em; color: #99a7ba">react</a> <a href="/tags/regexp/" style="font-size: 1.1em; color: #999">regexp</a> <a href="/tags/request/" style="font-size: 1.16em; color: #999b9e">request</a> <a href="/tags/shell/" style="font-size: 1.27em; color: #99a0a9">shell</a> <a href="/tags/svg/" style="font-size: 1.1em; color: #999">svg</a> <a href="/tags/v2ray/" style="font-size: 1.1em; color: #999">v2ray</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "I&#x27;ve seen things you people wouldn&#x27;t believe.,Attack ships on fire off the shoulder of Orion.,I&#x27;ve watched c-beams glitter in the dark near the Tannhauser Gate.,All those ... moments will be lost in time, like tears...in rain.,Time to die.".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: false,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = 'I&#x27;ve seen things you people wouldn&#x27;t believe.'
+  }
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JavaScript DOM 操作 | Prajna's blog</title><meta name="keywords" content="JS"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 理解 DOM文档对象模型( DOM, Document Object Model )主要用于对 HTML 文档的内容进行操作。DOM 把 HTML 文档表达成一个节点树，通过对节点进行操作，实现对文档内容的添加、删除、修改、查找等功能。 2. DOM 节点DOM 节点就是 HTML 上所有的内容 ,包括 :    + 文档节点    + 元素节点(标签)    + 元素属性节点    + 文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript DOM 操作">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/28.JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%20/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="1. 理解 DOM文档对象模型( DOM, Document Object Model )主要用于对 HTML 文档的内容进行操作。DOM 把 HTML 文档表达成一个节点树，通过对节点进行操作，实现对文档内容的添加、删除、修改、查找等功能。 2. DOM 节点DOM 节点就是 HTML 上所有的内容 ,包括 :    + 文档节点    + 元素节点(标签)    + 元素属性节点    + 文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-7.png">
+<meta property="article:published_time" content="2019-03-30T20:46:25.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.656Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-7.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/28.JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%20/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-7.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaScript DOM 操作</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-03-30T20:46:25.000Z" title="发表于 2019-03-30 20:46:25">2019-03-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.656Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">670</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JavaScript DOM 操作"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-理解-DOM"><a href="#1-理解-DOM" class="headerlink" title="1. 理解 DOM"></a>1. 理解 DOM</h1><p>文档对象模型( DOM, Document Object Model )主要用于对 HTML 文档的内容进行操作。DOM 把 HTML 文档表达成一个节点树，通过对节点进行操作，实现对文档内容的添加、删除、修改、查找等功能。</p>
+<h1 id="2-DOM-节点"><a href="#2-DOM-节点" class="headerlink" title="2. DOM 节点"></a>2. DOM 节点</h1><p>DOM 节点就是 HTML 上所有的内容 ,包括 :<br>    + 文档节点<br>    + 元素节点(标签)<br>    + 元素属性节点<br>    + 文本节点<br>    + 注释节点以下总结一些常用的 DOM 操作 :</p>
+<h1 id="3-创建节点"><a href="#3-创建节点" class="headerlink" title="3. 创建节点"></a>3. 创建节点</h1><table>
+<thead>
+<tr>
+<th>document.createElement(‘元素名’);</th>
+<th>创建新的元素节点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document.createAttribute(‘属性名’);</td>
+<td>创建新的属性节点</td>
+</tr>
+<tr>
+<td>document.createTextNode(‘文本内容’);</td>
+<td>创建新的文本节点</td>
+</tr>
+<tr>
+<td>document.createComment(‘注释节点’);</td>
+<td>创建新的注释节点</td>
+</tr>
+<tr>
+<td>document.createDocumentFragment( );</td>
+<td>创建文档片段节点</td>
+</tr>
+</tbody></table>
+<p>如下,创建了两个元素节点(div 和 p)和一个文本节点(文本内容为”文本节点”) :<br>![](/images/JavaScript DOM操作.jpg)<br>如何把文本放在 p 标签里面 ,并且把 p 标签放在 div 标签里面呢 ?以下提供了一个在元素里面追加节点的方法</p>
+<h1 id="4-添加节点"><a href="#4-添加节点" class="headerlink" title="4.添加节点"></a>4.添加节点</h1><p><code>appendChild()</code> 向父节点的最后一个子节点后追加新节点<br>通过以上方法 , 来实现节点的添加:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p.appendChild(pTxt);</span><br><span class="line">div.appendChild(p);</span><br></pre></td></tr></table></figure>
+
+<p>节点添加之后，div结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;p&gt;文本节点&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在html中有如下div,把以上创建的结构添加到已有的元素节点中<br><code>&lt;div id=&quot;wrapper&quot;&gt;&lt;/div&gt;</code><br>以下提供查找已有节点的方法</p>
+<h1 id="5-查找节点"><a href="#5-查找节点" class="headerlink" title="5. 查找节点"></a>5. 查找节点</h1><table>
+<thead>
+<tr>
+<th>getElementById(‘id 属性值’);</th>
+<th>返回拥有指定 id 的第一个对象的引用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getElementsByName(‘name 属性值’);</td>
+<td>返回拥有指定名称的对象结合</td>
+</tr>
+<tr>
+<td>getElementsByTagName(‘标签名’);</td>
+<td>返回拥有指定标签名的对象集合</td>
+</tr>
+<tr>
+<td>getElementsByClassName(‘class 属性值’);</td>
+<td>返回拥有指定 class 的对象集合</td>
+</tr>
+<tr>
+<td>querySelector(‘CSS 选择器’);</td>
+<td>仅返回第一个匹配的元素</td>
+</tr>
+<tr>
+<td>querySelectorAll(‘CSS 选择器’);</td>
+<td>返回所有匹配的元素</td>
+</tr>
+</tbody></table>
+<p>已有 div 节点包含 id 属性 ,所以可以使用 getElementById()获取到已有节点 , 返回一个 dom 对象 ,然后再把新创建的节点结构添加进去:<br><code>document.getElementById(&quot;wrapper&quot;).appendChild(div);</code><br>可以在浏览器查看到新添加的 dom 结构:<br>![](/images/JavaScript DOM操作1.jpg)<br>也可以使用 querySelector()获取到已有的节点 ,如下也可以达到上面的效果:<br><code>document.querySelector(&quot;#wrapper&quot;).appendChild(div);</code></p>
+<h1 id="6-删除节点"><a href="#6-删除节点" class="headerlink" title="6. 删除节点"></a>6. 删除节点</h1><p><code>removeChild()</code> 删除子节点，返回值为删除节点</p>
+<p> 如下删除 div 下面的 p 标签:<br><code>div.removeChild(p)</code><br>在浏览器中可以看到 p 节点已经被移除:<br>![](/images/JavaScript DOM操作2.jpg)</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/28.JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%20/">https://hqwuzhaoyi.github.io/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/28.JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%20/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JS/">JS</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-7.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/27.nodeType/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">nodeType</div></div></a></div><div class="next-post pull-right"><a href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/29.push%20%E5%92%8C%20apply/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">push 和 apply</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%90%86%E8%A7%A3-DOM"><span class="toc-number">1.</span> <span class="toc-text">1. 理解 DOM</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-DOM-%E8%8A%82%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">2. DOM 节点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E8%8A%82%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">3. 创建节点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">4.添加节点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E6%9F%A5%E6%89%BE%E8%8A%82%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">5. 查找节点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">6. 删除节点</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/28.JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%20/'
+    this.page.identifier = '2019/03/30/前端基础/28.JavaScript DOM 操作 /'
+    this.page.title = 'JavaScript DOM 操作'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

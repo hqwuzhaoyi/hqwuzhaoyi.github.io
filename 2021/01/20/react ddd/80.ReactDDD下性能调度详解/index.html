@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>就 React DDD 下性能调度详解 | Prajna's blog</title><meta name="keywords" content="React,DDD"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载自前端备忘录-江湖术士 这部分会非常枯燥，如果不想看的可以不看，直接给结论到就行，那就是—— React DDD 并不需要你考虑性能问题  除了惰性初始化 小字也注意一下，要严谨一些 那好，我们开始吧 首先，我们要知道，class 下的 React 协调调度和 function 下的逻辑是不同的，不要拿着 class 的逻辑 说 function，这样没有意义，这属于历史问题 这不单是给 Re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="就 React DDD 下性能调度详解">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/80.ReactDDD%E4%B8%8B%E6%80%A7%E8%83%BD%E8%B0%83%E5%BA%A6%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="转载自前端备忘录-江湖术士 这部分会非常枯燥，如果不想看的可以不看，直接给结论到就行，那就是—— React DDD 并不需要你考虑性能问题  除了惰性初始化 小字也注意一下，要严谨一些 那好，我们开始吧 首先，我们要知道，class 下的 React 协调调度和 function 下的逻辑是不同的，不要拿着 class 的逻辑 说 function，这样没有意义，这属于历史问题 这不单是给 Re">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png">
+<meta property="article:published_time" content="2021-01-20T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="DDD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/80.ReactDDD%E4%B8%8B%E6%80%A7%E8%83%BD%E8%B0%83%E5%BA%A6%E8%AF%A6%E8%A7%A3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">就 React DDD 下性能调度详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-20T00:00:00.000Z" title="发表于 2021-01-20 00:00:00">2021-01-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react-ddd/">react ddd</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="就 React DDD 下性能调度详解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>转载自<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/plightfield">前端备忘录-江湖术士</a></p>
+<p>这部分会非常枯燥，如果不想看的可以不看，直接给结论到就行，那就是——</p>
+<pre><code>React DDD 并不需要你考虑性能问题
+</code></pre>
+<p><code>除了惰性初始化</code></p>
+<p>小字也注意一下，要严谨一些</p>
+<p>那好，我们开始吧</p>
+<p>首先，我们要知道，<strong>class 下的 React 协调调度和 function 下的逻辑是不同的</strong>，不要拿着 class 的逻辑 说 function，这样没有意义，这属于历史问题</p>
+<p>这不单是给 React 程序员说的，也是给其他平台程序员说的，hooks 发布之后，这两种写法其实是势同水火，官方只是为了保证平滑升级而已（ng 暴力升级就不会有这方面考量，有利有弊）</p>
+<p>首先，在 reconcile 源码的 beginWork 入口处，你就能看到 updateFunctionComponent 和 updateClassComponent 的不同：</p>
+<p><a href="ReactFiberBeginWork.new.js">https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberBeginWork.new.js</a></p>
+<h1 id="updateFunctionComponent"><a href="#updateFunctionComponent" class="headerlink" title="updateFunctionComponent"></a>updateFunctionComponent</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">function updateFunctionComponent(</span><br><span class="line">  current,</span><br><span class="line">  &#x2F;&#x2F; 传递变更 属性结构</span><br><span class="line">  workInProgress,</span><br><span class="line">  Component,</span><br><span class="line">  &#x2F;&#x2F; component 层级的变更只受 props 和 context 影响</span><br><span class="line">  nextProps: any,</span><br><span class="line">  &#x2F;&#x2F; 渲染优先级</span><br><span class="line">  renderLanes</span><br><span class="line">) &#123;</span><br><span class="line">  &#x2F;&#x2F; 开始获取context</span><br><span class="line">  let context;</span><br><span class="line">  let nextChildren;</span><br><span class="line">  prepareToReadContext(workInProgress, renderLanes);</span><br><span class="line">  &#x2F;&#x2F; 省略 dev 环境逻辑 ...</span><br><span class="line">  nextChildren &#x3D; renderWithHooks(</span><br><span class="line">    current,</span><br><span class="line">    workInProgress,</span><br><span class="line">    Component,</span><br><span class="line">    nextProps,</span><br><span class="line">    context,</span><br><span class="line">    renderLanes</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  if (current !&#x3D;&#x3D; null &amp;&amp; !didReceiveUpdate) &#123;</span><br><span class="line">    &#x2F;&#x2F; 在有当前状态的情况下的情况下 清除hooks</span><br><span class="line">    bailoutHooks(current, workInProgress, renderLanes);</span><br><span class="line">    return bailoutOnAlreadyFinishedWork(current, workInProgress, renderLanes);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 其它情况下，进入协调</span><br><span class="line">  reconcileChildren(current, workInProgress, nextChildren, renderLanes);</span><br><span class="line">  return workInProgress.child;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而这个 <a target="_blank" rel="noopener" href="https://github.com/facebook/react/blob/b99ac3d6dffbe57f94d368cc4f4e0ddf089e4f53/packages/react-reconciler/src/ReactFiberHooks.new.js#L333">renderWithHooks</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">export function renderWithHooks&lt;Props, SecondArg&gt;(</span><br><span class="line">  current: Fiber | null,</span><br><span class="line">  workInProgress: Fiber,</span><br><span class="line">  Component: (p: Props, arg: SecondArg) &#x3D;&gt; any,</span><br><span class="line">  props: Props,</span><br><span class="line">  secondArg: SecondArg,</span><br><span class="line">  nextRenderLanes: Lanes,</span><br><span class="line">): any &#123;</span><br><span class="line">  renderLanes &#x3D; nextRenderLanes;</span><br><span class="line">  currentlyRenderingFiber &#x3D; workInProgress;</span><br><span class="line">  workInProgress.memoizedState &#x3D; null;</span><br><span class="line">  workInProgress.updateQueue &#x3D; null;</span><br><span class="line">  workInProgress.lanes &#x3D; NoLanes;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; The following should have already been reset</span><br><span class="line">  &#x2F;&#x2F; currentHook &#x3D; null;</span><br><span class="line">  &#x2F;&#x2F; workInProgressHook &#x3D; null;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; didScheduleRenderPhaseUpdate &#x3D; false;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; TODO Warn if no hooks are used at all during mount, then some are used during update.</span><br><span class="line">  &#x2F;&#x2F; Currently we will identify the update render as a mount because memoizedState &#x3D;&#x3D;&#x3D; null.</span><br><span class="line">  &#x2F;&#x2F; This is tricky because it&#39;s valid for certain types of components (e.g. React.lazy)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; Using memoizedState to differentiate between mount&#x2F;update only works if at least one stateful hook is used.</span><br><span class="line">  &#x2F;&#x2F; Non-stateful hooks (e.g. context) don&#39;t get added to memoizedState,</span><br><span class="line">  &#x2F;&#x2F; so memoizedState would be null during updates and mounts.</span><br><span class="line">    ReactCurrentDispatcher.current &#x3D;</span><br><span class="line">      current &#x3D;&#x3D;&#x3D; null || current.memoizedState &#x3D;&#x3D;&#x3D; null</span><br><span class="line">        ? HooksDispatcherOnMount</span><br><span class="line">        : HooksDispatcherOnUpdate;</span><br><span class="line"></span><br><span class="line">  let children &#x3D; Component(props, secondArg);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; Check if there was a render phase update</span><br><span class="line">  if (didScheduleRenderPhaseUpdateDuringThisPass) &#123;</span><br><span class="line">    &#x2F;&#x2F; Keep rendering in a loop for as long as render phase updates continue to</span><br><span class="line">    &#x2F;&#x2F; be scheduled. Use a counter to prevent infinite loops.</span><br><span class="line">    let numberOfReRenders: number &#x3D; 0;</span><br><span class="line">    do &#123;</span><br><span class="line">      didScheduleRenderPhaseUpdateDuringThisPass &#x3D; false;</span><br><span class="line">      invariant(</span><br><span class="line">        numberOfReRenders &lt; RE_RENDER_LIMIT,</span><br><span class="line">        &#39;Too many re-renders. React limits the number of renders to prevent &#39; +</span><br><span class="line">          &#39;an infinite loop.&#39;,</span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line">      numberOfReRenders +&#x3D; 1;</span><br><span class="line">      &#x2F;&#x2F; Start over from the beginning of the list</span><br><span class="line">      currentHook &#x3D; null;</span><br><span class="line">      workInProgressHook &#x3D; null;</span><br><span class="line"></span><br><span class="line">      workInProgress.updateQueue &#x3D; null;</span><br><span class="line"></span><br><span class="line">      ReactCurrentDispatcher.current &#x3D; __DEV__</span><br><span class="line">        ? HooksDispatcherOnRerenderInDEV</span><br><span class="line">        : HooksDispatcherOnRerender;</span><br><span class="line"></span><br><span class="line">      children &#x3D; Component(props, secondArg);</span><br><span class="line">    &#125; while (didScheduleRenderPhaseUpdateDuringThisPass);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; We can assume the previous dispatcher is always this one, since we set it</span><br><span class="line">  &#x2F;&#x2F; at the beginning of the render phase and there&#39;s no re-entrancy.</span><br><span class="line">  ReactCurrentDispatcher.current &#x3D; ContextOnlyDispatcher;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; This check uses currentHook so that it works the same in DEV and prod bundles.</span><br><span class="line">  &#x2F;&#x2F; hookTypesDev could catch more cases (e.g. context) but only in DEV bundles.</span><br><span class="line">  const didRenderTooFewHooks &#x3D;</span><br><span class="line">    currentHook !&#x3D;&#x3D; null &amp;&amp; currentHook.next !&#x3D;&#x3D; null;</span><br><span class="line"></span><br><span class="line">  renderLanes &#x3D; NoLanes;</span><br><span class="line">  currentlyRenderingFiber &#x3D; (null: any);</span><br><span class="line"></span><br><span class="line">  currentHook &#x3D; null;</span><br><span class="line">  workInProgressHook &#x3D; null;</span><br><span class="line"></span><br><span class="line">  didScheduleRenderPhaseUpdate &#x3D; false;</span><br><span class="line">  return children;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>有些小细节，比如 通过 memorized 来区分 mount 和 update，这种技巧应用开发中也可以用，比如 useState 的 state 是否是初始值来确定是否是 onMount，这样就可以不用具体生命周期，只用 useEffect
+</code></pre>
+<p>我们看上面的逻辑 ——</p>
+<pre><code>协调结构由 didiScheduleRenderPhaseUpdateDuringThisPass 控制！
+</code></pre>
+<p>我们再看 update 中 修改 didiScheduleRenderPhaseUpdateDuringThisPass 的部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">         const currentState: S &#x3D; (queue.lastRenderedState: any);</span><br><span class="line">         const eagerState &#x3D; lastRenderedReducer(currentState, action);</span><br><span class="line">         &#x2F;&#x2F; Stash the eagerly computed state, and the reducer used to compute</span><br><span class="line">         &#x2F;&#x2F; it, on the update object. If the reducer hasn&#39;t changed by the</span><br><span class="line">         &#x2F;&#x2F; time we enter the render phase, then the eager state can be used</span><br><span class="line">         &#x2F;&#x2F; without calling the reducer again.</span><br><span class="line">         update.eagerReducer &#x3D; lastRenderedReducer;</span><br><span class="line">         update.eagerState &#x3D; eagerState;</span><br><span class="line">         if (is(eagerState, currentState)) &#123;</span><br><span class="line">           &#x2F;&#x2F; Fast path. We can bail out without scheduling React to re-render.</span><br><span class="line">           &#x2F;&#x2F; It&#39;s still possible that we&#39;ll need to rebase this update later,</span><br><span class="line">           &#x2F;&#x2F; if the component re-renders for a different reason and by that</span><br><span class="line">           &#x2F;&#x2F; time the reducer has changed.</span><br><span class="line">           return;</span><br><span class="line">         &#125;</span><br><span class="line">       &#125; catch (error) &#123;</span><br><span class="line">         &#x2F;&#x2F; Suppress the error. It will throw again in the render phase.</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到没有？</p>
+<p>如果 eagerState 和 currentState 相同，那么直接 return 这个 update 循环</p>
+<pre><code>这个 reducer ，说一下， setState(res=&gt;&#123;...res&#125;) 也是dispatch reducer
+这里的 state 和 我们写的 state 不同，这里的 state 指的 useState 简单 数据结构 的第一个参数
+</code></pre>
+<p>啥意思呢？如果是 function 组件，是需要对你的 每一个 hooks 进行依赖收集的，如果相关依赖没有改变，这个更新过程，是会被跳过的！</p>
+<p>即便你运行了一遍客户端的代码，进入了 updateFunctionComponent ，只要 eagerState 与 currentState 一致，你就不会进入更进一步的 reconciliation （加入 update 队列）</p>
+<p>也就是说 ——</p>
+<pre><code>ShouldUpdate 在 React function component 中，由 hooks （与 props） 依赖决定！！！
+</code></pre>
+<p>再且问，useContext 是不是 hooks 依赖，返回值有没有被加入 hooks 依赖数组？</p>
+<p>那么请问，什么决定了 React function 的 update，是 function 的重新执行么？</p>
+<p>不要受 React class 的荼毒太深了！</p>
+<p>依赖数组和 props 是唯二影响 update 和渲染的因素！</p>
+<hr>
+<h1 id="updateClassComponent"><a href="#updateClassComponent" class="headerlink" title="updateClassComponent"></a>updateClassComponent</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">function updateClassComponent(</span><br><span class="line">  current: Fiber | null,</span><br><span class="line">  workInProgress: Fiber,</span><br><span class="line">  Component: any,</span><br><span class="line">  nextProps: any,</span><br><span class="line">  renderLanes: Lanes</span><br><span class="line">) &#123;</span><br><span class="line">  &#x2F;&#x2F; 获取 context</span><br><span class="line">  let hasContext &#x3D; false;</span><br><span class="line">  prepareToReadContext(workInProgress, renderLanes);</span><br><span class="line"></span><br><span class="line">  const instance &#x3D; workInProgress.stateNode;</span><br><span class="line">  &#x2F;&#x2F; 注意这里！！！</span><br><span class="line">  &#x2F;&#x2F; 这里出现了 should update ！！！</span><br><span class="line">  let shouldUpdate;</span><br><span class="line">  if (instance &#x3D;&#x3D;&#x3D; null) &#123;</span><br><span class="line">    if (current !&#x3D;&#x3D; null) &#123;</span><br><span class="line">      &#x2F;&#x2F; A class component without an instance only mounts if it suspended</span><br><span class="line">      &#x2F;&#x2F; inside a non-concurrent tree, in an inconsistent state. We want to</span><br><span class="line">      &#x2F;&#x2F; treat it like a new mount, even though an empty version of it already</span><br><span class="line">      &#x2F;&#x2F; committed. Disconnect the alternate pointers.</span><br><span class="line">      current.alternate &#x3D; null;</span><br><span class="line">      workInProgress.alternate &#x3D; null;</span><br><span class="line">      &#x2F;&#x2F; Since this is conceptually a new fiber, schedule a Placement effect</span><br><span class="line">      workInProgress.flags |&#x3D; Placement;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; In the initial pass we might need to construct the instance.</span><br><span class="line">    constructClassInstance(workInProgress, Component, nextProps);</span><br><span class="line">    mountClassInstance(workInProgress, Component, nextProps, renderLanes);</span><br><span class="line">    shouldUpdate &#x3D; true;</span><br><span class="line">  &#125; else if (current &#x3D;&#x3D;&#x3D; null) &#123;</span><br><span class="line">    &#x2F;&#x2F; In a resume, we&#39;ll already have an instance we can reuse.</span><br><span class="line">    shouldUpdate &#x3D; resumeMountClassInstance(</span><br><span class="line">      workInProgress,</span><br><span class="line">      Component,</span><br><span class="line">      nextProps,</span><br><span class="line">      renderLanes</span><br><span class="line">    );</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    shouldUpdate &#x3D; updateClassInstance(</span><br><span class="line">      current,</span><br><span class="line">      workInProgress,</span><br><span class="line">      Component,</span><br><span class="line">      nextProps,</span><br><span class="line">      renderLanes</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  const nextUnitOfWork &#x3D; finishClassComponent(</span><br><span class="line">    current,</span><br><span class="line">    workInProgress,</span><br><span class="line">    Component,</span><br><span class="line">    shouldUpdate,</span><br><span class="line">    hasContext,</span><br><span class="line">    renderLanes</span><br><span class="line">  );</span><br><span class="line">  return nextUnitOfWork;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后面的 finishClassComponent 我也不贴了，大家可以去看，反正会有一系列的判断，然后再进入 children 的 reconcile</p>
+<p>啥意思？</p>
+<p>先不管 workInProgress 的静态化，异步过程，调度过程</p>
+<p>请问 ——</p>
+<pre><code>shouldUpdate 的概念，在 React function component 中，有没有意义？
+</code></pre>
+<p><strong>没有！没有意义</strong>！<br>这不是你该纠结的概念！</p>
+<p>你可以说我用 React.Memo 包裹防止 props 深层比对（请优先用 hooks 传递数据！），也可以说我 memo 一下，防止出现新的 eagerState ！</p>
+<p>但是你绝对不能说用 context ，会引发重新渲染！</p>
+<ul>
+<li>那是你在 class api 下的使用体验</li>
+<li>那是没有依赖收集的使用体验</li>
+<li>那是你控制不了调度的使用体验</li>
+<li>那是没有 IOC，写代码只考虑数据的使用体验</li>
+</ul>
+<p>请注意重新执行 function（调用 updateFunctionComponent 函数），和重新进行 update，reconciliation 的区别！</p>
+<p>我用大字写清楚：</p>
+<ul>
+<li>重新执行 updateFunctionComponent 函数，是返回 renderWithHooks 的 children，而在 hooks 的逻辑中，如果 eagerState 没有改变，则不会增加 新的 update 到 updateQueue</li>
+<li>重新执行函数，依赖未改变，不进行 update</li>
+<li>重新执行函数，依赖改变，进行 update</li>
+<li>控制你是否 Update 的，是你的依赖！是你的依赖！是你的依赖！</li>
+</ul>
+<p>这点无论 Angular，Vue，React 都是如此，没有哪个框架不是如此，老版本不要拿来说了，不是这个时代的东西</p>
+<p>是的，你可以说，这里 React 多产生了一个 WorkInProgress，但是它没有新的 update，所以可以理解</p>
+<p>当然，你也可以说，ng 直接进行脏检查，而 React 这里实际上也在进行脏检查，还增加了很多内存，拖拽了一个 复杂 Fiber WorkInProgress 结构</p>
+<p>是的，这点大家都能看出来，ng 的这部分性能是比 React 强不止一星半点！</p>
+<p>这也是为啥 ng 调度可改，React 只能用 RequestAnimationFrame 的原因，确实消耗更大，这个没人不承认</p>
+<pre><code>注意，脏检查，也就是变更检测，无论什么 MVVM，MPV 框架都绕不过去，没有任何一个框架可以
+React 老版本 批评 AngularJS 的无调度脏检查是另一回事，大家不要拿着个大概映像就开腔
+</code></pre>
+<p>但是，拖拽着这个结构，它能 ——</p>
+<p>直接用函数实现 组件 和 服务 啊！！！</p>
+<p>最后，再说一下，由于 eagerState 和 currentState 的对比发生 update</p>
+<p><strong>组件层级以上</strong></p>
+<p><strong>坚持不变性就是在杀死应用性能</strong></p>
+<p>你可以 reducer 把变更缩小</p>
+<p>但是，正常思维，永远是 useMemo 和 更细化 的 useState</p>
+<p>大对象聚焦？useMemo 做 getter，useCalback 做 setter，把对象一部分摘出来就好！</p>
+<p>至于用 Redux 那种自带 大对象的</p>
+<p>你这是在制造新问题，而且以前你可以解决，现在你根本解决不了</p>
+<p>所以，请放心大胆地使用 React DDD！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/80.ReactDDD%E4%B8%8B%E6%80%A7%E8%83%BD%E8%B0%83%E5%BA%A6%E8%AF%A6%E8%A7%A3/">https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/80.ReactDDD%E4%B8%8B%E6%80%A7%E8%83%BD%E8%B0%83%E5%BA%A6%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/React/">React</a><a class="post-meta__tags" href="/tags/DDD/">DDD</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/20/react%20ddd/79.%E5%B0%B1React%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%BB%BA%E8%AE%AE/"><img class="prev-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">就 React 变更检测机制问题的建议</div></div></a></div><div class="next-post pull-right"><a href="/2021/01/14/react%20ddd/81.ReactDDD%E9%85%8D%E5%90%88Typescript/"><img class="next-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">React DDD 配合 Typescript</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#updateFunctionComponent"><span class="toc-number">1.</span> <span class="toc-text">updateFunctionComponent</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#updateClassComponent"><span class="toc-number">2.</span> <span class="toc-text">updateClassComponent</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/80.ReactDDD%E4%B8%8B%E6%80%A7%E8%83%BD%E8%B0%83%E5%BA%A6%E8%AF%A6%E8%A7%A3/'
+    this.page.identifier = '2021/01/20/react ddd/80.ReactDDD下性能调度详解/'
+    this.page.title = '就 React DDD 下性能调度详解'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

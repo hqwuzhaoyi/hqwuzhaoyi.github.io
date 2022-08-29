@@ -1,0 +1,303 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>React DDD 配合 Typescript | Prajna's blog</title><meta name="keywords" content="React,DDD"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载自前端备忘录-江湖术士 React DDD 可以 很好地配合 Typescript 使用时有以下原则：  类型必须自动获得，最好不要主动声明，参数声明，强制注解都最好不要有  class 结构应对复杂数据（注意！只是数据）时，对类型的支持比 function 强大经常看我文章的人，一定会记得，我对待 Typescript 的看法：  非 DDD 下使用 Typescript 体验非常差  非">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React DDD 配合 Typescript">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/81.ReactDDD%E9%85%8D%E5%90%88Typescript/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="转载自前端备忘录-江湖术士 React DDD 可以 很好地配合 Typescript 使用时有以下原则：  类型必须自动获得，最好不要主动声明，参数声明，强制注解都最好不要有  class 结构应对复杂数据（注意！只是数据）时，对类型的支持比 function 强大经常看我文章的人，一定会记得，我对待 Typescript 的看法：  非 DDD 下使用 Typescript 体验非常差  非">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png">
+<meta property="article:published_time" content="2021-01-14T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="DDD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/81.ReactDDD%E9%85%8D%E5%90%88Typescript/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">React DDD 配合 Typescript</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-14T00:00:00.000Z" title="发表于 2021-01-14 00:00:00">2021-01-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react-ddd/">react ddd</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="React DDD 配合 Typescript"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>转载自<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/plightfield">前端备忘录-江湖术士</a></p>
+<p>React DDD 可以 很好地配合 Typescript</p>
+<p>使用时有以下原则：</p>
+<ul>
+<li><p>类型必须自动获得，最好不要主动声明，参数声明，强制注解都最好不要有</p>
+</li>
+<li><p>class 结构应对复杂数据（注意！只是数据）时，对类型的支持比 function 强大<br>经常看我文章的人，一定会记得，我对待 Typescript 的看法：</p>
+</li>
+<li><p>非 DDD 下使用 Typescript 体验非常差</p>
+</li>
+<li><p>非 管道函数式 下使用 Typescript 体验非常差</p>
+</li>
+<li><p>不提倡 Reducer ，但是承认其有一定作用（对于不熟悉管道的同学）<br>好了，接下来我们来详细阐述：</p>
+</li>
+</ul>
+<hr>
+<h1 id="类型最好自动获取，自动推断"><a href="#类型最好自动获取，自动推断" class="headerlink" title="类型最好自动获取，自动推断"></a>类型最好自动获取，自动推断</h1><p>Typescript 是个工具，是来帮助你写代码的</p>
+<p>不是来干扰你写代码的！</p>
+<p>比如，一旦需要你手动声明类型（除非交由你定义），其实和无类型的体验差不多</p>
+<p>比如，redux 的各种散件 function 提取：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SEND_MESSAGE = <span class="string">&quot;SEND_MESSAGE&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DELETE_MESSAGE = <span class="string">&quot;DELETE_MESSAGE&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> SendMessageAction &#123;</span><br><span class="line">  <span class="keyword">type</span>: <span class="keyword">typeof</span> SEND_MESSAGE;</span><br><span class="line">  payload: Message;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> DeleteMessageAction &#123;</span><br><span class="line">  <span class="keyword">type</span>: <span class="keyword">typeof</span> DELETE_MESSAGE;</span><br><span class="line">  meta: &#123;</span><br><span class="line">    timestamp: <span class="built_in">number</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> ChatActionTypes = SendMessageAction | DeleteMessageAction;</span><br></pre></td></tr></table></figure>
+
+<p>再来：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  Message,</span><br><span class="line">  SEND_MESSAGE,</span><br><span class="line">  DELETE_MESSAGE,</span><br><span class="line">  ChatActionTypes,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;./types&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TypeScript infers that this function is returning SendMessageAction</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span>(<span class="params">newMessage: Message</span>): <span class="title">ChatActionTypes</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="keyword">type</span>: SEND_MESSAGE,</span><br><span class="line">    payload: newMessage,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TypeScript infers that this function is returning DeleteMessageAction</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">deleteMessage</span>(<span class="params">timestamp: <span class="built_in">number</span></span>): <span class="title">ChatActionTypes</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="keyword">type</span>: DELETE_MESSAGE,</span><br><span class="line">    meta: &#123;</span><br><span class="line">      timestamp,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>各种 interface，各种 typeof，本身 Redux 样板代码已经很多了，结果加入了 Typescript ，不仅要注意 action 的碰撞问题，逻辑关系，还要注意类型匹配？</p>
+<p>而且这一且还需要 <strong>人为保证</strong> ？</p>
+<p>Typescript 是个强类型语言没错，但是这不是代表它生成的 Javascript 是个编译型语言！</p>
+<pre><code>类型并不能完全约束运行时，错误的类型危害更大！
+</code></pre>
+<p>因此，类型除了声明阶段，其他时候都需要自动给到你，你什么时候需要，什么时候就能拿到！</p>
+<p>所以，反对一切散件，应用的每一个部分都必须紧密相连，都必须自动提供类型</p>
+<p>最多在 useState，useRef 时提供类型，其他时候类型最好感受不到 Typescript 的存在，才是好的使用方式：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, setState] = useState&lt;<span class="built_in">number</span>&gt;(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> &#123; state, setState &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个 hooks 函数，使用时：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> someService = useFunc();</span><br></pre></td></tr></table></figure>
+
+<p>这个 someService ，必然能拿到 useFunc 返回值的类型，你不需要重新指定，类型可以从自定义 hooks 函数，一路传导到组件中，不会有中断</p>
+<p>如果想要注入也有类型推断怎么办？</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createContext &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">getToken</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  func: (...args: <span class="built_in">any</span>[]) =&gt; T,</span></span></span><br><span class="line"><span class="function"><span class="params">  initialValue: T | <span class="literal">undefined</span> = <span class="literal">undefined</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> createContext(initialValue <span class="keyword">as</span> T);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个 initialValue 都可以不要，因为注入后使用，一定是在注入节点后面，不然破坏了单向数据流（就是强制你跑不通注入前的使用）</p>
+<p>这样的话，提供泛型约束（去掉 undefined，不写 initialValue）：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SomeService = getToken(useFunc);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">InjectNode</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> someService = useFunc();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;SomeService.Provider vlaue=&#123;someService&#125;&gt;</span><br><span class="line">      &#123;props.children&#125;</span><br><span class="line">    &lt;/SomeService.Provider&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注入之后，子孙组件任何地方：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> someService = useContext(SomeService);</span><br></pre></td></tr></table></figure>
+
+<p>这里的 someService 也能拿到完整的类型</p>
+<p>所以，你的类型仅仅在初始化时定义，其他地方的类型全部随叫随到 ——</p>
+<pre><code>你除了业务，根本不用考虑类型，他只是你的辅助
+</code></pre>
+<p>为什么不提倡 useReducer （即便 React 官方提倡），虽然它能让你少写 useMemo （惰性加载才是性能优化首选），但是它的 action 令牌却是类型重灾区，它的 initialState，action，reducer 需要分开声明，只要分开，你的类型负担必然加重 —— 尽量让类型畅通无阻——有良好的设计，才能直接去掉类型的不利部分，将他的优势发扬光大</p>
+<hr>
+<p>其二，interface 必须少用（除非不得不用）</p>
+<p>Typescript 不是 go，没办法直接 interface 然后打两个括号就出来一个对象，有这样行为的 api 是 class</p>
+<p>我如果给函数参数声明为：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Data &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  password: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">someFunc</span>(<span class="params">data: Data</span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那我在调用函数的时候，我知道这个函数的参数有哪些属性么？</p>
+<p>不，我不知道，我只能一个个地去试</p>
+<p>interface 只是约束，它起不到完整的辅助作用</p>
+<p>但是如果我这样：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Data</span> </span>&#123;</span><br><span class="line">  name = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  password = <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">someFunc</span>(<span class="params">data: Data</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> data = <span class="keyword">new</span> Data();</span><br><span class="line">data.name = <span class="string">&quot;&quot;</span>;</span><br><span class="line">data.password = <span class="string">&quot;&quot;</span>;</span><br><span class="line">someFunc(data);</span><br></pre></td></tr></table></figure>
+
+<p>这样在设置 name 时，Data 不仅有默认值，还能直接点出来，选择自己需要变更的项目</p>
+<p>React 不提倡 class 的原因是因为它不够函数式</p>
+<p>但是作为应用开发者，面向对象和函数式都只是思想方法</p>
+<p>在 Typescript 语法中，类的成员函数不可能保证纯度（因为要变更 this），但是同时，又不需要考虑纯度（变更 this，也不影响 class 的封装性）</p>
+<p>为什么不取长补短呢？</p>
+<p>如果参数对象非常复杂，这个时候，函数的 interface 只有约束作用，几乎没有任何辅助作用，为什么还死抓着不放呢？</p>
+<p>你只要保证这个 class 不变更 class 以外的数据不就可以了？</p>
+<p>奇怪的是，就连 React 自己的源码，都频繁使用 function this 的原生类方案，为何使用者还死抓着不放呢？</p>
+<h1 id="理解-props-的作用"><a href="#理解-props-的作用" class="headerlink" title="理解 props 的作用"></a>理解 props 的作用</h1><p>props 到底有什么作用？</p>
+<p>除了影响调度（函数式组件）外，props 其实在新版 React 中，只起到 map 节点传递 迭代标识 或者 注入令牌 的作用</p>
+<p>因为用 props 层层传递数据有违单一数据原则</p>
+<p>而且新版本是不用 React.memo 调优的，而是用的 useMemo，而且因为 React 的检测机制，解决相关性能问题，优先使用惰性加载保证性能，useMemo 也不会有语义保证，这方面 porps 作用已经丢失</p>
+<p>其次，Context 修改单例数据永远比 props 层层传递好，而你又无法确定未来的业务是否变更，是否有更深层级的调用</p>
+<p>所以全部逻辑，状态，一次性提取服务是最优解，并没有多少成本，（一个函数框的代码，没有几个字）组件只需要将服务返回值填入 jsx 即可</p>
+<p>那这个时候，props 传入注入令牌或者迭代标识是仅存的作用</p>
+<p>因为 props 需要手写类型声明：<code>propsWithoutChildren&lt;&#123;/* interface */&#125;&gt;</code>，而这种需要手动配置的类型极其影响思路，你甚至需要去比对源数据结构，而且很难做部分类型提取和转化，又在给自己增加负担</p>
+<p>所以，类似 Angular 那种 SOA 方案是必然，因为那是成本最低的方案，同时综合性能，类型支持最好的方案</p>
+<h1 id="无管道，不类型"><a href="#无管道，不类型" class="headerlink" title="无管道，不类型"></a>无管道，不类型</h1><p>在用极限函数式处理业务逻辑时，管道风格可以给到最佳类型提示</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 此处随意获取类型</span></span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure>
+
+<p>但是你要是拆成一堆散函数，那你的类型提示可就没了，你得手动去配！</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeState</span>(<span class="params">state: State, action: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 手动配类型，很舒服么？</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你必须解放你自己，一般来说，除了 useCallback，props 传递 key 和 serviceToken，你没有需要指定 interface 的地方</p>
+<hr>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>最后，你只有将你开发中技术领域的成本降到最低，才能将全部精力放在业务领域</p>
+<p>hooks 是个复用状态和逻辑的方案，不是单单只复用状态</p>
+<p>所有的开发，在业务逻辑方面，最好用管道风格的极限函数式，做响应式开发，这部分并不难，因为有很多第三方工具，比如 ahooks</p>
+<p>还有很多框架已经支持此种方案，比如 antd</p>
+<p>状态管理，分层架构，是只管 getter，不管 setter 的方案，复用的只有数据，响应式由其它第三方工具保证</p>
+<p>这种方式是框架不支持逻辑复用的无奈之举，不是本因如此，希望大家能够看破</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/81.ReactDDD%E9%85%8D%E5%90%88Typescript/">https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/81.ReactDDD%E9%85%8D%E5%90%88Typescript/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/React/">React</a><a class="post-meta__tags" href="/tags/DDD/">DDD</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/20/react%20ddd/80.ReactDDD%E4%B8%8B%E6%80%A7%E8%83%BD%E8%B0%83%E5%BA%A6%E8%AF%A6%E8%A7%A3/"><img class="prev-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">就 React DDD 下性能调度详解</div></div></a></div><div class="next-post pull-right"><a href="/2021/01/14/react%20ddd/74.HookDDD/"><img class="next-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">React DDD</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E6%9C%80%E5%A5%BD%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96%EF%BC%8C%E8%87%AA%E5%8A%A8%E6%8E%A8%E6%96%AD"><span class="toc-number">1.</span> <span class="toc-text">类型最好自动获取，自动推断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%90%86%E8%A7%A3-props-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">理解 props 的作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A0%E7%AE%A1%E9%81%93%EF%BC%8C%E4%B8%8D%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">无管道，不类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">4.</span> <span class="toc-text">结语</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/81.ReactDDD%E9%85%8D%E5%90%88Typescript/'
+    this.page.identifier = '2021/01/14/react ddd/81.ReactDDD配合Typescript/'
+    this.page.title = 'React DDD 配合 Typescript'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

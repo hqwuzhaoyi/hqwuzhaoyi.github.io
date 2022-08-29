@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>react源码-diff | Prajna's blog</title><meta name="keywords" content="react,源码"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="diff​ 在render阶段更新Fiber节点时，我们会调用reconcileChildFibers对比current Fiber和jsx对象构建workInProgress Fiber，这里current Fiber是指当前dom对应的fiber树，jsx是class组件render方法或者函数组件的返回值。 123456789101112131415161718192021222324252">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react源码-diff">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2021/05/16/react%20%E6%BA%90%E7%A0%81/7.diff/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="diff​ 在render阶段更新Fiber节点时，我们会调用reconcileChildFibers对比current Fiber和jsx对象构建workInProgress Fiber，这里current Fiber是指当前dom对应的fiber树，jsx是class组件render方法或者函数组件的返回值。 123456789101112131415161718192021222324252">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210515174941.png">
+<meta property="article:published_time" content="2021-05-16T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="源码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210515174941.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2021/05/16/react%20%E6%BA%90%E7%A0%81/7.diff/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210515174941.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">react源码-diff</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-16T00:00:00.000Z" title="发表于 2021-05-16 00:00:00">2021-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react-%E6%BA%90%E7%A0%81/">react 源码</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="react源码-diff"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h1><p>​ 在<code>render</code>阶段更新<code>Fiber</code>节点时，我们会调用<code>reconcileChildFibers</code>对比<code>current Fiber</code>和<code>jsx</code>对象构建<code>workInProgress Fiber</code>，这里<code>current Fiber</code>是指当前<code>dom</code>对应的<code>fiber</code>树，<code>jsx</code>是<code>class</code>组件<code>render</code>方法或者函数组件的返回值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconcileChildFibers</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  returnFiber: Fiber,</span></span></span><br><span class="line"><span class="function"><span class="params">  currentFirstChild: Fiber | <span class="literal">null</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  newChild: any,</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Fiber</span> | <span class="title">null</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> isObject = <span class="keyword">typeof</span> newChild === <span class="string">&#x27;object&#x27;</span> &amp;&amp; newChild !== <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isObject) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (newChild.$$typeof) &#123;</span><br><span class="line">      <span class="keyword">case</span> REACT_ELEMENT_TYPE:</span><br><span class="line">    <span class="comment">//单一节点diff</span></span><br><span class="line">        <span class="keyword">return</span> placeSingleChild(</span><br><span class="line">            reconcileSingleElement(</span><br><span class="line">              returnFiber,</span><br><span class="line">              currentFirstChild,</span><br><span class="line">              newChild,</span><br><span class="line">              lanes,</span><br><span class="line">            ),</span><br><span class="line">          );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isArray(newChild)) &#123;</span><br><span class="line">     <span class="comment">//多节点diff</span></span><br><span class="line">    <span class="keyword">return</span> reconcileChildrenArray(</span><br><span class="line">        returnFiber,</span><br><span class="line">        currentFirstChild,</span><br><span class="line">        newChild,</span><br><span class="line">        lanes,</span><br><span class="line">      );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 删除节点</span></span><br><span class="line">  <span class="keyword">return</span> deleteRemainingChildren(returnFiber, currentFirstChild);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210515174941.png" alt="diff过程的主要流程如下图"></p>
+<p>我们知道对比两颗树的复杂度本身是<code>O(n3)</code>，对我们的应用来说这个是不能承受的量级，react为了降低复杂度，提出了三个前提：</p>
+<ul>
+<li><p>只对同级比较，跨层级的dom不会进行复用</p>
+</li>
+<li><p>不同类型节点生成的dom树不同，此时会直接销毁老节点及子孙节点，并新建节点</p>
+</li>
+<li><p>可以通过key来对元素diff的过程提供复用的线索，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">  &lt;&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">   &lt;/&gt;</span><br><span class="line">);</span><br><span class="line"><span class="keyword">const</span> b = (</span><br><span class="line">  &lt;&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">  &lt;/&gt;</span><br><span class="line"> );</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>如果<code>a</code>和<code>b</code>里的元素都没有<code>key</code>，因为节点的更新前后文本节点不同，导致他们都不能复用，所以会销毁之前的节点，并新建节点，但是现在有<code>key</code>了，<code>b</code>中的节点会在老的<code>a</code>中寻找<code>key</code>相同的节点尝试复用，最后发现只是交换位置就可以完成更新，具体对比过程后面会讲到。</p>
+<h2 id="单节点diff"><a href="#单节点diff" class="headerlink" title="单节点diff"></a>单节点diff</h2><p>单点diff有如下几种情况：</p>
+<ul>
+<li>key和type相同表示可以复用节点</li>
+<li>key不同直接标记删除节点，然后新建节点</li>
+<li>key相同type不同，标记删除该节点和兄弟节点，然后新创建节点</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconcileSingleElement</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  returnFiber: Fiber,</span></span></span><br><span class="line"><span class="function"><span class="params">  currentFirstChild: Fiber | <span class="literal">null</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  element: ReactElement</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Fiber</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> key = element.key;</span><br><span class="line">  <span class="keyword">let</span> child = currentFirstChild;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//child节点不为null执行对比</span></span><br><span class="line">  <span class="keyword">while</span> (child !== <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.比较key</span></span><br><span class="line">    <span class="keyword">if</span> (child.key === key) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 2.比较type</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">switch</span> (child.tag) &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span>: &#123;</span><br><span class="line">          <span class="keyword">if</span> (child.elementType === element.type) &#123;</span><br><span class="line">            <span class="comment">// type相同则可以复用 返回复用的节点</span></span><br><span class="line">            <span class="keyword">return</span> existing;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// type不同跳出</span></span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//key相同，type不同则把fiber及和兄弟fiber标记删除</span></span><br><span class="line">      deleteRemainingChildren(returnFiber, child);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//key不同直接标记删除该节点</span></span><br><span class="line">      deleteChild(returnFiber, child);</span><br><span class="line">    &#125;</span><br><span class="line">    child = child.sibling;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//新建新Fiber</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="多节点diff"><a href="#多节点diff" class="headerlink" title="多节点diff"></a>多节点diff</h2><p>多节点diff比较复杂，我们分三种情况进行讨论，其中a表示更新前的节点，b表示更新后的节点</p>
+<ul>
+<li><p>属性变化</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">  &lt;&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;0&quot;</span> name=<span class="string">&#x27;0&#x27;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">  &lt;/&gt;</span><br><span class="line">);</span><br><span class="line"><span class="keyword">const</span> b = (</span><br><span class="line">  &lt;&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;0&quot;</span> name=<span class="string">&#x27;00&#x27;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">  &lt;/&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+<li><p>type变化</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">  &lt;&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">  &lt;/&gt;</span><br><span class="line">);</span><br><span class="line"><span class="keyword">const</span> b = (</span><br><span class="line">  &lt;&gt;</span><br><span class="line">    &lt;div key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/div&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">  &lt;/&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+<li><p>新增节点</p>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">const</span> b = (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;2&quot;</span>&gt;<span class="number">2</span>&lt;/p&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>节点删除</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;2&quot;</span>&gt;<span class="number">2</span>&lt;/p&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">const</span> b = (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">      &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>节点位置变化</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">  &lt;&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">  &lt;/&gt;</span><br><span class="line">);</span><br><span class="line"><span class="keyword">const</span> b = (</span><br><span class="line">  &lt;&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;1&quot;</span>&gt;<span class="number">1</span>&lt;/p&gt;</span><br><span class="line">    &lt;p key=<span class="string">&quot;0&quot;</span>&gt;<span class="number">0</span>&lt;/p&gt;</span><br><span class="line">  &lt;/&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>在源码中多节点<code>diff</code>会经历三次遍历，第一次遍历处理节点的更新（包括<code>props</code>更新和<code>type</code>更新和删除），第二次遍历处理其他的情况（节点新增），其原因在于在大多数的应用中，节点更新的频率更加频繁，第三次处理位节点置改变</p>
+<h3 id="第一次遍历"><a href="#第一次遍历" class="headerlink" title="第一次遍历"></a>第一次遍历</h3><p>​ 因为老的节点存在于<code>current Fiber</code>中，所以它是个链表结构，还记得<code>Fiber</code>双缓存结构嘛，节点通过<code>child</code>、<code>return</code>、<code>sibling</code>连接，而<code>newChildren</code>存在于<code>jsx</code>当中，所以遍历对比的时候，首先让<code>newChildren[i]</code>与<code>oldFiber</code>对比，然后让<code>i++</code>、<code>nextOldFiber = oldFiber.sibling</code>。在第一轮遍历中，会处理三种情况，其中第1，2两种情况会结束第一次循环</p>
+<ol>
+<li><code>key</code>不同，第一次循环结束</li>
+<li><code>newChildren</code>或者<code>oldFiber</code>遍历完，第一次循环结束</li>
+<li><code>key</code>同<code>type</code>不同，标记<code>oldFiber</code>为<code>DELETION</code></li>
+<li><code>key</code>相同<code>type</code>相同则可以复用</li>
+</ol>
+<p><code>newChildren</code>遍历完，<code>oldFiber</code>没遍历完，在第一次遍历完成之后将<code>oldFiber</code>中没遍历完的节点标记为<code>DELETION</code>，即删除的<code>DELETION Tag</code></p>
+<h3 id="第二次遍历"><a href="#第二次遍历" class="headerlink" title="第二次遍历"></a>第二次遍历</h3><p>第二次遍历考虑三种情况</p>
+<ol>
+<li><code>newChildren</code>和<code>oldFiber</code>都遍历完：多节点<code>diff</code>过程结束</li>
+<li><code>newChildren</code>没遍历完，<code>oldFiber</code>遍历完，将剩下的<code>newChildren</code>的节点标记为<code>Placement</code>，即插入的<code>Tag</code></li>
+<li><code>newChildren</code>和<code>oldFiber</code>没遍历完，则进入节点移动的逻辑</li>
+</ol>
+<h3 id="第三次遍历"><a href="#第三次遍历" class="headerlink" title="第三次遍历"></a>第三次遍历</h3><ul>
+<li><p>主要逻辑在<code>placeChild</code>函数中，例如更新前节点顺序是<code>ABCD</code>，更新后是  <code>ACDB</code></p>
+<ol>
+<li><code>newChild</code>中第一个位置的<code>A</code>和<code>oldFiber</code>第一个位置的<code>A</code>，<code>key</code>  相同可复用，<code>lastPlacedIndex=0</code></li>
+<li><code>newChild</code>中第二个位置的<code>C</code>和<code>oldFiber</code>第二个位置的<code>B</code>，<code>key</code>不同  跳出第一次循环，将<code>oldFiber</code>中的<code>BCD</code>保存在<code>map</code>中</li>
+<li><code>newChild</code>中第二个位置的<code>C</code>在<code>oldFiber</code>中的<code>index=2 &gt;  lastPlacedIndex=0</code>不需要移动，<code>lastPlacedIndex=2</code></li>
+<li><code>newChild</code>中第三个位置的<code>D</code>在<code>oldFiber</code>中的<code>index=3 &gt;  lastPlacedIndex=2</code>不需要移动，<code>lastPlacedIndex=3</code></li>
+<li><code>newChild</code>中第四个位置的<code>B</code>在<code>oldFiber</code>中的<code>index=1 &lt;  lastPlacedIndex=3</code>,移动到最后</li>
+</ol>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210516131544.png" alt="ABCD --&gt; ACDB"></p>
+</li>
+<li><p>例如更新前节点顺序是<code>ABCD</code>，更新后是<code>DABC</code></p>
+<ol>
+<li><code>newChild</code>中第一个位置的<code>D</code>和<code>oldFiber</code>第一个位置的<code>A</code>，<code>key</code>不相同不可复用，将<code>oldFiber</code>中的<code>ABCD</code>保存在<code>map</code>中，<code>lastPlacedIndex=0</code></li>
+<li><code>newChild</code>中第一个位置的<code>D</code>在<code>oldFiber</code>中的<code>index=3 &gt; lastPlacedIndex=0</code>不需要移动，<code>lastPlacedIndex=3</code></li>
+<li><code>newChild</code>中第二个位置的<code>A</code>在<code>oldFiber</code>中的<code>index=0 &lt; lastPlacedIndex=3</code>,移动到最后</li>
+<li><code>newChild</code>中第三个位置的<code>B</code>在<code>oldFiber</code>中的<code>index=1 &lt; lastPlacedIndex=3</code>,移动到最后</li>
+<li><code>newChild</code>中第四个位置的<code>C</code>在<code>oldFiber</code>中的<code>index=2 &lt; lastPlacedIndex=3</code>,移动到最后</li>
+</ol>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210516132556.png" alt="ABCD --&gt; DABC"></p>
+</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">placeChild</span>(<span class="params">newFiber, lastPlacedIndex, newIndex</span>) </span>&#123;</span><br><span class="line">  newFiber.index = newIndex;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!shouldTrackSideEffects) &#123;</span><br><span class="line">    <span class="keyword">return</span> lastPlacedIndex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> current = newFiber.alternate;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (current !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> oldIndex = current.index;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (oldIndex &lt; lastPlacedIndex) &#123;</span><br><span class="line">      <span class="comment">//oldIndex小于lastPlacedIndex的位置 则将节点插入到最后</span></span><br><span class="line">      newFiber.flags = Placement;</span><br><span class="line">      <span class="keyword">return</span> lastPlacedIndex;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> oldIndex;<span class="comment">//不需要移动 lastPlacedIndex = oldIndex;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//新增插入</span></span><br><span class="line">    newFiber.flags = Placement;</span><br><span class="line">    <span class="keyword">return</span> lastPlacedIndex;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconcileChildrenArray</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  returnFiber: Fiber, <span class="comment">//父fiber节点</span></span></span></span><br><span class="line"><span class="function"><span class="params">  currentFirstChild: Fiber | <span class="literal">null</span>, <span class="comment">//children中第一个节点</span></span></span></span><br><span class="line"><span class="function"><span class="params">  newChildren: <span class="built_in">Array</span>&lt;*&gt;, <span class="comment">//新节点数组 也就是jsx数组</span></span></span></span><br><span class="line"><span class="function"><span class="params">  lanes: Lanes <span class="comment">//lane相关 第12章介绍</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Fiber</span> | <span class="title">null</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> resultingFirstChild: Fiber | <span class="literal">null</span> = <span class="literal">null</span>; <span class="comment">//diff之后返回的第一个节点</span></span><br><span class="line">  <span class="keyword">let</span> previousNewFiber: Fiber | <span class="literal">null</span> = <span class="literal">null</span>; <span class="comment">//新节点中上次对比过的节点</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> oldFiber = currentFirstChild; <span class="comment">//正在对比的oldFiber</span></span><br><span class="line">  <span class="keyword">let</span> lastPlacedIndex = <span class="number">0</span>; <span class="comment">//上次可复用的节点位置 或者oldFiber的位置</span></span><br><span class="line">  <span class="keyword">let</span> newIdx = <span class="number">0</span>; <span class="comment">//新节点中对比到了的位置</span></span><br><span class="line">  <span class="keyword">let</span> nextOldFiber = <span class="literal">null</span>; <span class="comment">//正在对比的oldFiber</span></span><br><span class="line">  <span class="keyword">for</span> (; oldFiber !== <span class="literal">null</span> &amp;&amp; newIdx &lt; newChildren.length; newIdx++) &#123;</span><br><span class="line">    <span class="comment">//第一次遍历</span></span><br><span class="line">    <span class="keyword">if</span> (oldFiber.index &gt; newIdx) &#123;</span><br><span class="line">      <span class="comment">//nextOldFiber赋值</span></span><br><span class="line">      nextOldFiber = oldFiber;</span><br><span class="line">      oldFiber = <span class="literal">null</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      nextOldFiber = oldFiber.sibling;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> newFiber = updateSlot(</span><br><span class="line">      <span class="comment">//更新节点，如果key不同则newFiber=null</span></span><br><span class="line">      returnFiber,</span><br><span class="line">      oldFiber,</span><br><span class="line">      newChildren[newIdx],</span><br><span class="line">      lanes</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (newFiber === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (oldFiber === <span class="literal">null</span>) &#123;</span><br><span class="line">        oldFiber = nextOldFiber;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>; <span class="comment">//跳出第一次遍历</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (shouldTrackSideEffects) &#123;</span><br><span class="line">      <span class="comment">//检查shouldTrackSideEffects</span></span><br><span class="line">      <span class="keyword">if</span> (oldFiber &amp;&amp; newFiber.alternate === <span class="literal">null</span>) &#123;</span><br><span class="line">        deleteChild(returnFiber, oldFiber);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    lastPlacedIndex = placeChild(newFiber, lastPlacedIndex, newIdx); <span class="comment">//标记节点插入</span></span><br><span class="line">    <span class="keyword">if</span> (previousNewFiber === <span class="literal">null</span>) &#123;</span><br><span class="line">      resultingFirstChild = newFiber;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      previousNewFiber.sibling = newFiber;</span><br><span class="line">    &#125;</span><br><span class="line">    previousNewFiber = newFiber;</span><br><span class="line">    oldFiber = nextOldFiber;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (newIdx === newChildren.length) &#123;</span><br><span class="line">    deleteRemainingChildren(returnFiber, oldFiber); <span class="comment">//将oldFiber中没遍历完的节点标记为DELETION</span></span><br><span class="line">    <span class="keyword">return</span> resultingFirstChild;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (oldFiber === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (; newIdx &lt; newChildren.length; newIdx++) &#123;</span><br><span class="line">      <span class="comment">//第2次遍历</span></span><br><span class="line">      <span class="keyword">const</span> newFiber = createChild(returnFiber, newChildren[newIdx], lanes);</span><br><span class="line">      <span class="keyword">if</span> (newFiber === <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      lastPlacedIndex = placeChild(newFiber, lastPlacedIndex, newIdx); <span class="comment">//插入新增节点</span></span><br><span class="line">      <span class="keyword">if</span> (previousNewFiber === <span class="literal">null</span>) &#123;</span><br><span class="line">        resultingFirstChild = newFiber;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        previousNewFiber.sibling = newFiber;</span><br><span class="line">      &#125;</span><br><span class="line">      previousNewFiber = newFiber;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> resultingFirstChild;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将剩下的oldFiber加入map中</span></span><br><span class="line">  <span class="keyword">const</span> existingChildren = mapRemainingChildren(returnFiber, oldFiber);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (; newIdx &lt; newChildren.length; newIdx++) &#123;</span><br><span class="line">    <span class="comment">//第三次循环 处理节点移动</span></span><br><span class="line">    <span class="keyword">const</span> newFiber = updateFromMap(</span><br><span class="line">      existingChildren,</span><br><span class="line">      returnFiber,</span><br><span class="line">      newIdx,</span><br><span class="line">      newChildren[newIdx],</span><br><span class="line">      lanes</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (newFiber !== <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (shouldTrackSideEffects) &#123;</span><br><span class="line">        <span class="keyword">if</span> (newFiber.alternate !== <span class="literal">null</span>) &#123;</span><br><span class="line">          existingChildren.delete(</span><br><span class="line">            <span class="comment">//删除找到的节点</span></span><br><span class="line">            newFiber.key === <span class="literal">null</span> ? newIdx : newFiber.key</span><br><span class="line">          );</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      lastPlacedIndex = placeChild(newFiber, lastPlacedIndex, newIdx); <span class="comment">//标记为插入的逻辑</span></span><br><span class="line">      <span class="keyword">if</span> (previousNewFiber === <span class="literal">null</span>) &#123;</span><br><span class="line">        resultingFirstChild = newFiber;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        previousNewFiber.sibling = newFiber;</span><br><span class="line">      &#125;</span><br><span class="line">      previousNewFiber = newFiber;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (shouldTrackSideEffects) &#123;</span><br><span class="line">    <span class="comment">//删除existingChildren中剩下的节点</span></span><br><span class="line">    existingChildren.forEach(<span class="function">(<span class="params">child</span>) =&gt;</span> deleteChild(returnFiber, child));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> resultingFirstChild;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2021/05/16/react%20%E6%BA%90%E7%A0%81/7.diff/">https://hqwuzhaoyi.github.io/2021/05/16/react%20%E6%BA%90%E7%A0%81/7.diff/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/react/">react</a><a class="post-meta__tags" href="/tags/%E6%BA%90%E7%A0%81/">源码</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210515174941.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/05/19/react%20%E6%BA%90%E7%A0%81/8.hook/"><img class="prev-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">react源码-hook</div></div></a></div><div class="next-post pull-right"><a href="/2021/04/21/react%20%E6%BA%90%E7%A0%81/6.commit%E9%98%B6%E6%AE%B5/"><img class="next-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210421221836.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">react源码-commit阶段</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#diff"><span class="toc-number">1.</span> <span class="toc-text">diff</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%8A%82%E7%82%B9diff"><span class="toc-number">1.1.</span> <span class="toc-text">单节点diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%8A%82%E7%82%B9diff"><span class="toc-number">1.2.</span> <span class="toc-text">多节点diff</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="toc-number">1.2.1.</span> <span class="toc-text">第一次遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="toc-number">1.2.2.</span> <span class="toc-text">第二次遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="toc-number">1.2.3.</span> <span class="toc-text">第三次遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.4.</span> <span class="toc-text">代码</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2021/05/16/react%20%E6%BA%90%E7%A0%81/7.diff/'
+    this.page.identifier = '2021/05/16/react 源码/7.diff/'
+    this.page.title = 'react源码-diff'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

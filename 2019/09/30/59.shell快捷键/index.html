@@ -1,0 +1,403 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>terminal快捷键 | Prajna's blog</title><meta name="keywords" content="Linux,shell,WSL"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="快捷键 功能    Tab 自动补全   Ctrl+a 光标移动到开始位置   Ctrl+e 光标移动到最末尾   Ctrl+k 删除此处至末尾的所有内容   Ctrl+u 删除此处至开始的所有内容   Ctrl+d 删除当前字符   Ctrl+h 删除当前字符前一个字符   Ctrl+w 删除此处到左边的单词   Ctrl+y 粘贴由Ctrl+u， Ctrl+d， Ctrl+w删除的单词">
+<meta property="og:type" content="article">
+<meta property="og:title" content="terminal快捷键">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2019/09/30/59.shell%E5%BF%AB%E6%8D%B7%E9%94%AE/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="快捷键 功能    Tab 自动补全   Ctrl+a 光标移动到开始位置   Ctrl+e 光标移动到最末尾   Ctrl+k 删除此处至末尾的所有内容   Ctrl+u 删除此处至开始的所有内容   Ctrl+d 删除当前字符   Ctrl+h 删除当前字符前一个字符   Ctrl+w 删除此处到左边的单词   Ctrl+y 粘贴由Ctrl+u， Ctrl+d， Ctrl+w删除的单词">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png">
+<meta property="article:published_time" content="2019-09-30T17:31:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.648Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="shell">
+<meta property="article:tag" content="WSL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2019/09/30/59.shell%E5%BF%AB%E6%8D%B7%E9%94%AE/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">terminal快捷键</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-09-30T17:31:00.000Z" title="发表于 2019-09-30 17:31:00">2019-09-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.648Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">474</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="terminal快捷键"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tab</td>
+<td>自动补全</td>
+</tr>
+<tr>
+<td>Ctrl+a</td>
+<td>光标移动到开始位置</td>
+</tr>
+<tr>
+<td>Ctrl+e</td>
+<td>光标移动到最末尾</td>
+</tr>
+<tr>
+<td>Ctrl+k</td>
+<td>删除此处至末尾的所有内容</td>
+</tr>
+<tr>
+<td>Ctrl+u</td>
+<td>删除此处至开始的所有内容</td>
+</tr>
+<tr>
+<td>Ctrl+d</td>
+<td>删除当前字符</td>
+</tr>
+<tr>
+<td>Ctrl+h</td>
+<td>删除当前字符前一个字符</td>
+</tr>
+<tr>
+<td>Ctrl+w</td>
+<td>删除此处到左边的单词</td>
+</tr>
+<tr>
+<td>Ctrl+y</td>
+<td>粘贴由Ctrl+u， Ctrl+d， Ctrl+w删除的单词</td>
+</tr>
+<tr>
+<td>Ctrl+l</td>
+<td>相当于clear，即清屏</td>
+</tr>
+<tr>
+<td>Ctrl+r</td>
+<td>查找历史命令</td>
+</tr>
+<tr>
+<td>Ctrl+b</td>
+<td>向回移动光标</td>
+</tr>
+<tr>
+<td>Ctrl+f</td>
+<td>向前移动光标</td>
+</tr>
+<tr>
+<td>Ctrl+t</td>
+<td>将光标位置的字符和前一个字符进行位置交换</td>
+</tr>
+<tr>
+<td>Ctrl+&amp;</td>
+<td>恢复 ctrl+h 或者 ctrl+d 或者 ctrl+w 删除的内容</td>
+</tr>
+<tr>
+<td>Ctrl+S</td>
+<td>暂停屏幕输出</td>
+</tr>
+<tr>
+<td>Ctrl+Q</td>
+<td>继续屏幕输出</td>
+</tr>
+<tr>
+<td>Ctrl+Left-Arrow</td>
+<td>光标移动到上一个单词的词首</td>
+</tr>
+<tr>
+<td>Ctrl+Right-Arrow</td>
+<td>光标移动到下一个单词的词尾</td>
+</tr>
+<tr>
+<td>Ctrl+p</td>
+<td>向上显示缓存命令</td>
+</tr>
+<tr>
+<td>Ctrl+n</td>
+<td>向下显示缓存命令</td>
+</tr>
+<tr>
+<td>Ctrl+d</td>
+<td>关闭终端</td>
+</tr>
+<tr>
+<td>Ctrl+xx</td>
+<td>在EOL和当前光标位置移动</td>
+</tr>
+<tr>
+<td>Ctrl+x@</td>
+<td>显示可能hostname补全</td>
+</tr>
+<tr>
+<td>Ctrl+c</td>
+<td>终止进程/命令</td>
+</tr>
+<tr>
+<td>Shift+上或下</td>
+<td>终端上下滚动</td>
+</tr>
+<tr>
+<td>Shift+PgUp/PgDn</td>
+<td>终端上下翻页滚动</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+n</td>
+<td>新终端</td>
+</tr>
+<tr>
+<td>alt+F2    输入gnome-terminal</td>
+<td>打开终端</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+T</td>
+<td>打开新的标签页</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+W</td>
+<td>关闭标签页</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+C</td>
+<td>复制</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+V</td>
+<td>粘贴</td>
+</tr>
+<tr>
+<td>Alt+数字</td>
+<td>切换至对应的标签页</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+N</td>
+<td>打开新的终端窗口</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+Q</td>
+<td>管壁终端窗口</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+PgUp/PgDn</td>
+<td>左移右移标签页</td>
+</tr>
+<tr>
+<td>Ctrl+PgUp/PgDn</td>
+<td>切换标签页</td>
+</tr>
+<tr>
+<td>F1</td>
+<td>打开帮助指南</td>
+</tr>
+<tr>
+<td>F10</td>
+<td>激活菜单栏</td>
+</tr>
+<tr>
+<td>F11</td>
+<td>全屏切换</td>
+</tr>
+<tr>
+<td>Alt+F</td>
+<td>打开 “文件” 菜单（file）</td>
+</tr>
+<tr>
+<td>Alt+E</td>
+<td>打开 “编辑” 菜单（edit）</td>
+</tr>
+<tr>
+<td>Alt+V</td>
+<td>打开 “查看” 菜单（view）</td>
+</tr>
+<tr>
+<td>Alt+S</td>
+<td>打开 “搜索” 菜单（search）</td>
+</tr>
+<tr>
+<td>Alt+T</td>
+<td>打开 “终端” 菜单（terminal）</td>
+</tr>
+<tr>
+<td>Alt+H</td>
+<td>打开 “帮助” 菜单（help）</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2019/09/30/59.shell%E5%BF%AB%E6%8D%B7%E9%94%AE/">https://hqwuzhaoyi.github.io/2019/09/30/59.shell%E5%BF%AB%E6%8D%B7%E9%94%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/shell/">shell</a><a class="post-meta__tags" href="/tags/WSL/">WSL</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/10/23/58.manjaro/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">manjaro安装配置</div></div></a></div><div class="next-post pull-right"><a href="/2019/09/30/59.vim/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vim命令</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Wu Zhaoyi</div><div class="author-info__description">Scent of code</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hqwuzhaoyi"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 生命周期"/></a><div class="content"><a class="title" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期">rust 生命周期</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 所有权"/></a><div class="content"><a class="title" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权">rust 所有权</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 初学"/></a><div class="content"><a class="title" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学">rust 初学</a><time datetime="2022-02-03T00:00:00.000Z" title="发表于 2022-02-03 00:00:00">2022-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具"><img src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js 实用工具"/></a><div class="content"><a class="title" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具">js 实用工具</a><time datetime="2021-12-16T00:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试"><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/Raspberry_PI.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派初试"/></a><div class="content"><a class="title" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试">树莓派初试</a><time datetime="2021-12-15T00:00:00.000Z" title="发表于 2021-12-15 00:00:00">2021-12-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2019/09/30/59.shell%E5%BF%AB%E6%8D%B7%E9%94%AE/'
+    this.page.identifier = '2019/09/30/59.shell快捷键/'
+    this.page.title = 'terminal快捷键'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

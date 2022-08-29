@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>vue1 | Prajna's blog</title><meta name="keywords" content="Vue"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Vue.js - Day1课程介绍前5天： 都在学习Vue基本的语法和概念；打包工具 Webpack , Gulp后5天： 以项目驱动教学； 什么是Vue.js Vue.js 是目前最火的一个前端框架，React是最流行的一个前端框架（React除了开发网站，还可以开发手机App， Vue语法也是可以用于进行手机App开发的，需要借助于Weex）  Vue.js 是前端的主流框架之一，和Angul">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue1">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2019/05/25/vue/43.day1/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="Vue.js - Day1课程介绍前5天： 都在学习Vue基本的语法和概念；打包工具 Webpack , Gulp后5天： 以项目驱动教学； 什么是Vue.js Vue.js 是目前最火的一个前端框架，React是最流行的一个前端框架（React除了开发网站，还可以开发手机App， Vue语法也是可以用于进行手机App开发的，需要借助于Weex）  Vue.js 是前端的主流框架之一，和Angul">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png">
+<meta property="article:published_time" content="2019-05-25T20:46:25.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.656Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2019/05/25/vue/43.day1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vue1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-25T20:46:25.000Z" title="发表于 2019-05-25 20:46:25">2019-05-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.656Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/vue/">vue</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="vue1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Vue-js-Day1"><a href="#Vue-js-Day1" class="headerlink" title="Vue.js - Day1"></a>Vue.js - Day1</h1><h2 id="课程介绍"><a href="#课程介绍" class="headerlink" title="课程介绍"></a>课程介绍</h2><p>前5天： 都在学习Vue基本的语法和概念；打包工具 Webpack , Gulp<br>后5天： 以项目驱动教学；</p>
+<h3 id="什么是Vue-js"><a href="#什么是Vue-js" class="headerlink" title="什么是Vue.js"></a>什么是Vue.js</h3><ul>
+<li><p>Vue.js 是目前最火的一个前端框架，React是最流行的一个前端框架（React除了开发网站，还可以开发手机App， Vue语法也是可以用于进行手机App开发的，需要借助于Weex）</p>
+</li>
+<li><p>Vue.js 是前端的<strong>主流框架之一</strong>，和Angular.js、React.js 一起，并成为前端三大主流框架！</p>
+</li>
+<li><p>Vue.js 是一套构建用户界面的框架，<strong>只关注视图层</strong>，它不仅易于上手，还便于与第三方库或既有项目整合。（Vue有配套的第三方类库，可以整合起来做大型项目的开发）</p>
+</li>
+<li><p>前端的主要工作？主要负责MVC中的V这一层；主要工作就是和界面打交道，来制作前端页面效果；</p>
+</li>
+</ul>
+<h2 id="为什么要学习流行框架"><a href="#为什么要学习流行框架" class="headerlink" title="为什么要学习流行框架"></a>为什么要学习流行框架</h2><ul>
+<li>企业为了提高开发效率：在企业中，时间就是效率，效率就是金钱；</li>
+</ul>
+<ul>
+<li>企业中，使用框架，能够提高开发的效率；</li>
+</ul>
+<ul>
+<li>提高开发效率的发展历程：原生JS -&gt; Jquery之类的类库 -&gt; 前端模板引擎 -&gt; Angular.js / Vue.js（能够帮助我们减少不必要的DOM操作；提高渲染效率；双向数据绑定的概念【通过框架提供的指令，我们前端程序员只需要关心数据的业务逻辑，不再关心DOM是如何渲染的了】）</li>
+<li>在Vue中，一个核心的概念，就是让用户不再操作DOM元素，解放了用户的双手，让程序员可以更多的时间去关注业务逻辑；</li>
+</ul>
+<ul>
+<li>增强自己就业时候的竞争力</li>
+</ul>
+<ul>
+<li>人无我有，人有我优</li>
+<li>你平时不忙的时候，都在干嘛？</li>
+</ul>
+<h2 id="框架和库的区别"><a href="#框架和库的区别" class="headerlink" title="框架和库的区别"></a>框架和库的区别</h2><ul>
+<li>框架：是一套完整的解决方案；对项目的侵入性较大，项目如果需要更换框架，则需要重新架构整个项目。</li>
+</ul>
+<ul>
+<li>node 中的 express；</li>
+</ul>
+<ul>
+<li>库（插件）：提供某一个小功能，对项目的侵入性较小，如果某个库无法完成某些需求，可以很容易切换到其它库实现需求。</li>
+</ul>
+<ul>
+<li><ol>
+<li>从Jquery 切换到 Zepto</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>从 EJS 切换到 art-template</li>
+</ol>
+</li>
+</ul>
+<h2 id="Node（后端）中的-MVC-与-前端中的-MVVM-之间的区别"><a href="#Node（后端）中的-MVC-与-前端中的-MVVM-之间的区别" class="headerlink" title="Node（后端）中的 MVC 与 前端中的 MVVM 之间的区别"></a>Node（后端）中的 MVC 与 前端中的 MVVM 之间的区别</h2><ul>
+<li><p>MVC 是后端的分层开发概念；</p>
+</li>
+<li><p>MVVM是前端视图层的概念，主要关注于 视图层分离，也就是说：MVVM把前端的视图层，分为了 三部分 Model, View , VM ViewModel</p>
+</li>
+<li><p>为什么有了MVC还要有MVVM</p>
+</li>
+</ul>
+<h2 id="Vue-js-基本代码-和-MVVM-之间的对应关系"><a href="#Vue-js-基本代码-和-MVVM-之间的对应关系" class="headerlink" title="Vue.js 基本代码 和 MVVM 之间的对应关系"></a>Vue.js 基本代码 和 MVVM 之间的对应关系</h2><h2 id="Vue之-基本的代码结构和插值表达式、v-cloak"><a href="#Vue之-基本的代码结构和插值表达式、v-cloak" class="headerlink" title="Vue之 - 基本的代码结构和插值表达式、v-cloak"></a>Vue之 - <code>基本的代码结构</code>和<code>插值表达式</code>、<code>v-cloak</code></h2><h2 id="Vue指令之v-text和v-html"><a href="#Vue指令之v-text和v-html" class="headerlink" title="Vue指令之v-text和v-html"></a>Vue指令之<code>v-text</code>和<code>v-html</code></h2><h2 id="Vue指令之v-bind的三种用法"><a href="#Vue指令之v-bind的三种用法" class="headerlink" title="Vue指令之v-bind的三种用法"></a>Vue指令之<code>v-bind</code>的三种用法</h2><ol>
+<li><p>直接使用指令<code>v-bind</code></p>
+</li>
+<li><p>使用简化指令<code>:</code></p>
+</li>
+<li><p>在绑定的时候，拼接绑定内容：<code>:title=&quot;btnTitle + &#39;, 这是追加的内容&#39;&quot;</code></p>
+</li>
+</ol>
+<h2 id="Vue指令之v-on和跑马灯效果"><a href="#Vue指令之v-on和跑马灯效果" class="headerlink" title="Vue指令之v-on和跑马灯效果"></a>Vue指令之<code>v-on</code>和<code>跑马灯效果</code></h2><h3 id="跑马灯效果"><a href="#跑马灯效果" class="headerlink" title="跑马灯效果"></a>跑马灯效果</h3><ol>
+<li>HTML结构：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;p&gt;&#123;&#123;info&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;开启&quot; v-on:click&#x3D;&quot;go&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;停止&quot; v-on:click&#x3D;&quot;stop&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Vue实例：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建 Vue 实例，得到 ViewModel</span><br><span class="line"></span><br><span class="line">   var vm &#x3D; new Vue(&#123;</span><br><span class="line"></span><br><span class="line">     el: &#39;#app&#39;,</span><br><span class="line"></span><br><span class="line">     data: &#123;</span><br><span class="line"></span><br><span class="line">       info: &#39;猥琐发育，别浪~！&#39;,</span><br><span class="line"></span><br><span class="line">       intervalId: null</span><br><span class="line"></span><br><span class="line">     &#125;,</span><br><span class="line"></span><br><span class="line">     methods: &#123;</span><br><span class="line"></span><br><span class="line">       go() &#123;</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F; 如果当前有定时器在运行，则直接return</span><br><span class="line"></span><br><span class="line">         if (this.intervalId !&#x3D; null) &#123;</span><br><span class="line"></span><br><span class="line">           return;</span><br><span class="line"></span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F; 开始定时器</span><br><span class="line"></span><br><span class="line">         this.intervalId &#x3D; setInterval(() &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">           this.info &#x3D; this.info.substring(1) + this.info.substring(0, 1);</span><br><span class="line"></span><br><span class="line">         &#125;, 500);</span><br><span class="line"></span><br><span class="line">       &#125;,</span><br><span class="line"></span><br><span class="line">       stop() &#123;</span><br><span class="line"></span><br><span class="line">         clearInterval(this.intervalId);</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">   &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="Vue指令之v-on的缩写和事件修饰符"><a href="#Vue指令之v-on的缩写和事件修饰符" class="headerlink" title="Vue指令之v-on的缩写和事件修饰符"></a>Vue指令之<code>v-on的缩写</code>和<code>事件修饰符</code></h2><h3 id="事件修饰符："><a href="#事件修饰符：" class="headerlink" title="事件修饰符："></a>事件修饰符：</h3><ul>
+<li><p>.stop       阻止冒泡</p>
+</li>
+<li><p>.prevent    阻止默认事件</p>
+</li>
+<li><p>.capture    添加事件侦听器时使用事件捕获模式</p>
+</li>
+<li><p>.self       只当事件在该元素本身（比如不是子元素）触发时触发回调</p>
+</li>
+<li><p>.once       事件只触发一次</p>
+</li>
+</ul>
+<h2 id="Vue指令之v-model和双向数据绑定"><a href="#Vue指令之v-model和双向数据绑定" class="headerlink" title="Vue指令之v-model和双向数据绑定"></a>Vue指令之<code>v-model</code>和<code>双向数据绑定</code></h2><h2 id="简易计算器案例"><a href="#简易计算器案例" class="headerlink" title="简易计算器案例"></a>简易计算器案例</h2><ol>
+<li>HTML 代码结构</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;n1&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;select v-model&#x3D;&quot;opt&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;option value&#x3D;&quot;0&quot;&gt;+&lt;&#x2F;option&gt;</span><br><span class="line"></span><br><span class="line">    &lt;option value&#x3D;&quot;1&quot;&gt;-&lt;&#x2F;option&gt;</span><br><span class="line"></span><br><span class="line">    &lt;option value&#x3D;&quot;2&quot;&gt;*&lt;&#x2F;option&gt;</span><br><span class="line"></span><br><span class="line">    &lt;option value&#x3D;&quot;3&quot;&gt;÷&lt;&#x2F;option&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;select&gt;</span><br><span class="line"></span><br><span class="line">  &lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;n2&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;&#x3D;&quot; v-on:click&#x3D;&quot;getResult&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;result&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Vue实例代码：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建 Vue 实例，得到 ViewModel</span><br><span class="line"></span><br><span class="line">   var vm &#x3D; new Vue(&#123;</span><br><span class="line"></span><br><span class="line">     el: &#39;#app&#39;,</span><br><span class="line"></span><br><span class="line">     data: &#123;</span><br><span class="line"></span><br><span class="line">       n1: 0,</span><br><span class="line"></span><br><span class="line">       n2: 0,</span><br><span class="line"></span><br><span class="line">       result: 0,</span><br><span class="line"></span><br><span class="line">       opt: &#39;0&#39;</span><br><span class="line"></span><br><span class="line">     &#125;,</span><br><span class="line"></span><br><span class="line">     methods: &#123;</span><br><span class="line"></span><br><span class="line">       getResult() &#123;</span><br><span class="line"></span><br><span class="line">         switch (this.opt) &#123;</span><br><span class="line"></span><br><span class="line">           case &#39;0&#39;:</span><br><span class="line"></span><br><span class="line">             this.result &#x3D; parseInt(this.n1) + parseInt(this.n2);</span><br><span class="line"></span><br><span class="line">             break;</span><br><span class="line"></span><br><span class="line">           case &#39;1&#39;:</span><br><span class="line"></span><br><span class="line">             this.result &#x3D; parseInt(this.n1) - parseInt(this.n2);</span><br><span class="line"></span><br><span class="line">             break;</span><br><span class="line"></span><br><span class="line">           case &#39;2&#39;:</span><br><span class="line"></span><br><span class="line">             this.result &#x3D; parseInt(this.n1) * parseInt(this.n2);</span><br><span class="line"></span><br><span class="line">             break;</span><br><span class="line"></span><br><span class="line">           case &#39;3&#39;:</span><br><span class="line"></span><br><span class="line">             this.result &#x3D; parseInt(this.n1) &#x2F; parseInt(this.n2);</span><br><span class="line"></span><br><span class="line">             break;</span><br><span class="line"></span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">   &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h2 id="在Vue中使用样式"><a href="#在Vue中使用样式" class="headerlink" title="在Vue中使用样式"></a>在Vue中使用样式</h2><h3 id="使用class样式"><a href="#使用class样式" class="headerlink" title="使用class样式"></a>使用class样式</h3><ol>
+<li><p>数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 :class&#x3D;&quot;[&#39;red&#39;, &#39;thin&#39;]&quot;&gt;这是一个邪恶的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>数组中使用三元表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 :class&#x3D;&quot;[&#39;red&#39;, &#39;thin&#39;, isactive?&#39;active&#39;:&#39;&#39;]&quot;&gt;这是一个邪恶的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>数组中嵌套对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 :class&#x3D;&quot;[&#39;red&#39;, &#39;thin&#39;, &#123;&#39;active&#39;: isactive&#125;]&quot;&gt;这是一个邪恶的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>直接使用对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 :class&#x3D;&quot;&#123;red:true, italic:true, active:true, thin:true&#125;&quot;&gt;这是一个邪恶的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="使用内联样式"><a href="#使用内联样式" class="headerlink" title="使用内联样式"></a>使用内联样式</h3><ol>
+<li><p>直接在元素上通过 <code>:style</code> 的形式，书写样式对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 :style&#x3D;&quot;&#123;color: &#39;red&#39;, &#39;font-size&#39;: &#39;40px&#39;&#125;&quot;&gt;这是一个善良的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>将样式对象，定义到 <code>data</code> 中，并直接引用到 <code>:style</code> 中</p>
+</li>
+</ol>
+<ul>
+<li>在data上定义样式：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">        h1StyleObj: &#123; color: &#39;red&#39;, &#39;font-size&#39;: &#39;40px&#39;, &#39;font-weight&#39;: &#39;200&#39; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在元素中，通过属性绑定的形式，将样式对象应用到元素中：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 :style&#x3D;&quot;h1StyleObj&quot;&gt;这是一个善良的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li>在 <code>:style</code> 中通过数组，引用多个 <code>data</code> 上的样式对象</li>
+</ol>
+<ul>
+<li>在data上定义样式：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">        h1StyleObj: &#123; color: &#39;red&#39;, &#39;font-size&#39;: &#39;40px&#39;, &#39;font-weight&#39;: &#39;200&#39; &#125;,</span><br><span class="line">        h1StyleObj2: &#123; fontStyle: &#39;italic&#39; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在元素中，通过属性绑定的形式，将样式对象应用到元素中：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 :style&#x3D;&quot;[h1StyleObj, h1StyleObj2]&quot;&gt;这是一个善良的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Vue指令之v-for和key属性"><a href="#Vue指令之v-for和key属性" class="headerlink" title="Vue指令之v-for和key属性"></a>Vue指令之<code>v-for</code>和<code>key</code>属性</h2><ol>
+<li>迭代数组</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li v-for&#x3D;&quot;(item, i) in list&quot;&gt;索引：&#123;&#123;i&#125;&#125; --- 姓名：&#123;&#123;item.name&#125;&#125; --- 年龄：&#123;&#123;item.age&#125;&#125;&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>迭代对象中的属性</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!-- 循环遍历对象身上的属性 --&gt;</span><br><span class="line"></span><br><span class="line">   &lt;div v-for&#x3D;&quot;(val, key, i) in userInfo&quot;&gt;&#123;&#123;val&#125;&#125; --- &#123;&#123;key&#125;&#125; --- &#123;&#123;i&#125;&#125;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>迭代数字</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;p v-for&#x3D;&quot;i in 10&quot;&gt;这是第 &#123;&#123;i&#125;&#125; 个P标签&lt;&#x2F;p&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>2.2.0+ 的版本里，<strong>当在组件中使用</strong> v-for 时，key 现在是必须的。</p>
+</blockquote>
+<p>当 Vue.js 用 v-for 正在更新已渲染过的元素列表时，它默认用 “<strong>就地复用</strong>” 策略。如果数据项的顺序被改变，Vue将<strong>不是移动 DOM 元素来匹配数据项的顺序</strong>， 而是<strong>简单复用此处每个元素</strong>，并且确保它在特定索引下显示已被渲染过的每个元素。</p>
+<p>为了给 Vue 一个提示，<strong>以便它能跟踪每个节点的身份，从而重用和重新排序现有元素</strong>，你需要为每项提供一个唯一 key 属性。</p>
+<h2 id="Vue指令之v-if和v-show"><a href="#Vue指令之v-if和v-show" class="headerlink" title="Vue指令之v-if和v-show"></a>Vue指令之<code>v-if</code>和<code>v-show</code></h2><blockquote>
+<p>一般来说，v-if 有更高的切换消耗而 v-show 有更高的初始渲染消耗。因此，如果需要频繁切换 v-show 较好，如果在运行时条件不大可能改变 v-if 较好。</p>
+</blockquote>
+<h2 id="品牌管理案例"><a href="#品牌管理案例" class="headerlink" title="品牌管理案例"></a>品牌管理案例</h2><h3 id="添加新品牌"><a href="#添加新品牌" class="headerlink" title="添加新品牌"></a>添加新品牌</h3><h3 id="删除品牌"><a href="#删除品牌" class="headerlink" title="删除品牌"></a>删除品牌</h3><h3 id="根据条件筛选品牌"><a href="#根据条件筛选品牌" class="headerlink" title="根据条件筛选品牌"></a>根据条件筛选品牌</h3><ol>
+<li>1.x 版本中的filterBy指令，在2.x中已经被废除：</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://v1-cn.vuejs.org/api/#filterBy">filterBy - 指令</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;tr v-for&#x3D;&quot;item in list | filterBy searchName in &#39;name&#39;&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line"></span><br><span class="line">  &lt;td&gt;&#123;&#123;item.name&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line"></span><br><span class="line">  &lt;td&gt;&#123;&#123;item.ctime&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line"></span><br><span class="line">  &lt;td&gt;</span><br><span class="line"></span><br><span class="line">    &lt;a href&#x3D;&quot;#&quot; @click.prevent&#x3D;&quot;del(item.id)&quot;&gt;删除&lt;&#x2F;a&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;td&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;tr&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在2.x版本中<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/list.html#%E6%98%BE%E7%A4%BA%E8%BF%87%E6%BB%A4-%E6%8E%92%E5%BA%8F%E7%BB%93%E6%9E%9C">手动实现筛选的方式</a>：</li>
+</ol>
+<ul>
+<li>筛选框绑定到 VM 实例中的 <code>searchName</code> 属性：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;hr&gt; 输入筛选名称：</span><br><span class="line"></span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;searchName&quot;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在使用 <code>v-for</code> 指令循环每一行数据的时候，不再直接 <code>item in list</code>，而是 <code>in</code> 一个 过滤的methods 方法，同时，把过滤条件<code>searchName</code>传递进去：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;tbody&gt;</span><br><span class="line"></span><br><span class="line">      &lt;tr v-for&#x3D;&quot;item in search(searchName)&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;td&gt;&#123;&#123;item.id&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line"></span><br><span class="line">        &lt;td&gt;&#123;&#123;item.name&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line"></span><br><span class="line">        &lt;td&gt;&#123;&#123;item.ctime&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line"></span><br><span class="line">        &lt;td&gt;</span><br><span class="line"></span><br><span class="line">          &lt;a href&#x3D;&quot;#&quot; @click.prevent&#x3D;&quot;del(item.id)&quot;&gt;删除&lt;&#x2F;a&gt;</span><br><span class="line"></span><br><span class="line">        &lt;&#x2F;td&gt;</span><br><span class="line"></span><br><span class="line">      &lt;&#x2F;tr&gt;</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;tbody&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>search</code> 过滤方法中，使用 数组的 <code>filter</code> 方法进行过滤：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">search(name) &#123;</span><br><span class="line"></span><br><span class="line">  return this.list.filter(x &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    return x.name.indexOf(name) !&#x3D; -1;</span><br><span class="line"></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="Vue调试工具vue-devtools的安装步骤和使用"><a href="#Vue调试工具vue-devtools的安装步骤和使用" class="headerlink" title="Vue调试工具vue-devtools的安装步骤和使用"></a>Vue调试工具<code>vue-devtools</code>的安装步骤和使用</h2><p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=zh-CN">Vue.js devtools - 翻墙安装方式 - 推荐</a></p>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><p>概念：Vue.js 允许你自定义过滤器，<strong>可被用作一些常见的文本格式化</strong>。过滤器可以用在两个地方：<strong>mustache 插值和 v-bind 表达式</strong>。过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符指示；</p>
+<h3 id="私有过滤器"><a href="#私有过滤器" class="headerlink" title="私有过滤器"></a>私有过滤器</h3><ol>
+<li>HTML元素：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;td&gt;&#123;&#123;item.ctime | dataFormat(&#39;yyyy-mm-dd&#39;)&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>私有 <code>filters</code> 定义方式：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">filters: &#123; &#x2F;&#x2F; 私有局部过滤器，只能在 当前 VM 对象所控制的 View 区域进行使用</span><br><span class="line"></span><br><span class="line">    dataFormat(input, pattern &#x3D; &quot;&quot;) &#123; &#x2F;&#x2F; 在参数列表中 通过 pattern&#x3D;&quot;&quot; 来指定形参默认值，防止报错</span><br><span class="line"></span><br><span class="line">      var dt &#x3D; new Date(input);</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; 获取年月日</span><br><span class="line"></span><br><span class="line">      var y &#x3D; dt.getFullYear();</span><br><span class="line"></span><br><span class="line">      var m &#x3D; (dt.getMonth() + 1).toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line">      var d &#x3D; dt.getDate().toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; 如果 传递进来的字符串类型，转为小写之后，等于 yyyy-mm-dd，那么就返回 年-月-日</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; 否则，就返回  年-月-日 时：分：秒</span><br><span class="line"></span><br><span class="line">      if (pattern.toLowerCase() &#x3D;&#x3D;&#x3D; &#39;yyyy-mm-dd&#39;) &#123;</span><br><span class="line"></span><br><span class="line">        return &#96;$&#123;y&#125;-$&#123;m&#125;-$&#123;d&#125;&#96;;</span><br><span class="line"></span><br><span class="line">      &#125; else &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 获取时分秒</span><br><span class="line"></span><br><span class="line">        var hh &#x3D; dt.getHours().toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line">        var mm &#x3D; dt.getMinutes().toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line">        var ss &#x3D; dt.getSeconds().toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        return &#96;$&#123;y&#125;-$&#123;m&#125;-$&#123;d&#125; $&#123;hh&#125;:$&#123;mm&#125;:$&#123;ss&#125;&#96;;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>使用ES6中的字符串新方法 String.prototype.padStart(maxLength, fillString=’’) 或 String.prototype.padEnd(maxLength, fillString=’’)来填充字符串；</p>
+</blockquote>
+<h3 id="全局过滤器"><a href="#全局过滤器" class="headerlink" title="全局过滤器"></a>全局过滤器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F; 定义一个全局过滤器</span><br><span class="line"></span><br><span class="line">Vue.filter(&#39;dataFormat&#39;, function (input, pattern &#x3D; &#39;&#39;) &#123;</span><br><span class="line"></span><br><span class="line">  var dt &#x3D; new Date(input);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 获取年月日</span><br><span class="line"></span><br><span class="line">  var y &#x3D; dt.getFullYear();</span><br><span class="line"></span><br><span class="line">  var m &#x3D; (dt.getMonth() + 1).toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line">  var d &#x3D; dt.getDate().toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 如果 传递进来的字符串类型，转为小写之后，等于 yyyy-mm-dd，那么就返回 年-月-日</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 否则，就返回  年-月-日 时：分：秒</span><br><span class="line"></span><br><span class="line">  if (pattern.toLowerCase() &#x3D;&#x3D;&#x3D; &#39;yyyy-mm-dd&#39;) &#123;</span><br><span class="line"></span><br><span class="line">    return &#96;$&#123;y&#125;-$&#123;m&#125;-$&#123;d&#125;&#96;;</span><br><span class="line"></span><br><span class="line">  &#125; else &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 获取时分秒</span><br><span class="line"></span><br><span class="line">    var hh &#x3D; dt.getHours().toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line">    var mm &#x3D; dt.getMinutes().toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line">    var ss &#x3D; dt.getSeconds().toString().padStart(2, &#39;0&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    return &#96;$&#123;y&#125;-$&#123;m&#125;-$&#123;d&#125; $&#123;hh&#125;:$&#123;mm&#125;:$&#123;ss&#125;&#96;;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>注意：当有局部和全局两个名称相同的过滤器时候，会以就近原则进行调用，即：局部过滤器优先于全局过滤器被调用！</p>
+</blockquote>
+<h2 id="键盘修饰符以及自定义键盘修饰符"><a href="#键盘修饰符以及自定义键盘修饰符" class="headerlink" title="键盘修饰符以及自定义键盘修饰符"></a>键盘修饰符以及自定义键盘修饰符</h2><h3 id="1-x中自定义键盘修饰符【了解即可】"><a href="#1-x中自定义键盘修饰符【了解即可】" class="headerlink" title="1.x中自定义键盘修饰符【了解即可】"></a>1.x中自定义键盘修饰符【了解即可】</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Vue.directive(&#39;on&#39;).keyCodes.f2 &#x3D; 113;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-x中自定义键盘修饰符"><a href="#2-x中自定义键盘修饰符" class="headerlink" title="2.x中自定义键盘修饰符"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/events.html#%E9%94%AE%E5%80%BC%E4%BF%AE%E9%A5%B0%E7%AC%A6">2.x中自定义键盘修饰符</a></h3><ol>
+<li>通过<code>Vue.config.keyCodes.名称 = 按键值</code>来自定义案件修饰符的别名：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Vue.config.keyCodes.f2 &#x3D; 113;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用自定义的按键修饰符：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;name&quot; @keyup.f2&#x3D;&quot;add&quot;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/custom-directive.html">自定义指令</a></h2><ol>
+<li>自定义全局和局部的 自定义指令：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F; 自定义全局指令 v-focus，为绑定的元素自动获取焦点：</span><br><span class="line"></span><br><span class="line">Vue.directive(&#39;focus&#39;, &#123;</span><br><span class="line"></span><br><span class="line">  inserted: function (el) &#123; &#x2F;&#x2F; inserted 表示被绑定元素插入父节点时调用</span><br><span class="line"></span><br><span class="line">    el.focus();</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 自定义局部指令 v-color 和 v-font-weight，为绑定的元素设置指定的字体颜色 和 字体粗细：</span><br><span class="line"></span><br><span class="line">  directives: &#123;</span><br><span class="line"></span><br><span class="line">    color: &#123; &#x2F;&#x2F; 为元素设置指定的字体颜色</span><br><span class="line"></span><br><span class="line">      bind(el, binding) &#123;</span><br><span class="line"></span><br><span class="line">        el.style.color &#x3D; binding.value;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#39;font-weight&#39;: function (el, binding2) &#123; &#x2F;&#x2F; 自定义指令的简写形式，等同于定义了 bind 和 update 两个钩子函数</span><br><span class="line"></span><br><span class="line">      el.style.fontWeight &#x3D; binding2.value;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>自定义指令的使用方式：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;searchName&quot; v-focus v-color&#x3D;&quot;&#39;red&#39;&quot; v-font-weight&#x3D;&quot;900&quot;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Vue-1-x-中-自定义元素指令【已废弃-了解即可】"><a href="#Vue-1-x-中-自定义元素指令【已废弃-了解即可】" class="headerlink" title="Vue 1.x 中 自定义元素指令【已废弃,了解即可】"></a>Vue 1.x 中 自定义元素指令【已废弃,了解即可】</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vue.elementDirective(&#39;red-color&#39;, &#123;</span><br><span class="line">  bind: function () &#123;</span><br><span class="line">    this.el.style.color &#x3D; &#39;red&#39;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>使用方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;red-color&gt;1232&lt;&#x2F;red-color&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://v1-cn.vuejs.org/">vue.js 1.x 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://cn.vuejs.org/">vue.js 2.x 文档</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.css88.com/archives/7715">String.prototype.padStart(maxLength, fillString)</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/wuhua1/p/6686237.html">js 里面的键盘事件对应的键码</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/kidney/p/6052935.html">Vue.js双向绑定的实现原理</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2019/05/25/vue/43.day1/">https://hqwuzhaoyi.github.io/2019/05/25/vue/43.day1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Vue/">Vue</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/07/03/vue/46.vue%20mall(%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0)/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">vue mall 开发笔记</div></div></a></div><div class="next-post pull-right"><a href="/2019/05/25/vue/43.day4/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">vue4</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue-js-Day1"><span class="toc-number">1.</span> <span class="toc-text">Vue.js - Day1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E7%A8%8B%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">课程介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFVue-js"><span class="toc-number">1.1.1.</span> <span class="toc-text">什么是Vue.js</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E6%B5%81%E8%A1%8C%E6%A1%86%E6%9E%B6"><span class="toc-number">1.2.</span> <span class="toc-text">为什么要学习流行框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6%E5%92%8C%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.3.</span> <span class="toc-text">框架和库的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node%EF%BC%88%E5%90%8E%E7%AB%AF%EF%BC%89%E4%B8%AD%E7%9A%84-MVC-%E4%B8%8E-%E5%89%8D%E7%AB%AF%E4%B8%AD%E7%9A%84-MVVM-%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.4.</span> <span class="toc-text">Node（后端）中的 MVC 与 前端中的 MVVM 之间的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-js-%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81-%E5%92%8C-MVVM-%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="toc-number">1.5.</span> <span class="toc-text">Vue.js 基本代码 和 MVVM 之间的对应关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E4%B9%8B-%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84%E5%92%8C%E6%8F%92%E5%80%BC%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81v-cloak"><span class="toc-number">1.6.</span> <span class="toc-text">Vue之 - 基本的代码结构和插值表达式、v-cloak</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%8C%87%E4%BB%A4%E4%B9%8Bv-text%E5%92%8Cv-html"><span class="toc-number">1.7.</span> <span class="toc-text">Vue指令之v-text和v-html</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%8C%87%E4%BB%A4%E4%B9%8Bv-bind%E7%9A%84%E4%B8%89%E7%A7%8D%E7%94%A8%E6%B3%95"><span class="toc-number">1.8.</span> <span class="toc-text">Vue指令之v-bind的三种用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%8C%87%E4%BB%A4%E4%B9%8Bv-on%E5%92%8C%E8%B7%91%E9%A9%AC%E7%81%AF%E6%95%88%E6%9E%9C"><span class="toc-number">1.9.</span> <span class="toc-text">Vue指令之v-on和跑马灯效果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%91%E9%A9%AC%E7%81%AF%E6%95%88%E6%9E%9C"><span class="toc-number">1.9.1.</span> <span class="toc-text">跑马灯效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%8C%87%E4%BB%A4%E4%B9%8Bv-on%E7%9A%84%E7%BC%A9%E5%86%99%E5%92%8C%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.10.</span> <span class="toc-text">Vue指令之v-on的缩写和事件修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%9A"><span class="toc-number">1.10.1.</span> <span class="toc-text">事件修饰符：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%8C%87%E4%BB%A4%E4%B9%8Bv-model%E5%92%8C%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A"><span class="toc-number">1.11.</span> <span class="toc-text">Vue指令之v-model和双向数据绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">1.12.</span> <span class="toc-text">简易计算器案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8Vue%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.13.</span> <span class="toc-text">在Vue中使用样式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8class%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.13.1.</span> <span class="toc-text">使用class样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%86%85%E8%81%94%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.13.2.</span> <span class="toc-text">使用内联样式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%8C%87%E4%BB%A4%E4%B9%8Bv-for%E5%92%8Ckey%E5%B1%9E%E6%80%A7"><span class="toc-number">1.14.</span> <span class="toc-text">Vue指令之v-for和key属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%8C%87%E4%BB%A4%E4%B9%8Bv-if%E5%92%8Cv-show"><span class="toc-number">1.15.</span> <span class="toc-text">Vue指令之v-if和v-show</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%81%E7%89%8C%E7%AE%A1%E7%90%86%E6%A1%88%E4%BE%8B"><span class="toc-number">1.16.</span> <span class="toc-text">品牌管理案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%B0%E5%93%81%E7%89%8C"><span class="toc-number">1.16.1.</span> <span class="toc-text">添加新品牌</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%93%81%E7%89%8C"><span class="toc-number">1.16.2.</span> <span class="toc-text">删除品牌</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E5%93%81%E7%89%8C"><span class="toc-number">1.16.3.</span> <span class="toc-text">根据条件筛选品牌</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7vue-devtools%E7%9A%84%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-number">1.17.</span> <span class="toc-text">Vue调试工具vue-devtools的安装步骤和使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">1.18.</span> <span class="toc-text">过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%81%E6%9C%89%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">1.18.1.</span> <span class="toc-text">私有过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">1.18.2.</span> <span class="toc-text">全局过滤器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E4%BF%AE%E9%A5%B0%E7%AC%A6%E4%BB%A5%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%AE%E7%9B%98%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.19.</span> <span class="toc-text">键盘修饰符以及自定义键盘修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-x%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%AE%E7%9B%98%E4%BF%AE%E9%A5%B0%E7%AC%A6%E3%80%90%E4%BA%86%E8%A7%A3%E5%8D%B3%E5%8F%AF%E3%80%91"><span class="toc-number">1.19.1.</span> <span class="toc-text">1.x中自定义键盘修饰符【了解即可】</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-x%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%AE%E7%9B%98%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.19.2.</span> <span class="toc-text">2.x中自定义键盘修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="toc-number">1.20.</span> <span class="toc-text">自定义指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-1-x-%E4%B8%AD-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%83%E7%B4%A0%E6%8C%87%E4%BB%A4%E3%80%90%E5%B7%B2%E5%BA%9F%E5%BC%83-%E4%BA%86%E8%A7%A3%E5%8D%B3%E5%8F%AF%E3%80%91"><span class="toc-number">1.21.</span> <span class="toc-text">Vue 1.x 中 自定义元素指令【已废弃,了解即可】</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0"><span class="toc-number">1.22.</span> <span class="toc-text">相关文章</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2019/05/25/vue/43.day1/'
+    this.page.identifier = '2019/05/25/vue/43.day1/'
+    this.page.title = 'vue1'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

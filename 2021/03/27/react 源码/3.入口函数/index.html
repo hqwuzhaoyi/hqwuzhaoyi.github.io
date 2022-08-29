@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>react源码-入口函数 | Prajna's blog</title><meta name="keywords" content="react,源码"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="react中的入口函数的模式  legacy12345678910111213141516171819202122232425262728render() &#x3D;&gt;  &#x2F;&#x2F;  判断root 节点存不存在， 不存在  legacyRenderSubtreeIntoContainer() &#x3D;&gt; &amp;#123;    legacyCreateRootFromDOMContainer()  &#x3D;&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react源码-入口函数">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2021/03/27/react%20%E6%BA%90%E7%A0%81/3.%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="react中的入口函数的模式  legacy12345678910111213141516171819202122232425262728render() &#x3D;&gt;  &#x2F;&#x2F;  判断root 节点存不存在， 不存在  legacyRenderSubtreeIntoContainer() &#x3D;&gt; &amp;#123;    legacyCreateRootFromDOMContainer()  &#x3D;&amp;gt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210322225712.png">
+<meta property="article:published_time" content="2021-03-27T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="源码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210322225712.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2021/03/27/react%20%E6%BA%90%E7%A0%81/3.%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210322225712.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">react源码-入口函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-27T00:00:00.000Z" title="发表于 2021-03-27 00:00:00">2021-03-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react-%E6%BA%90%E7%A0%81/">react 源码</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">801</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="react源码-入口函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="react中的入口函数的模式"><a href="#react中的入口函数的模式" class="headerlink" title="react中的入口函数的模式"></a>react中的入口函数的模式</h1><p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210322225640.png" alt="主要流程"></p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210322225712.png" alt="主要函数执行过程"></p>
+<h2 id="legacy"><a href="#legacy" class="headerlink" title="legacy"></a>legacy</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">render() =&gt;</span><br><span class="line">  <span class="comment">//  判断root 节点存不存在， 不存在</span></span><br><span class="line">  legacyRenderSubtreeIntoContainer() =&gt; &#123;</span><br><span class="line">    legacyCreateRootFromDOMContainer()  =&gt; &#123;</span><br><span class="line">      <span class="comment">// 首先ssr渲染相关逻辑</span></span><br><span class="line">      <span class="keyword">var</span> shouldHydrate = forceHydrate || shouldXXXHeuristic(container);</span><br><span class="line">      <span class="comment">//  中间代码... 然后</span></span><br><span class="line">      <span class="keyword">return</span> createLegacyRoot(container, shouldHydrate? &#123; <span class="attr">hydrate</span>: <span class="literal">true</span> &#125; : <span class="literal">undefined</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ReactDOMBlockingRoot(container, LegacyRoot, options) =&gt; &#123;</span><br><span class="line">          <span class="comment">// 创建根节点</span></span><br><span class="line">          <span class="built_in">this</span>._internalRoot = createRootImpl(container, tag, options)  =&gt; &#123;</span><br><span class="line">            <span class="keyword">var</span> root = createContainer(container, tag, hydrate) =&gt; &#123;</span><br><span class="line">              <span class="keyword">return</span> createFiberRoot(containerInfo, tag, hydrate) =&gt; &#123;</span><br><span class="line">                <span class="keyword">var</span> root = <span class="keyword">new</span> FiberRootNode(containerInfo, tag, hydrate)</span><br><span class="line">                <span class="keyword">var</span> uninitializedFiber = createHostRootFiber(tag)</span><br><span class="line">                root.current = uninitializedFiber</span><br><span class="line">                uninitializedFiber.stateNode = root</span><br><span class="line">                initializeUpdateQueue(uninitializedFiber)</span><br><span class="line">                <span class="keyword">return</span> root</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> root</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建Update对象</p>
+<p>对于HostRoot或者ClassComponent会使用initializeUpdateQueue创建updateQueue，然后将updateQueue挂载到fiber节点上</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initializeUpdateQueue</span>(<span class="params">fiber</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> queue = &#123;</span><br><span class="line">    baseState: fiber.memoizedState, <span class="comment">//初始state，后面会基于这个state，根据Update计算新的state</span></span><br><span class="line">    firstBaseUpdate: <span class="literal">null</span>, <span class="comment">//Update形成的链表的头</span></span><br><span class="line">    lastBaseUpdate: <span class="literal">null</span>, <span class="comment">//Update形成的链表的尾</span></span><br><span class="line">    <span class="comment">//新产生的update会以单向环状链表保存在shared.pending上，计算state的时候会剪开这个环状链表，</span></span><br><span class="line">    <span class="comment">//并且连接在lastBaseUpdate后</span></span><br><span class="line">    shared: &#123;<span class="attr">pending</span>: <span class="literal">null</span>&#125;,</span><br><span class="line">    effects: <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">  fiber.updateQueue = queue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>然后我们进入<code>updateContainer</code>函数</p>
+<h3 id="updateContainer"><a href="#updateContainer" class="headerlink" title="updateContainer"></a>updateContainer</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateContainer</span>(<span class="params">element, container, parentComponent, callback</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取update优先级</span></span><br><span class="line">  <span class="keyword">var</span> lane = requestUpdateLane</span><br><span class="line"></span><br><span class="line">  <span class="comment">//  创建update</span></span><br><span class="line">  <span class="keyword">var</span> update = createUpdate(eventTime, lane)</span><br><span class="line">  <span class="comment">// 就是jsx对象</span></span><br><span class="line">  update.payload = &#123; <span class="attr">element</span>: element &#125;</span><br><span class="line">  enqueueUpdate(current, update) <span class="comment">// 生成换装链表</span></span><br><span class="line">  scheduleUpdateOnFiber(current, lane, eventTime)</span><br><span class="line">  <span class="keyword">return</span> lane;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createUpdate</span>(<span class="params">eventTime, lane</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// * 和 UpdateQueue 中的对象有些区别</span></span><br><span class="line">  <span class="keyword">var</span> update = &#123;</span><br><span class="line">    eventTime： eventTime,</span><br><span class="line">    lane: lane,</span><br><span class="line">    tag: UpdateState,</span><br><span class="line">    payload: <span class="literal">null</span>,</span><br><span class="line">    callback: <span class="literal">null</span>,</span><br><span class="line">    next: <span class="literal">null</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> update;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enqueueUpdate</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">enqueueUpdate</span>(<span class="params">fiber, update</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  updateQueue = fiber.updateQueue;</span><br><span class="line"></span><br><span class="line">  sharedQueue = updateQueue.shared <span class="comment">// 将要处理的update都会挂载在这个上面</span></span><br><span class="line">  pending = sharedQueue.pending</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(pending === <span class="literal">null</span>) &#123;</span><br><span class="line">    update.next = update <span class="comment">// 形成环状列表</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    update.next = pending.next</span><br><span class="line">    pending.next = update</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  sharedQueue.pending = update <span class="comment">// 然后环状列表挂载在这里</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="scheduleUpdateOnFiber"><a href="#scheduleUpdateOnFiber" class="headerlink" title="scheduleUpdateOnFiber"></a>scheduleUpdateOnFiber</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scheduleUpdateOnFiber</span>(<span class="params">fiber, lane, eventTime</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 判断 lane 优先级</span></span><br><span class="line">  <span class="keyword">if</span> (lane === SyncLane) &#123; <span class="comment">// 如果是同步Lane</span></span><br><span class="line">    performSyncWorkOnRoot(root)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="concurrent"><a href="#concurrent" class="headerlink" title="concurrent"></a>concurrent</h2><h3 id="起点-createRoot"><a href="#起点-createRoot" class="headerlink" title="起点 createRoot"></a>起点 createRoot</h3><p>创建根节点</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createRoot</span>(<span class="params">container, options</span>) =&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> ReactDOMRoot(container, options) =&gt;  &#123;</span><br><span class="line">    <span class="comment">// 接下来的逻辑和legacy一样</span></span><br><span class="line">    <span class="built_in">this</span>.internalRoot = createRootImpl(container, ConcurrentRoot, options)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ReactDOMRoot-prototype-render"><a href="#ReactDOMRoot-prototype-render" class="headerlink" title="ReactDOMRoot.prototype.render"></a>ReactDOMRoot.prototype.render</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ReactDOMRoot.prototype.render = ReactDOMBlockingRoot.prototype.render = <span class="function"><span class="keyword">function</span> (<span class="params">children</span>) =&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> root = <span class="built_in">this</span>.internalRoot</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 主要调用</span></span><br><span class="line">  updateContainer(children, root, <span class="literal">null</span>, <span class="literal">null</span>) <span class="comment">// updateContainer做的功能就和legacy模式一样</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scheduleUpdateOnFiber</span>(<span class="params">fiber, lane, eventTime</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//  ... 和上面一样 判断优先级 但此处 lane 不为 SyncLane</span></span><br><span class="line">   <span class="keyword">if</span> (lane === SyncLane) &#123;<span class="comment">//同步lane 对应legacy模式</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    performSyncWorkOnRoot(root);<span class="comment">//render阶段的起点 render在地6章讲解</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;<span class="comment">//concurrent模式</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    ensureRootIsScheduled(root, eventTime);<span class="comment">//确保root被调度</span></span><br><span class="line">  &#125;</span><br><span class="line">  ensureRootIsScheduled(root, currentTme) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">var</span> nextLanes = getNextLanes(root, root === workInProgressRoot ? workInProgressRootRenderLanes : NoLanes); <span class="comment">//计算nextLanes</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (nextLanes === NoLanes) &#123;</span><br><span class="line">      <span class="comment">// 判断 nextLanes 优先级</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//  判断调度函数优先级是不是等于</span></span><br><span class="line">    <span class="keyword">if</span> (newCallbackPrPriority === SyncLanePriority) &#123;</span><br><span class="line">      <span class="comment">// 直接调用回调</span></span><br><span class="line">      scheduleCallback(performSyncWorkOnRoot.bind(<span class="literal">null</span>, root))</span><br><span class="line">    &#125; <span class="keyword">else</span>  <span class="keyword">if</span> (newCallbackPrPriority === S yncBatchedLanePriority) &#123;</span><br><span class="line">      <span class="comment">// 用 ImmediatePriority 的优先级来调度我们的回调</span></span><br><span class="line">      scheduleCallback(ImmediatePriority$<span class="number">1</span>, performSyncWorkOnRoot.bind(<span class="literal">null</span>, root))</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> schedulerPriorityLevel = lanePriorityToSchedulerPriority(newCallbackPrPriority) <span class="comment">// 把lane优先级转换成schedule优先级</span></span><br><span class="line">        <span class="comment">//以schedulerPriorityLevel的优先级执行performConcurrentWorkOnRoot 也就是concurrent模式的起点</span></span><br><span class="line">      scheduleCallback(schedulerPriorityLevel, performConcurrentWorkOnRoot.bind(<span class="literal">null</span>, root))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="两种模式的不同点"><a href="#两种模式的不同点" class="headerlink" title="两种模式的不同点"></a>两种模式的不同点</h2><ul>
+<li>createRootImpl中传入的第二个参数不一样 一个是LegacyRoot一个是ConcurrentRoot</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create(container, tag, options)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ReactRootTags.js</span></span><br><span class="line"><span class="keyword">export</span> type RootTag = <span class="number">0</span> | <span class="number">1</span> | <span class="number">2</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> LegactRoot = <span class="number">0</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> BlockingRoot = <span class="number">1</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ConcurrentRoot = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>requestUpdateLane中获取的lane的优先级不同</li>
+<li>在函数scheduleUpdateOnFiber中根据不同优先级进入不同分支，legacy模式进入performSyncWorkOnRoot，concurrent模式会异步调度performConcurrentWorkOnRoot</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2021/03/27/react%20%E6%BA%90%E7%A0%81/3.%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0/">https://hqwuzhaoyi.github.io/2021/03/27/react%20%E6%BA%90%E7%A0%81/3.%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/react/">react</a><a class="post-meta__tags" href="/tags/%E6%BA%90%E7%A0%81/">源码</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210322225712.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/30/react%20%E6%BA%90%E7%A0%81/2.Fiber/"><img class="prev-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162441.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">react源码-Fiber</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/23/react%20%E6%BA%90%E7%A0%81/1.Mental%20Model/"><img class="next-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210411162602.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">react源码-Mental Model</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#react%E4%B8%AD%E7%9A%84%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">react中的入口函数的模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#legacy"><span class="toc-number">1.1.</span> <span class="toc-text">legacy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#updateContainer"><span class="toc-number">1.1.1.</span> <span class="toc-text">updateContainer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#scheduleUpdateOnFiber"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">scheduleUpdateOnFiber</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#concurrent"><span class="toc-number">1.2.</span> <span class="toc-text">concurrent</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E7%82%B9-createRoot"><span class="toc-number">1.2.1.</span> <span class="toc-text">起点 createRoot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReactDOMRoot-prototype-render"><span class="toc-number">1.2.2.</span> <span class="toc-text">ReactDOMRoot.prototype.render</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="toc-number">1.3.</span> <span class="toc-text">两种模式的不同点</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2021/03/27/react%20%E6%BA%90%E7%A0%81/3.%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0/'
+    this.page.identifier = '2021/03/27/react 源码/3.入口函数/'
+    this.page.title = 'react源码-入口函数'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prajna's blog - personal notes</title><meta name="keywords" content="19970527"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Scent of code">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prajna&#39;s blog">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/page/11/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="Scent of code">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="19970527">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/page/11/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-08-29 03:13:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210607232803.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Prajna's blog</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/28.JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%20/" title="JavaScript DOM 操作">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript DOM 操作"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/28.JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%20/" title="JavaScript DOM 操作">JavaScript DOM 操作</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-30T20:46:25.000Z" title="发表于 2019-03-30 20:46:25">2019-03-30</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">1. 理解 DOM文档对象模型( DOM, Document Object Model )主要用于对 HTML 文档的内容进行操作。DOM 把 HTML 文档表达成一个节点树，通过对节点进行操作，实现对文档内容的添加、删除、修改、查找等功能。
+2. DOM 节点DOM 节点就是 HTML 上所有的内容 ,包括 :    + 文档节点    + 元素节点(标签)    + 元素属性节点    + 文本节点    + 注释节点以下总结一些常用的 DOM 操作 :
+3. 创建节点
+
+
+document.createElement(‘元素名’);
+创建新的元素节点
+
+
+
+document.createAttribute(‘属性名’);
+创建新的属性节点
+
+
+document.createTextNode(‘文本内容’);
+创建新的文本节点
+
+
+document.createComment(‘注释节点’);
+创建新的注释节点
+
+
+document.createDocumentFragment( );
+创建文档片段节点
+
+
+如下,创建了两个元素节点(div 和 p)和一个文本节点(文本内容为”文本 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/29.push%20%E5%92%8C%20apply/" title="push 和 apply">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="push 和 apply"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/29.push%20%E5%92%8C%20apply/" title="push 和 apply">push 和 apply</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-30T20:46:25.000Z" title="发表于 2019-03-30 20:46:25">2019-03-30</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">apply使用 apply 输出的是[“a”, “b”, “a”, “b”]
+1234var a&#x3D;[&quot;a&quot;,&quot;b&quot;];var b&#x3D;[&quot;a&quot;,&quot;b&quot;];b.push.apply(a,b);console.log(a);
+
+push使用 push 输出的是[“a”, “b”, Array(2)]
+1234var a&#x3D;[&quot;a&quot;,&quot;b&quot;];var b&#x3D;[&quot;a&quot;,&quot;b&quot;];b.push(a);console.log(b);
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/38.%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="单例模式例子-国王与大臣">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="单例模式例子-国王与大臣"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/38.%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="单例模式例子-国王与大臣">单例模式例子-国王与大臣</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-30T20:46:25.000Z" title="发表于 2019-03-30 20:46:25">2019-03-30</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">单例模式例子-国王与大臣第一种写法12345678910111213141516171819202122232425262728293031323334353637383940function Minister(name) &#123;&#x2F;&#x2F;大臣           this.name&#x3D;name;       &#125;       Minister.prototype.say&#x3D;function() &#123;           console.log(this.name+&quot;大王，冤枉啊！&quot;);       &#125;;       function Emperor() &#123;&#x2F;&#x2F;大王           this.name&#x3D;&quot;大王&quot;;           this.id&#x3D;Math.random();       &#x2F;&#x2F;    this.instance&#x3D;null;       &#125;       Emperor.prot ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/39.apply%E4%B8%8Ethis%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/" title="apply 与 this 指向问题">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="apply 与 this 指向问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/30/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/39.apply%E4%B8%8Ethis%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/" title="apply 与 this 指向问题">apply 与 this 指向问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-30T20:46:25.000Z" title="发表于 2019-03-30 20:46:25">2019-03-30</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">apply 与 this 指向问题this作为apply()第一个参数
+ 123456789var x &#x3D; 0;function test()&#123;  alert(this.x)&#125;var o &#x3D; &#123;&#125;;o.x &#x3D; 1;o.m &#x3D; test;o.m.apply(); &#x2F;&#x2F; 0o.m.apply(o); &#x2F;&#x2F;1;
+
+详细解释1.当apply中第一个参数不传时，即相当于第一个参数是null/undefined，此时函数内的this指向的是全局变量global（如果是浏览器，那就是指向window对象），所以打印的是全局变量x的值0。
+2.当第一个参数传 o 时，函数内的 this 指向的是 o 对象，o 对象有声明 x 属性为 1，所以返回的值为 1。
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/03/29/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/22.js%E5%B0%81%E8%A3%85/" title="js 封装">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-10.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js 封装"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/29/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/22.js%E5%B0%81%E8%A3%85/" title="js 封装">js 封装</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-29T20:46:25.000Z" title="发表于 2019-03-29 20:46:25">2019-03-29</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">封装闭包的特性就是有一个全局变量保存函数中的值，从而访问函数的内部
+第一种123456789101112131415161718192021222324252627282930function student1() &#123;          var privateStore &#x3D; &#123;          &#125;;          this._set &#x3D; function (obj) &#123;              for (var i in obj) &#123;                  privateStore[i] &#x3D; obj[i];              &#125;          &#125;;          this._get &#x3D; function () &#123;              return privateStore;          &#125;;          this.get &#x3D; function () &#123;              ret ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/03/28/20.vs%20markdown%20all%20in%20one/" title="vs markdown all in one">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vs markdown all in one"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/28/20.vs%20markdown%20all%20in%20one/" title="vs markdown all in one">vs markdown all in one</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-28T20:46:25.000Z" title="发表于 2019-03-28 20:46:25">2019-03-28</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/md/">md</a></span></div><div class="content">
+
+
+键
+命令
+
+
+
+Ctrl + B.
+切换粗体
+
+
+Ctrl + I
+切换斜体
+
+
+Alt + S.
+切换删除线
+
+
+Ctrl + Shift +]
+切换标题（上层）
+
+
+Ctrl + Shift + [
+切换标题（下层）
+
+
+按 Ctrl + M.
+切换数学环境
+
+
+Alt + C.
+选中/取消选中任务列表项
+
+
+Ctrl + Shift + V.
+切换预览
+
+
+Ctrl + KV
+将预览切换到侧面
+
+
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/03/28/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/21.js%E4%B8%AD%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86/" title="js中对象和数组遍历">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js中对象和数组遍历"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/28/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/21.js%E4%B8%AD%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86/" title="js中对象和数组遍历">js中对象和数组遍历</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-28T20:46:25.000Z" title="发表于 2019-03-28 20:46:25">2019-03-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">javaScript遍历对象、数组总结遍历对象1.使用Object.keys()遍历  返回一个数组,包括对象自身的(不含继承的)所有可枚举属性(不含Symbol属性).
+1234567var obj &#x3D; &#123;&#39;0&#39;:&#39;a&#39;,&#39;1&#39;:&#39;b&#39;,&#39;2&#39;:&#39;c&#39;&#125;;Object.keys(obj).forEach(function(key)&#123;     console.log(key,obj[key]);&#125;);
+
+2.使用for..in..遍历循环遍历对象自身的和继承的可枚举属性(不含Symbol属性).
+1234567var obj &#x3D; &#123;&#39;0&#39;:&#39;a&#39;,&#39;1&#39;:&#39;b&#39;,&#39;2&#39;:&#39;c&#39;&#125;;for(var i in obj) &#123;     console.log(i,&quot;:&quot;,obj[i]);&#125 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/03/27/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/18.%E8%AE%A1%E7%AE%97%E5%99%A8/" title="计算器">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算器"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/27/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/18.%E8%AE%A1%E7%AE%97%E5%99%A8/" title="计算器">计算器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-27T20:46:25.000Z" title="发表于 2019-03-27 20:46:25">2019-03-27</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;    &lt;title&gt; 事件&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;&lt;body&gt;    &lt;input type&#x3D;&#39;text&#39; id&#x3D;&#39;num1&#39; &#x2F;&gt;    &lt;select id&#x3D;&#39;operate&#39;&gt;        &lt;option value&#x3D;&#39;+&#39;&gt;+&lt;&#x2F;option&gt;        &lt;opt ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/03/27/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/17.%E7%A8%8B%E5%BA%8F%E6%94%B9%E8%BF%9B%E6%B5%81%E7%A8%8B/" title="程序改进流程">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="程序改进流程"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/27/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/17.%E7%A8%8B%E5%BA%8F%E6%94%B9%E8%BF%9B%E6%B5%81%E7%A8%8B/" title="程序改进流程">程序改进流程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-27T20:46:25.000Z" title="发表于 2019-03-27 20:46:25">2019-03-27</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">程序改进流程程序修改：1.结构与表现分离。2.使用循环。（明显有规律性的东西，用循环完成）。3.提取函数。（函数的功能尽量单一，简单。）4.管理代码。（为代码找到组织，通过对象，将所有的变量或小功能函数变成属性或方法，通过对象存取处理）5.OCP原则（Open Closed Principle）开放与封闭原则。（更新功能的时候，尽量不要修改原有代码，提供一个接口（写一个函数当作接口，在接口内判断参数错误可以抛出异常），添加功能，不能影响原有的程序，少用switch）。6.模块化。（可用自执行函数包裹，将全局变量变为局部变量，但这种方法没有往外暴露接口；暴露接口：找到该模块的核心功能，以及必传的一些参数，将其封装成一个函数，函数内部有返回值，可以返回内部的函数接口，可用变量接收，这个变量就是接口）7.输入格式校验，输出格式处理
+</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/03/27/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/19.arguments%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E7%BB%84/" title="arguments转换为数组">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="arguments转换为数组"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/03/27/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/19.arguments%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E7%BB%84/" title="arguments转换为数组">arguments转换为数组</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-03-27T20:46:25.000Z" title="发表于 2019-03-27 20:46:25">2019-03-27</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">首先这个方法：[].slice.call(arguments)能将具有length属性的对象转成数组。
+1、arguments是一个类数组对象。
+2、slice(start, end) 方法可提取数组的某个部分，并以新的数组返回被提取的部分。
+3、call()函数用于调用当前函数，并可同时使用指定对象作为本次执行时函数内部的this指针引用。
+[]数组有slice方法，可以通过call显式绑定来实现arguments变相有slice这个方法。
+所以就是arguments调用了slice方法，后面1是start位置，arguments.length是end位置。最后返回了一个数组，供apply()方法使用。
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/10/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#content-inner">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/#content-inner">12</a><a class="page-number" href="/page/13/#content-inner">13</a><a class="extend next" rel="next" href="/page/12/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Wu Zhaoyi</div><div class="author-info__description">Scent of code</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hqwuzhaoyi"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 生命周期"/></a><div class="content"><a class="title" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期">rust 生命周期</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 所有权"/></a><div class="content"><a class="title" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权">rust 所有权</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 初学"/></a><div class="content"><a class="title" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学">rust 初学</a><time datetime="2022-02-03T00:00:00.000Z" title="发表于 2022-02-03 00:00:00">2022-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具"><img src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js 实用工具"/></a><div class="content"><a class="title" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具">js 实用工具</a><time datetime="2021-12-16T00:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试"><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/Raspberry_PI.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派初试"/></a><div class="content"><a class="title" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试">树莓派初试</a><time datetime="2021-12-15T00:00:00.000Z" title="发表于 2021-12-15 00:00:00">2021-12-15</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/electronic-muisc/"><span class="card-category-list-name">electronic muisc</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/node/"><span class="card-category-list-name">node</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react/"><span class="card-category-list-name">react</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react-ddd/"><span class="card-category-list-name">react ddd</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react-%E6%BA%90%E7%A0%81/"><span class="card-category-list-name">react 源码</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/rust/"><span class="card-category-list-name">rust</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/vue/"><span class="card-category-list-name">vue</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/webpack/"><span class="card-category-list-name">webpack</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/BEM/" style="font-size: 1.21em; color: #999ea4">BEM</a> <a href="/tags/CSS/" style="font-size: 1.21em; color: #999ea4">CSS</a> <a href="/tags/DDD/" style="font-size: 1.33em; color: #99a2af">DDD</a> <a href="/tags/ES6/" style="font-size: 1.16em; color: #999b9e">ES6</a> <a href="/tags/Future-House/" style="font-size: 1.1em; color: #999">Future House</a> <a href="/tags/Git/" style="font-size: 1.1em; color: #999">Git</a> <a href="/tags/HTML/" style="font-size: 1.16em; color: #999b9e">HTML</a> <a href="/tags/HTML5/" style="font-size: 1.16em; color: #999b9e">HTML5</a> <a href="/tags/IE/" style="font-size: 1.21em; color: #999ea4">IE</a> <a href="/tags/IndexDB/" style="font-size: 1.16em; color: #999b9e">IndexDB</a> <a href="/tags/JS/" style="font-size: 1.5em; color: #99a9bf">JS</a> <a href="/tags/JSONP/" style="font-size: 1.1em; color: #999">JSONP</a> <a href="/tags/Linux/" style="font-size: 1.27em; color: #99a0a9">Linux</a> <a href="/tags/Music/" style="font-size: 1.27em; color: #99a0a9">Music</a> <a href="/tags/Nginx/" style="font-size: 1.1em; color: #999">Nginx</a> <a href="/tags/Problem/" style="font-size: 1.1em; color: #999">Problem</a> <a href="/tags/React/" style="font-size: 1.33em; color: #99a2af">React</a> <a href="/tags/Server/" style="font-size: 1.1em; color: #999">Server</a> <a href="/tags/TypeScript/" style="font-size: 1.1em; color: #999">TypeScript</a> <a href="/tags/Vue/" style="font-size: 1.39em; color: #99a4b4">Vue</a> <a href="/tags/WSL/" style="font-size: 1.21em; color: #999ea4">WSL</a> <a href="/tags/bit/" style="font-size: 1.1em; color: #999">bit</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/docker/" style="font-size: 1.16em; color: #999b9e">docker</a> <a href="/tags/eslint/" style="font-size: 1.1em; color: #999">eslint</a> <a href="/tags/github/" style="font-size: 1.1em; color: #999">github</a> <a href="/tags/ip/" style="font-size: 1.1em; color: #999">ip</a> <a href="/tags/jQuery/" style="font-size: 1.21em; color: #999ea4">jQuery</a> <a href="/tags/koa/" style="font-size: 1.16em; color: #999b9e">koa</a> <a href="/tags/less/" style="font-size: 1.27em; color: #99a0a9">less</a> <a href="/tags/linux/" style="font-size: 1.1em; color: #999">linux</a> <a href="/tags/md/" style="font-size: 1.16em; color: #999b9e">md</a> <a href="/tags/ngrok/" style="font-size: 1.1em; color: #999">ngrok</a> <a href="/tags/node/" style="font-size: 1.27em; color: #99a0a9">node</a> <a href="/tags/react/" style="font-size: 1.44em; color: #99a7ba">react</a> <a href="/tags/regexp/" style="font-size: 1.1em; color: #999">regexp</a> <a href="/tags/request/" style="font-size: 1.16em; color: #999b9e">request</a> <a href="/tags/shell/" style="font-size: 1.27em; color: #99a0a9">shell</a> <a href="/tags/svg/" style="font-size: 1.1em; color: #999">svg</a> <a href="/tags/v2ray/" style="font-size: 1.1em; color: #999">v2ray</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "I&#x27;ve seen things you people wouldn&#x27;t believe.,Attack ships on fire off the shoulder of Orion.,I&#x27;ve watched c-beams glitter in the dark near the Tannhauser Gate.,All those ... moments will be lost in time, like tears...in rain.,Time to die.".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: false,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = 'I&#x27;ve seen things you people wouldn&#x27;t believe.'
+  }
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

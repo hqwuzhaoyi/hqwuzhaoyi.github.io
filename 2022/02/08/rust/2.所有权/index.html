@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>rust 所有权 | Prajna's blog</title><meta name="keywords" content="19970527"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="总结  所有权：一个值只能被一个变量所拥有，且同一时刻只能有一个所有者，当所有者离开作用域，其拥有的值被丢弃，内存得到释放。 Move 语义：赋值或者传参会导致值 Move，所有权被转移，一旦所有权转移，之前的变量就不能访问。 Copy 语义：如果值实现了 Copy trait，那么赋值或传参会使用 Copy 语义，相应的值会被按位拷贝（浅拷贝），产生新的值。   规则：  一个值在同一时刻只有一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rust 所有权">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="总结  所有权：一个值只能被一个变量所拥有，且同一时刻只能有一个所有者，当所有者离开作用域，其拥有的值被丢弃，内存得到释放。 Move 语义：赋值或者传参会导致值 Move，所有权被转移，一旦所有权转移，之前的变量就不能访问。 Copy 语义：如果值实现了 Copy trait，那么赋值或传参会使用 Copy 语义，相应的值会被按位拷贝（浅拷贝），产生新的值。   规则：  一个值在同一时刻只有一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png">
+<meta property="article:published_time" content="2022-02-08T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="19970527">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">rust 所有权</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/rust/">rust</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="rust 所有权"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/605094c2dc6992997e31f687dc908751.webp" alt="第一性原理"></p>
+<ul>
+<li>所有权：一个值只能被一个变量所拥有，且同一时刻只能有一个所有者，当所有者离开作用域，其拥有的值被丢弃，内存得到释放。</li>
+<li>Move 语义：赋值或者传参会导致值 Move，所有权被转移，一旦所有权转移，之前的变量就不能访问。</li>
+<li>Copy 语义：如果值实现了 Copy trait，那么赋值或传参会使用 Copy 语义，相应的值会被按位拷贝（浅拷贝），产生新的值。</li>
+</ul>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/202202091504799.jpg" alt="快速回顾"></p>
+<p>规则：</p>
+<ol>
+<li>一个值在同一时刻只有一个所有者。当所有者离开作用域，其拥有的值会被丢弃。赋值或者传参会导致值 Move，所有权被转移，一旦所有权转移，之前的变量就不能访问。</li>
+<li>如果值实现了 Copy trait，那么赋值或传参会使用 Copy 语义，相应的值会被按位拷贝，产生新的值。</li>
+<li>一个值可以有多个只读引用。</li>
+<li>一个值可以有唯一一个活跃的可变引用。可变引用（写）和只读引用（读）是互斥的关系，就像并发下数据的读写互斥那样。</li>
+<li>引用的生命周期不能超出值的生命周期。</li>
+</ol>
+<h2 id="变量在函数调用时发生了什么"><a href="#变量在函数调用时发生了什么" class="headerlink" title="变量在函数调用时发生了什么"></a>变量在函数调用时发生了什么</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> data = <span class="built_in">vec!</span>[<span class="number">10</span>, <span class="number">42</span>, <span class="number">9</span>, <span class="number">8</span>];</span><br><span class="line">    <span class="keyword">let</span> v = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="literal">Some</span>(pos) = find_pos(data, v) &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;Found &#123;&#125; at &#123;&#125;&quot;</span>, v, pos);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">find_pos</span></span>(data: <span class="built_in">Vec</span>&lt;<span class="built_in">u32</span>&gt;, v: <span class="built_in">u32</span>) -&gt; <span class="built_in">Option</span>&lt;<span class="built_in">usize</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">for</span> (pos, item) <span class="keyword">in</span> data.iter().enumerate() &#123;</span><br><span class="line">        <span class="keyword">if</span> *item == v &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">Some</span>(pos);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="literal">None</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>动态数组因为大小在编译期无法确定，所以放在堆上，并且在栈上有一个包含了长度和容量的胖指针指向堆上的内存。</strong></p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/f0989fa8611db83b79500060e8cd682f.webp" alt="find_pos"></p>
+<p>对于堆内存多次引用的问题，我们先来看大多数语言的方案：</p>
+<ul>
+<li>C/C++ 要求开发者手工处理</li>
+<li>Java 等语言使用追踪式 GC</li>
+<li>ObjC/Swift 使用自动引用计数（ARC）</li>
+</ul>
+<h2 id="Rust-的解决思路"><a href="#Rust-的解决思路" class="headerlink" title="Rust 的解决思路"></a>Rust 的解决思路</h2><ul>
+<li>一个值只能被一个变量所拥有，这个变量被称为所有者（Each value in Rust has a variable that’s called its owner）。</li>
+<li>一个值同一时刻只能有一个所有者（There can only be one owner at a time），也就是说不能有两个变量拥有相同的值。所以对应刚才说的变量赋值、参数传递、函数返回等行为，旧的所有者会把值的所有权转移给新的所有者，以便保证单一所有者的约束。</li>
+<li>当所有者离开作用域，其拥有的值被丢弃（When the owner goes out of scope, the value will be dropped），内存得到释放。</li>
+</ul>
+<p>在这三条所有权规则的约束下，我们看开头的引用问题是如何解决的：</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/fe810cf1616bce15f53bcf6d28d7f864.webp" alt="问题是如何解决的"></p>
+<h2 id="Move-语义"><a href="#Move-语义" class="headerlink" title="Move 语义"></a>Move 语义</h2><p>原先 main() 函数中的 data，被移动到 find_pos() 后，就失效了，编译器会保证 main() 函数随后的代码无法访问这个变量，这样，就确保了堆上的内存依旧只有唯一的引用。这也就是 <strong>Move 语义</strong></p>
+<p>如果要同时访问的话就使用 <code>data.clone()</code> 把 <code>data</code> 复制一份出来</p>
+<p><strong>所有权规则，解决了谁真正拥有数据的生杀大权问题，让堆上数据的多重引用不复存在，这是它最大的优势。</strong></p>
+<h2 id="Copy-语义和-Copy-trait"><a href="#Copy-语义和-Copy-trait" class="headerlink" title="Copy 语义和 Copy trait"></a>Copy 语义和 Copy trait</h2><p>符合 Copy 语义的类型，<strong>在你赋值或者传参时，值会自动按位拷贝。</strong></p>
+<p>换句话说，当你要移动一个值，如果值的类型实现了 Copy trait，就会自动使用 Copy 语义进行拷贝，否则使用 Move 语义进行移动。</p>
+<ul>
+<li>原生类型，包括函数、不可变引用和裸指针实现了 Copy；</li>
+<li>数组和元组，如果其内部的数据结构实现了 Copy，那么它们也实现了 Copy；</li>
+<li>可变引用没有实现 Copy；</li>
+<li>非固定大小的数据结构，没有实现 Copy。</li>
+</ul>
+<h4 id="实现了-Copy-trait-的数据结构"><a href="#实现了-Copy-trait-的数据结构" class="headerlink" title="实现了 Copy trait 的数据结构"></a>实现了 Copy trait 的数据结构</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">is_copy</span></span>&lt;T: <span class="built_in">Copy</span>&gt;() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">types_impl_copy_trait</span></span>() &#123;</span><br><span class="line">    is_copy::&lt;<span class="built_in">bool</span>&gt;();</span><br><span class="line">    is_copy::&lt;<span class="built_in">char</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// all iXX and uXX, usize/isize, fXX implement Copy trait</span></span><br><span class="line">    is_copy::&lt;<span class="built_in">i8</span>&gt;();</span><br><span class="line">    is_copy::&lt;<span class="built_in">u64</span>&gt;();</span><br><span class="line">    is_copy::&lt;<span class="built_in">i64</span>&gt;();</span><br><span class="line">    is_copy::&lt;<span class="built_in">usize</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// function (actually a pointer) is Copy</span></span><br><span class="line">    is_copy::&lt;<span class="function"><span class="keyword">fn</span></span>()&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// raw pointer is Copy</span></span><br><span class="line">    is_copy::&lt;*<span class="keyword">const</span> <span class="built_in">String</span>&gt;();</span><br><span class="line">    is_copy::&lt;*<span class="keyword">mut</span> <span class="built_in">String</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// immutable reference is Copy</span></span><br><span class="line">    is_copy::&lt;&amp;[<span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt;]&gt;();</span><br><span class="line">    is_copy::&lt;&amp;<span class="built_in">String</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// array/tuple with values which is Copy is Copy</span></span><br><span class="line">    is_copy::&lt;[<span class="built_in">u8</span>; <span class="number">4</span>]&gt;();</span><br><span class="line">    is_copy::&lt;(&amp;<span class="built_in">str</span>, &amp;<span class="built_in">str</span>)&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">types_not_impl_copy_trait</span></span>() &#123;</span><br><span class="line">    <span class="comment">// unsized or dynamic sized type is not Copy</span></span><br><span class="line">    is_copy::&lt;<span class="built_in">str</span>&gt;();</span><br><span class="line">    is_copy::&lt;[<span class="built_in">u8</span>]&gt;();</span><br><span class="line">    is_copy::&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt;&gt;();</span><br><span class="line">    is_copy::&lt;<span class="built_in">String</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// mutable reference is not Copy</span></span><br><span class="line">    is_copy::&lt;&amp;<span class="keyword">mut</span> <span class="built_in">String</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// array / tuple with values that not Copy is not Copy</span></span><br><span class="line">    is_copy::&lt;[<span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt;; <span class="number">4</span>]&gt;();</span><br><span class="line">    is_copy::&lt;(<span class="built_in">String</span>, <span class="built_in">u32</span>)&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    types_impl_copy_trait();</span><br><span class="line">    types_not_impl_copy_trait();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Borrow-语义"><a href="#Borrow-语义" class="headerlink" title="Borrow 语义"></a>Borrow 语义</h2><p>Borrow 语义允许一个值的所有权，在不发生转移的情况下，被其它上下文使用。</p>
+<p>语法（&amp; 或者 &amp;mut）</p>
+<p>在 Rust 下，所有的引用都只是借用了“临时使用权”，它并不破坏值的单一所有权约束。因此默认情况下，<strong>Rust 的借用都是只读的</strong>。</p>
+<h3 id="只读借用-引用"><a href="#只读借用-引用" class="headerlink" title="只读借用 / 引用"></a>只读借用 / 引用</h3><p>本质上，引用是一个受控的指针，指向某个特定的类型。在学习其他语言的时候，你会注意到函数传参有两种方式：传值（pass-by-value）和传引用（pass-by-reference）。</p>
+<p>但 Rust 没有传引用的概念，<strong>Rust 所有的参数传递都是传值</strong>，不管是 Copy 还是 Move。所以在 Rust 中，你必须显式地把某个数据的引用，传给另一个函数。</p>
+<p>Rust 的引用实现了 Copy trait，所以按照 Copy 语义，这个引用会被复制一份交给要调用的函数。对这个函数来说，它并不拥有数据本身，数据只是临时借给它使用，所有权还在原来的拥有者那里。</p>
+<p>在 Rust 里，引用是一等公民，和其他数据类型地位相等。</p>
+<p><strong>只读引用实现了 Copy trait，也就意味着引用的赋值、传参都会产生新的浅拷贝。</strong></p>
+<h3 id="借用的生命周期及其约束"><a href="#借用的生命周期及其约束" class="headerlink" title="借用的生命周期及其约束"></a>借用的生命周期及其约束</h3><p>值的引用也要有约束，这个约束是：借用不能超过（outlive）值的生存期。</p>
+<ol>
+<li><p>生命周期更长的 main() 函数变量 r ，引用了生命周期更短的 local_ref() 函数里的局部变量，这违背了有关引用的约束</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> r = local_ref();</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;r: &#123;:p&#125;&quot;</span>, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">local_ref</span></span>&lt;<span class="symbol">&#x27;a</span>&gt;() -&gt; &amp;<span class="symbol">&#x27;a</span> <span class="built_in">i32</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">42</span>;</span><br><span class="line">    &amp;a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在堆内存中，使用栈内存的引用</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> data: <span class="built_in">Vec</span>&lt;&amp;<span class="built_in">u32</span>&gt; = <span class="built_in">Vec</span>::new();</span><br><span class="line">    <span class="keyword">let</span> v = <span class="number">42</span>;</span><br><span class="line">    data.push(&amp;v);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;data: &#123;:?&#125;&quot;</span>, data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>堆内存中使用了生命周期更短的局部变量</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> data: <span class="built_in">Vec</span>&lt;&amp;<span class="built_in">u32</span>&gt; = <span class="built_in">Vec</span>::new();</span><br><span class="line">    push_local_ref(&amp;<span class="keyword">mut</span> data);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;data: &#123;:?&#125;&quot;</span>, data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">push_local_ref</span></span>(data: &amp;<span class="keyword">mut</span> <span class="built_in">Vec</span>&lt;&amp;<span class="built_in">u32</span>&gt;) &#123;</span><br><span class="line">    <span class="keyword">let</span> v = <span class="number">42</span>;</span><br><span class="line">    data.push(&amp;v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>这三段代码看似错综复杂，但如果抓住了一个核心要素“<strong>在一个作用域下，同一时刻，一个值只能有一个所有者</strong>”，你会发现，其实很简单。</p>
+<p>堆变量的生命周期不具备任意长短的灵活性，因为堆上内存的生死存亡，跟栈上的所有者牢牢绑定。而栈上内存的生命周期，又跟栈的生命周期相关，所以我们核心<strong>只需要关心调用栈的生命周期</strong>。</p>
+<h3 id="可变借用-引用"><a href="#可变借用-引用" class="headerlink" title="可变借用 / 引用"></a>可变借用 / 引用</h3><h4 id="错误示范"><a href="#错误示范" class="headerlink" title="错误示范"></a>错误示范</h4><h5 id="1-多个可变引用"><a href="#1-多个可变引用" class="headerlink" title="1. 多个可变引用"></a>1. 多个可变引用</h5><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> data = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> data.iter_mut() &#123;</span><br><span class="line">        data.push(*item + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码在遍历可变数组 data 的过程中，还往 data 里添加新的数据，这是很危险的动作，因为它破坏了循环的不变性（loop invariant），容易导致死循环甚至系统崩溃。</p>
+<p>所以，在同一个作用域下有多个可变引用，是不安全的。</p>
+<h5 id="2-同时有一个可变引用和若干个只读引用"><a href="#2-同时有一个可变引用和若干个只读引用" class="headerlink" title="2. 同时有一个可变引用和若干个只读引用"></a>2. 同时有一个可变引用和若干个只读引用</h5><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> data = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">    <span class="keyword">let</span> data1 = <span class="built_in">vec!</span>[&amp;data[<span class="number">0</span>]];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;data[0]: &#123;:p&#125;&quot;</span>, &amp;data[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..<span class="number">100</span> &#123;</span><br><span class="line">        data.push(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;data[0]: &#123;:p&#125;&quot;</span>, &amp;data[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;boxed: &#123;:p&#125;&quot;</span>, &amp;data1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不可变数组 data1 引用了可变数组 data 中的一个元素，这是个只读引用。后续我们往 data 中添加了 100 个元素，在调用 data.push() 时，我们访问了 data 的可变引用。</p>
+<p>仔细推敲，就会发现这里有内存不安全的潜在操作：如果继续添加元素，堆上的数据预留的空间不够了，就会重新分配一片足够大的内存，把之前的值拷过来，然后释放旧的内存。这样就会让 data1 中保存的 &amp;data[0] 引用失效，导致内存安全问题。</p>
+<h4 id="Rust-的限制"><a href="#Rust-的限制" class="headerlink" title="Rust 的限制"></a>Rust 的限制</h4><p>多个可变引用共存、可变引用和只读引用共存这两种问题，通过 GC 等自动内存管理方案可以避免第二种，但是第一个问题 GC 也无济于事。</p>
+<p>所以为了保证内存安全，Rust 对可变引用的使用也做了严格的约束：</p>
+<ul>
+<li><strong>在一个作用域内，仅允许一个活跃的可变引用。</strong>所谓活跃，就是真正被使用来修改数据的可变引用，如果只是定义了，却没有使用或者当作只读引用使用，不算活跃。</li>
+<li>在一个作用域内，活跃的可变引用（写）和只读引用（读）是互斥的，不能同时存在。</li>
+</ul>
+<h2 id="共享所有权"><a href="#共享所有权" class="headerlink" title="共享所有权"></a>共享所有权</h2><p><strong>Rc（Reference counter） 和 Arc（Atomic reference counter）。</strong></p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/202202091527559.jpg" alt="共享所有权"></p>
+<h3 id="Rc"><a href="#Rc" class="headerlink" title="Rc"></a>Rc</h3><p>我们先看 Rc。对某个数据结构 T，我们可以创建引用计数 Rc，使其有多个所有者。Rc 会把对应的数据结构创建在堆上，我们在第二讲谈到过，堆是唯一可以让动态创建的数据被到处使用的内存。</p>
+<p><strong>对一个 Rc 结构进行 clone()，不会将其内部的数据复制，只会增加引用计数。</strong>而当一个 Rc 结构离开作用域被 drop() 时，也只会减少其引用计数，直到引用计数为零，才会真正清除对应的内存。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::rc::Rc;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> a = Rc::new(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> b = a.clone();</span><br><span class="line">    <span class="keyword">let</span> c = a.clone();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/202202091509439.jpg" alt="Rc"></p>
+<p>上面的代码我们创建了三个 Rc，分别是 a、b 和 c。它们共同指向堆上相同的数据，也就是说，堆上的数据有了三个共享的所有者。在这段代码结束时，c 先 drop，引用计数变成 2，然后 b drop、a drop，引用计数归零，堆上内存被释放。</p>
+<p>为什么我们生成了对同一块内存的多个所有者，但是，编译器不抱怨所有权冲突呢？</p>
+<p>仔细看这段代码：首先 a 是 Rc::new(1) 的所有者，这毋庸置疑；然后 b 和 c 都调用了 a.clone()，分别得到了一个新的 Rc，所以从编译器的角度，abc 都各自拥有一个 Rc。如果文字你觉得稍微有点绕，看看 Rc 的 clone() 函数的实现，就很清楚了,<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/src/alloc/rc.rs.html#1433-1453">clone 源代码</a></p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">clone</span></span>(&amp;<span class="keyword">self</span>) -&gt; Rc&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">// 增加引用计数</span></span><br><span class="line">    <span class="keyword">self</span>.inner().inc_strong();</span><br><span class="line">    <span class="comment">// 通过 self.ptr 生成一个新的 Rc 结构</span></span><br><span class="line">    Self::from_inner(<span class="keyword">self</span>.ptr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Rc 的 clone() 正如我们刚才说的，不复制实际的数据，只是一个引用计数的增加。</p>
+<p>Rc 是怎么产生在堆上的？并且为什么这段堆内存不受栈内存生命周期的控制呢？</p>
+<h4 id="Box-leak-机制"><a href="#Box-leak-机制" class="headerlink" title="Box::leak() 机制"></a>Box::leak() 机制</h4><p>在所有权模型下，堆内存的生命周期，和创建它的栈内存的生命周期保持一致。所以 Rc 的实现似乎与此格格不入。的确，如果完全按照上一讲的单一所有权模型，Rust 是无法处理 Rc 这样的引用计数的。Rust 必须提供一种机制，让代码可以像 C/C++ 那样，<strong>创建不受栈内存控制的堆内存，从而绕过编译时的所有权规则。</strong>Rust 提供的方式是 Box::leak()。</p>
+<p>Box 是 Rust 下的智能指针，它可以强制把任何数据结构创建在堆上，然后在栈上放一个指针指向这个数据结构，但此时堆内存的生命周期仍然是受控的，跟栈上的指针一致。我们后续讲到智能指针时会详细介绍 Box。</p>
+<p>Box::leak()，顾名思义，它创建的对象，从堆内存上泄漏出去，不受栈内存控制，是一个自由的、生命周期可以大到和整个进程的生命周期一致的对象。有了 Box::leak()，我们就可以跳出 Rust 编译器的静态检查。</p>
+<p>搞明白了 Rc，我们就进一步理解 Rust 是如何进行所有权的静态检查和动态检查了：</p>
+<ul>
+<li>静态检查，靠编译器保证代码符合所有权规则；</li>
+<li>动态检查，通过 Box::leak 让堆内存拥有不受限的生命周期，然后在运行过程中，通过对引用计数的检查，保证这样的堆内存最终会得到释放。</li>
+</ul>
+<h3 id="RefCell"><a href="#RefCell" class="headerlink" title="RefCell"></a>RefCell</h3><p>Rc 是一个只读的引用计数器，你无法拿到 Rc 结构内部数据的可变引用，来修改这个数据。这可怎么办？这里，我们需要使用 RefCell。</p>
+<p>和 Rc 类似，RefCell 也绕过了 Rust 编译器的静态检查，允许我们在运行时，对某个只读数据进行可变借用。这就涉及 Rust 另一个比较独特且有点难懂的概念：内部可变性（interior mutability）。</p>
+<h4 id="内部可变性"><a href="#内部可变性" class="headerlink" title="内部可变性"></a>内部可变性</h4><p>有内部可变性，自然能联想到外部可变性，所以我们先看这个更简单的定义，对比着学。</p>
+<p>当我们用 let mut 显式地声明一个可变的值，或者，用 &amp;mut 声明一个可变引用时，编译器可以在编译时进行严格地检查，保证只有可变的值或者可变的引用，才能修改值内部的数据，这被称作<strong>外部可变性（exterior mutability），外部可变性通过 mut 关键字声明</strong>。</p>
+<p>然而，这样不够灵活，有时候我们希望能够绕开这个编译时的检查，对并未声明成 mut 的值或者引用，也想进行修改。也就是说，<strong>在编译器的眼里，值是只读的，但是在运行时，这个值可以得到可变借用，从而修改内部的数据</strong>，这就是 RefCell 的用武之地。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::cell::RefCell;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> data = RefCell::new(<span class="number">1</span>);</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 获得 RefCell 内部数据的可变借用</span></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> v = data.borrow_mut();</span><br><span class="line">        *v += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;data: &#123;:?&#125;&quot;</span>, data.borrow());</span><br><span class="line">    <span class="comment">// data: 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子里，data 是一个 RefCell，其初始值为 1。可以看到，我们并未将 data 声明为可变变量。之后我们可以通过使用 RefCell 的 <code>borrow_mut()</code> 方法，来获得一个<strong>可变的内部引用</strong>，然后对它做加 1 的操作。最后，我们可以通过 RefCell 的 <code>borrow()</code> 方法，获得一个<strong>不可变的内部引用</strong>，因为加了 1，此时它的值为 2。</p>
+<p>你也许奇怪，这里为什么要把获取和操作可变借用的两句代码，用花括号分装到一个作用域下？因为根据所有权规则，<strong>在同一个作用域下，我们不能同时有活跃的可变借用和不可变借用。</strong>通过这对花括号，我们明确地缩小了可变借用的生命周期，不至于和后续的不可变借用冲突。</p>
+<h3 id="Arc-和-Mutex-RwLock"><a href="#Arc-和-Mutex-RwLock" class="headerlink" title="Arc 和 Mutex/RwLock"></a>Arc 和 Mutex/RwLock</h3><p>开头提到的多个线程访问同一块内存的问题，是否也可以使用 Rc 来处理呢？不行。因为 Rc 为了性能，使用的不是线程安全的引用计数器。因此，我们需要另一个引用计数的智能指针：Arc，它实现了线程安全的引用计数器。</p>
+<p>Arc 内部的引用计数使用了 Atomic Usize ，而非普通的 usize。从名称上也可以感觉出来，Atomic Usize 是 usize 的原子类型，它使用了 CPU 的特殊指令，来保证多线程下的安全。</p>
+<p>Rust 实现两套不同的引用计数数据结构，完全是为了性能考虑，从这里我们也可以感受到 Rust 对性能的极致渴求。<strong>如果不用跨线程访问，可以用效率非常高的 Rc；如果要跨线程访问，那么必须用 Arc。</strong></p>
+<p>同样的，RefCell 也不是线程安全的，如果我们要在多线程中，使用内部可变性，Rust 提供了 Mutex 和 RwLock。</p>
+<ul>
+<li>Mutex 是互斥量，获得互斥量的线程对数据独占访问</li>
+<li>RwLock 是读写锁，获得写锁的线程对数据独占访问，但当没有写锁的时候，允许有多个读锁。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/">https://hqwuzhaoyi.github.io/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">rust 生命周期</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">rust 初学</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%9C%A8%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%97%B6%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-number">2.</span> <span class="toc-text">变量在函数调用时发生了什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rust-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">Rust 的解决思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Move-%E8%AF%AD%E4%B9%89"><span class="toc-number">4.</span> <span class="toc-text">Move 语义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Copy-%E8%AF%AD%E4%B9%89%E5%92%8C-Copy-trait"><span class="toc-number">5.</span> <span class="toc-text">Copy 语义和 Copy trait</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%86-Copy-trait-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">5.0.1.</span> <span class="toc-text">实现了 Copy trait 的数据结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Borrow-%E8%AF%AD%E4%B9%89"><span class="toc-number">6.</span> <span class="toc-text">Borrow 语义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E8%AF%BB%E5%80%9F%E7%94%A8-%E5%BC%95%E7%94%A8"><span class="toc-number">6.1.</span> <span class="toc-text">只读借用 &#x2F; 引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%9F%E7%94%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%8F%8A%E5%85%B6%E7%BA%A6%E6%9D%9F"><span class="toc-number">6.2.</span> <span class="toc-text">借用的生命周期及其约束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%80%9F%E7%94%A8-%E5%BC%95%E7%94%A8"><span class="toc-number">6.3.</span> <span class="toc-text">可变借用 &#x2F; 引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83"><span class="toc-number">6.3.1.</span> <span class="toc-text">错误示范</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%A4%9A%E4%B8%AA%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8"><span class="toc-number">6.3.1.1.</span> <span class="toc-text">1. 多个可变引用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%90%8C%E6%97%B6%E6%9C%89%E4%B8%80%E4%B8%AA%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8%E5%92%8C%E8%8B%A5%E5%B9%B2%E4%B8%AA%E5%8F%AA%E8%AF%BB%E5%BC%95%E7%94%A8"><span class="toc-number">6.3.1.2.</span> <span class="toc-text">2. 同时有一个可变引用和若干个只读引用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Rust-%E7%9A%84%E9%99%90%E5%88%B6"><span class="toc-number">6.3.2.</span> <span class="toc-text">Rust 的限制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E6%89%80%E6%9C%89%E6%9D%83"><span class="toc-number">7.</span> <span class="toc-text">共享所有权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rc"><span class="toc-number">7.1.</span> <span class="toc-text">Rc</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Box-leak-%E6%9C%BA%E5%88%B6"><span class="toc-number">7.1.1.</span> <span class="toc-text">Box::leak() 机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RefCell"><span class="toc-number">7.2.</span> <span class="toc-text">RefCell</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="toc-number">7.2.1.</span> <span class="toc-text">内部可变性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arc-%E5%92%8C-Mutex-RwLock"><span class="toc-number">7.3.</span> <span class="toc-text">Arc 和 Mutex&#x2F;RwLock</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/'
+    this.page.identifier = '2022/02/08/rust/2.所有权/'
+    this.page.title = 'rust 所有权'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>react笔记 | Prajna's blog</title><meta name="keywords" content="react"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="react是声明式开发,以往是命名式开发 可以与其它框架并存，因为只会挂载到root节点中 组件化 单向数据流 函数式编程   组件 React.component是基类,继承了该基类的类就是一个组件通过ReactDOM.render(&lt;App &#x2F;&gt;,document.getElementById(&#39;root&#39;));其中,就是JSX语法。123class App e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react笔记">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2019/07/12/react/49.react%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="react是声明式开发,以往是命名式开发 可以与其它框架并存，因为只会挂载到root节点中 组件化 单向数据流 函数式编程   组件 React.component是基类,继承了该基类的类就是一个组件通过ReactDOM.render(&lt;App &#x2F;&gt;,document.getElementById(&#39;root&#39;));其中,就是JSX语法。123class App e">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-1.png">
+<meta property="article:published_time" content="2019-07-12T10:44:25.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-1.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2019/07/12/react/49.react%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">react笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-07-12T10:44:25.000Z" title="发表于 2019-07-12 10:44:25">2019-07-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react/">react</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="react笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<ol>
+<li>react是声明式开发,以往是命名式开发</li>
+<li>可以与其它框架并存，因为只会挂载到root节点中</li>
+<li>组件化</li>
+<li>单向数据流</li>
+<li>函数式编程</li>
+</ol>
+</blockquote>
+<h1 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h1><ol>
+<li><code>React.component</code>是基类,继承了该基类的类就是一个组件<br>通过<code>ReactDOM.render(&lt;App /&gt;,document.getElementById(&#39;root&#39;));</code>其中<App />,就是JSX语法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class App extends React.Component&#123;</span><br><span class="line">render();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li> <code>render()&#123;&#125;</code>函数 定义组件的内容。</li>
+<li> 组件的定义，组件是页面的一部分。ReactDOM只能渲染单标签，所以如果是多个标签，可以使用 <code>ReactDOM.render(&lt;div&gt;&lt;App /&gt;&lt;Test /&gt;&lt;/div&gt;,document.getElementById(&quot;root&quot;));</code> 一个div标签包裹。</li>
+</ol>
+<h1 id="JSX语法"><a href="#JSX语法" class="headerlink" title="JSX语法"></a>JSX语法</h1><p>有两种类型的标签。<br>一种是普通的html标签，首字母小写；二种是组件标签，首字母大写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123;Fragment&#125; from &#39;react&#39;</span><br><span class="line">&lt;Fragment&gt;...&lt;Fragment&gt;</span><br><span class="line">&#x2F;&#x2F;解决了在根目录渲染必须要使用div包裹</span><br></pre></td></tr></table></figure>
+<h1 id="数据驱动的设计思想和事件绑定"><a href="#数据驱动的设计思想和事件绑定" class="headerlink" title="数据驱动的设计思想和事件绑定"></a>数据驱动的设计思想和事件绑定</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class TodoList extends Component &#123;</span><br><span class="line">    constructor(props) &#123;&#x2F;&#x2F;固定写法，获取基类属性</span><br><span class="line">        super(props);&#x2F;&#x2F;固定写法，获取基类属性</span><br><span class="line">        this.state &#x3D; &#123;&#x2F;&#x2F;固定写法，数据存储</span><br><span class="line">            inputValue: &#39;hello world&#39;,</span><br><span class="line">            list: []</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    handleInputChange(e) &#123;</span><br><span class="line">        this.setState(&#123;&#x2F;&#x2F;修改state中的值的固定写法</span><br><span class="line">            inputValue: e.target.value</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">           &lt;Fragment&gt;</span><br><span class="line">                &lt;input type&#x3D;&quot;text&quot; </span><br><span class="line">                value&#x3D;&#123;this.state.inputValue&#125;</span><br><span class="line">                onChange&#x3D;&#123;this.handleInputChange.bind(this)&#125;&#x2F;&#x2F;事件响应on+Change(大写开头),bind改变this指向</span><br><span class="line">                &#x2F;&gt;</span><br><span class="line">            &lt;ul&gt;</span><br><span class="line">                &lt;li&gt;learn React&lt;&#x2F;li&gt;</span><br><span class="line">                &lt;li&gt;learn Component&lt;&#x2F;li&gt;</span><br><span class="line">            &lt;&#x2F;ul&gt;</span><br><span class="line">           &lt;&#x2F;Fragment&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="数组循环"><a href="#数组循环" class="headerlink" title="数组循环"></a>数组循环</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.state.list.map((value,index) &#x3D;&gt; &#123;&#x2F;&#x2F;遍历list</span><br><span class="line">    return &lt;li key&#x3D;&#123;index&#125;&gt;&#123;value&#125;&lt;&#x2F;li&gt;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Jsx注释"><a href="#Jsx注释" class="headerlink" title="Jsx注释"></a>Jsx注释</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x2F;* jsx注释 写法 *&#x2F;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JSX属性命名"><a href="#JSX属性命名" class="headerlink" title="JSX属性命名"></a>JSX属性命名</h1><ol>
+<li><code>class =&gt; className</code></li>
+<li><code>for(label) =&gt; htmlFor</code></li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dangerouslySetInnerHTML&#x3D;&#123;&#123; __html: value &#125;&#125; 对value的html内容不进行转义直接输出如&lt;div&gt;123&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="父子组件传值"><a href="#父子组件传值" class="headerlink" title="父子组件传值"></a>父子组件传值</h1><p>父组件通过属性的形式向子组件传值<br>子组件想要和父组件通信，他要调用父组件传递过来的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;父</span><br><span class="line">import TodoItem from &#39;.&#x2F;TodoItem&#39;</span><br><span class="line"> getListItems() &#123;</span><br><span class="line">        return this.state.list.map((value, index) &#x3D;&gt; &#123;</span><br><span class="line">            return (</span><br><span class="line">               &lt;TodoItem </span><br><span class="line">               content&#x3D;&#123;value&#125; </span><br><span class="line">               key&#x3D;&#123;index&#125;</span><br><span class="line">               deleteFunction&#x3D;&#123;this.handleItemClick&#125;</span><br><span class="line">               &gt;&lt;&#x2F;TodoItem&gt;</span><br><span class="line">            )</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#x2F;&#x2F;子</span><br><span class="line">  render() &#123;</span><br><span class="line">       const &#123; content &#125; &#x3D; this.props.content;&#x2F;&#x2F;简略写法，或者写在constructor里面</span><br><span class="line">        return (</span><br><span class="line">           &lt;li   onClick&#x3D;&#123;this.handleItemClick&#125;&gt;</span><br><span class="line">              &#123;this.content&#125;</span><br><span class="line">            </span><br><span class="line">           &lt;&#x2F;li&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Props-State-与-render-函数"><a href="#Props-State-与-render-函数" class="headerlink" title="Props, State 与 render 函数"></a>Props, State 与 render 函数</h1><p>props 属性<br>state 指组件中的数据<br>render 函数：用来渲染组件中的内容。<br>三者关系：<br>render 函数什么时候执行？</p>
+<ol>
+<li>组件第一次渲染的时候，会被默认执行一次。</li>
+<li>当state数据发生变更的时候，render函数就会被重新执行一次。</li>
+<li>当props数据发生变化的时候，render函数就会被重新执行一次。</li>
+</ol>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p>react中ref的使用：react中操作dom。获取原声标签对应的dom节点。<br><code>&lt;button ref=&#123;(button)=&gt;&#123;this.buttonElem = button&#125;&#125;&gt;&lt;/button&gt;</code><br>在点击函数中添加 <code>console.log(this.buttonElem.clientTop);</code><br>注意：ref写在html标签上获取的是dom节点。写在组件标签上，获取的是组件的js实例。<br>setState是异步的。<br>同步写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">this.setState(</span><br><span class="line">    ()&#x3D;&gt;&#123;</span><br><span class="line">        return &#123;counter:newCounter&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    ()&#x3D;&gt;&#123;console.log(this.divElem.innerHTML)</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><p><img src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/react%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" alt="life cycle"></p>
+<p><code>shouldComponentUpdate</code>函数存在的意义在于：当<code>state</code>中的数据发生变化，但并不需要页面重新渲染，即并不需要重新触发<code>render</code>函数，可以在<code>shouldComponentUpdate</code>中设置<code>return false</code>,之后的<code>render</code>，<code>componentWillUpdate</code>,<code>componentDidUpdate</code>函数，就都不会执行了。<br>这样数据发生变化，就不需要重新渲染，可以提高组件的性能。</p>
+<p><code>componentDidMount</code>中添加事件绑定<br><code>componentWillUnmount</code>中移除事件绑定</p>
+<h1 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h1><p><code>npm install axios --save</code><br>如果只在开发环境下运行，那么执行 –save -dev</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"> componentDidMount() &#123;</span><br><span class="line">        window.addEventListener(&quot;click&quot;, this.handleClickWindow);</span><br><span class="line">        const promise &#x3D; axios.get(&#39;http:&#x2F;&#x2F;www&#x2F;dell-lee.com&#x2F;react&#x2F;api&#x2F;demo.json&#39;);</span><br><span class="line">        promise.then((res)&#x3D;&gt;&#123;console.log(res.data)&#125;);&#x2F;&#x2F;data - success -true</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ant-Design"><a href="#Ant-Design" class="headerlink" title="Ant Design"></a>Ant Design</h1><p><code>npm install antd --save</code> <br><br><code>index.js</code>添加<code>import &#39;antd/dist/antd.css&#39;</code></p>
+<h1 id="react-router"><a href="#react-router" class="headerlink" title="react-router"></a>react-router</h1><p><code>npm install react-router-dom</code><br><br><code>import &#123; BrowserRouter as Router, Route, Link &#125; from &quot;react-router-dom&quot;;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserRouter as Router, Route &#125; from &quot;react-router-dom&quot;;</span><br><span class="line">import Father from &#39;.&#x2F;Father&#39;;</span><br><span class="line">import Antd from &#39;.&#x2F;Antd&#39;;</span><br><span class="line">class Entry extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;Router&gt;</span><br><span class="line">                    &lt;div&gt;</span><br><span class="line">                        &lt;Route path&#x3D;&quot;&#x2F;father&quot; component&#x3D;&#123;Father&#125;&gt;&lt;&#x2F;Route&gt;</span><br><span class="line">                         &lt;Route path&#x3D;&quot;&#x2F;antd&quot; component&#x3D;&#123;Antd&#125;&gt;&lt;&#x2F;Route&gt;</span><br><span class="line">                    &lt;&#x2F;div&gt;</span><br><span class="line">            &lt;&#x2F;Router&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ReactDom.render(&lt;Entry&gt;&lt;&#x2F;Entry&gt;,document.getElementById(&#39;root&#39;));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;antd</span><br><span class="line">import &#123;Button&#125; from &#39;antd&#39;;</span><br><span class="line">import &#123;Link&#125; from &#39;react-router-dom&#39;</span><br><span class="line">export class Antd extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;Link to&#x3D;&#39;.&#x2F;father&#39;&gt;&#x2F;&#x2F;跳转到father</span><br><span class="line">                &lt;Button type&#x3D;&quot;default&quot;&gt;123&lt;&#x2F;Button&gt;</span><br><span class="line">            &lt;&#x2F;Link&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Antd</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="带参数"><a href="#带参数" class="headerlink" title="带参数"></a>带参数</h2><p>在<code>Button</code>上，使用<code>link</code>，访问<code>&#39;/list/123&#39;</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to&#x3D;&#39;&#x2F;list&#x2F;123&#39;&gt;</span><br><span class="line">&lt;Button type&#x3D;&#39;primary&#39;&gt;按钮&lt;&#x2F;Button&gt;</span><br><span class="line">&lt;&#x2F;Link&gt;</span><br></pre></td></tr></table></figure>
+<p>在<code>index.js</code>上，<br><code>&lt;Router path=&#39;/list/:id&#39; component=&#123;NewList&#125;&gt;</code><br><code>list.js</code>上，就可以使用<br><code>this.props.match.params.id</code>获取到这个值。</p>
+<h2 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a>withRouter</h2><p>作用：把不是通过路由切换过来的组件中，将<code>react-router</code> 的 <code>history、location、match</code> 三个对象传入<code>props</code>对象上<br></p>
+<pre><code> 默认情况下必须是经过路由匹配渲染的组件才存在`this.props`，才拥有路由参数，才能使用编程式导航的写法，执行`this.props.history.push(&#39;/detail&#39;)`跳转到对应路由的页面,然而不是所有组件都直接与路由相连（通过路由跳转到此组件）的，当这些组件需要路由参数时，使用`withRouter`就可以给此组件传入路由参数，此时就可以使用`this.props`
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2019/07/12/react/49.react%E7%AC%94%E8%AE%B0/">https://hqwuzhaoyi.github.io/2019/07/12/react/49.react%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/react/">react</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/07/19/vue/47.%E6%9E%81%E5%AE%A2vue%E7%AC%94%E8%AE%B0/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">vue笔记</div></div></a></div><div class="next-post pull-right"><a href="/2019/07/03/vue/46.vue%20mall(%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0)/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">vue mall 开发笔记</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSX%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">JSX语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%E5%92%8C%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A"><span class="toc-number">3.</span> <span class="toc-text">数据驱动的设计思想和事件绑定</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%BE%AA%E7%8E%AF"><span class="toc-number">4.</span> <span class="toc-text">数组循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Jsx%E6%B3%A8%E9%87%8A"><span class="toc-number">5.</span> <span class="toc-text">Jsx注释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSX%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D"><span class="toc-number">6.</span> <span class="toc-text">JSX属性命名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC"><span class="toc-number">7.</span> <span class="toc-text">父子组件传值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Props-State-%E4%B8%8E-render-%E5%87%BD%E6%95%B0"><span class="toc-number">8.</span> <span class="toc-text">Props, State 与 render 函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ref"><span class="toc-number">9.</span> <span class="toc-text">ref</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">10.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#axios"><span class="toc-number">11.</span> <span class="toc-text">axios</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ant-Design"><span class="toc-number">12.</span> <span class="toc-text">Ant Design</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-router"><span class="toc-number">13.</span> <span class="toc-text">react-router</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0"><span class="toc-number">13.1.</span> <span class="toc-text">带参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#withRouter"><span class="toc-number">13.2.</span> <span class="toc-text">withRouter</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2019/07/12/react/49.react%E7%AC%94%E8%AE%B0/'
+    this.page.identifier = '2019/07/12/react/49.react笔记/'
+    this.page.title = 'react笔记'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

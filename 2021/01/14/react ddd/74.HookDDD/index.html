@@ -1,0 +1,751 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>React DDD | Prajna's blog</title><meta name="keywords" content="React,DDD"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载自前端备忘录-江湖术士  领域驱动，各自只管各自的模块，顶层再来进行组装和分配 坚持根据特性区命名目录。  坚持为每个特性区创建一个 NgModule。 能提供限界上下文，将某些功能牢牢地锁在一个地方，开发某个功能时，只需要关心这个模块就够了。   视图的归试图，逻辑的归逻辑1234function SomeComponent() &amp;#123;  const someService &#x3D; use">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React DDD">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/74.HookDDD/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="转载自前端备忘录-江湖术士  领域驱动，各自只管各自的模块，顶层再来进行组装和分配 坚持根据特性区命名目录。  坚持为每个特性区创建一个 NgModule。 能提供限界上下文，将某些功能牢牢地锁在一个地方，开发某个功能时，只需要关心这个模块就够了。   视图的归试图，逻辑的归逻辑1234function SomeComponent() &amp;#123;  const someService &#x3D; use">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png">
+<meta property="article:published_time" content="2021-01-14T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="DDD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/74.HookDDD/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">React DDD</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-14T00:00:00.000Z" title="发表于 2021-01-14 00:00:00">2021-01-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react-ddd/">react ddd</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">13.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>45分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="React DDD"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>转载自<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/plightfield">前端备忘录-江湖术士</a></p>
+<hr>
+<h1 id="领域驱动，各自只管各自的模块，顶层再来进行组装和分配"><a href="#领域驱动，各自只管各自的模块，顶层再来进行组装和分配" class="headerlink" title="领域驱动，各自只管各自的模块，顶层再来进行组装和分配"></a>领域驱动，各自只管各自的模块，顶层再来进行组装和分配</h1><ul>
+<li><p>坚持根据特性区命名目录。</p>
+</li>
+<li><p>坚持为每个特性区创建一个 NgModule。</p>
+<p>能提供限界上下文，将某些功能牢牢地锁在一个地方，开发某个功能时，只需要关心这个模块就够了。</p>
+</li>
+</ul>
+<h2 id="视图的归试图，逻辑的归逻辑"><a href="#视图的归试图，逻辑的归逻辑" class="headerlink" title="视图的归试图，逻辑的归逻辑"></a>视图的归试图，逻辑的归逻辑</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomeComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> someService = useService();</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;someService.state&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="跨组件数据传递？"><a href="#跨组件数据传递？" class="headerlink" title="跨组件数据传递？"></a>跨组件数据传递？</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useGlobalService</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">state</span>: <span class="string">&quot;&quot;</span> &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> GlobalService = createContext(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomeComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;GlobalService.Provider value=&#123;useGlobalService()&#125;&gt;&lt;/GlobalService.Provider&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useSomeService</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> globalService = useContext(GlobalService);</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;globalService.state&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上下文注入节点，本身就是按照试图来的</p>
+<h2 id="函数-DDD"><a href="#函数-DDD" class="headerlink" title="函数 DDD"></a>函数 DDD</h2><p>只用函数实现 DDD，它有多优美</p>
+<p>我们先比较一下这两种写法，对于一个类:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span> </span>&#123;</span><br><span class="line">  name:string,</span><br><span class="line">  password:string,</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name,password</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">    <span class="built_in">this</span>.password = password</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initValue = &#123; <span class="attr">name</span>: <span class="string">&quot;&quot;</span>, <span class="attr">password</span>: <span class="string">&quot;&quot;</span> &#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useClass</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, setState] = useState(initValue);</span><br><span class="line">  <span class="keyword">return</span> &#123; state, setState &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面的自带响应式，getter，setter 也自动给出了，同时使用了工厂模式，不需要了解函数内部的逻辑。</p>
+<h2 id="生命周期复用"><a href="#生命周期复用" class="headerlink" title="生命周期复用"></a>生命周期复用</h2><p>每个 useFunc 都是 拆掉 的管道函数，框架帮你组装，简直就是一步到位！</p>
+<h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useSomeService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [form] = useForm()</span><br><span class="line">  <span class="keyword">const</span> request = useRequest()</span><br><span class="line">  <span class="keyword">const</span> model = useModel()</span><br><span class="line">  useEffect(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    form.onFieldsChange = <span class="function">()=&gt;</span>&#123;</span><br><span class="line">       request.run(form.getFieldsValue)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,[form])</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    model,</span><br><span class="line">    form</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form form=&#123;someService.form&#125;&gt;</span><br><span class="line">   &lt;Form.Item name=<span class="string">&quot;xxx&quot;</span> label=<span class="string">&quot;xxx&quot;</span>&gt;</span><br><span class="line">      &lt;!-- 没你service啥事了！别看！这里是纯视图 --&gt;</span><br><span class="line">  &lt;/Form.Item&gt;</span><br><span class="line">&lt;/Form&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这个表单服务你想要在哪控制？</p>
+<p>想要多个组件同时控制？</p>
+<p>加个 token，也就是 createContext，把依赖提上去！</p>
+<p>他特么自然了！</p>
+<hr>
+<h1 id="React-Hooks-版本架构"><a href="#React-Hooks-版本架构" class="headerlink" title="React Hooks 版本架构"></a>React Hooks 版本架构</h1><h2 id="执行-LIFT-原则"><a href="#执行-LIFT-原则" class="headerlink" title="执行 LIFT 原则"></a>执行 LIFT 原则</h2><ul>
+<li><p>顶层文件夹最多包含：assets，pages，layouts，app 四个（其中 pages，layouts 是为了照顾某些 ssr 开发栈），名字可以变更，但是不可以有多余文件夹，激进的话可以只有一个 app 文件夹</p>
+</li>
+<li><p>按功能划分文件夹，每个功能只能包含以下四种文件：Xxx.less, Xxx.tsx, useXxx.ts，useXxx.spec.ts ,采用嵌套结构组织</p>
+</li>
+<li><p>一个文件夹包含该领域内所有逻辑（视图，样式，测试，状态，接口），禁止将逻辑放置于文件夹以外</p>
+</li>
+<li><p>如果需要由其他功能调用，利用 SOA 反转</p>
+<p>为何如此？</p>
+</li>
+<li><p>功能结构即文件结构，开发人员可以快速定位代码，扫一眼就能知道每个文件代表什么，目录尽可能保持扁平，既没有重复也没有多余的名字</p>
+</li>
+<li><p>当有很多文件时（例如 10 个以上），在专用目录型结构中定位它们会比在扁平结构中更容易</p>
+</li>
+<li><p>惰性加载可路由的功能变得更容易</p>
+</li>
+<li><p>隔离、测试和复用特性更容易</p>
+</li>
+<li><p>管理上，相关领域文件夹可以分配给专人，开发效率高，可追责和计量工作量，很明显应该禁止多人同时操作同一层级文件</p>
+</li>
+<li><p>只需要对 useXxx 进行测试，测试复杂度，工作量都很小，视图测试交给 e2e</p>
+</li>
+</ul>
+<h2 id="利用-SOA-实现跨组件逻辑复用"><a href="#利用-SOA-实现跨组件逻辑复用" class="headerlink" title="利用 SOA 实现跨组件逻辑复用"></a>利用 SOA 实现跨组件逻辑复用</h2><p>利用 <code>注入令牌</code> + <code>服务函数</code> + <code>注入点</code>，实现灵活的 SOA</p>
+<p>命名格式为</p>
+<p><code>XxxService = useToken(useXxxService)</code></p>
+<p><code>XxxService</code> 为注入令牌 和文件名</p>
+<p><code>useXxxService</code> 为服务函数</p>
+<p><code>&lt;XxxService.Provider value=&#123;useXxxService()&#125; /&gt;</code></p>
+<p><code>XxxService.Provider</code> 为注入点</p>
+<p>注入令牌与服务函数紧挨</p>
+<p>与注入节点处于同一文件结构层级</p>
+<p>禁止除 SOA 以外的所有数据源</p>
+<hr>
+<p>为何如此？</p>
+<ul>
+<li>符合单一数据，单以职责，接口隔离原则</li>
+<li>通过泛型约束，可以有更加自然的 Typescript 体验，不需要手动声明注入数据类型，所有类型将自动获得</li>
+<li>层次化注入，可以实现 DDD，将逻辑全部约束与一处，方便团队协作</li>
+<li>当你在根注入器上提供该服务时，该服务实例在每个需要该服务的组件和服务中都是共享的。当服务要共享方法或状态时，这是数学意义上的最理想的选择。</li>
+<li>配合组件和功能划分，可以方便处理嵌套结构，防止对象复制被滥用，类似深复制之类的操作应该禁止</li>
+</ul>
+<p>实现一个 IOC 注入令牌的方法为</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 泛型约束获取注入令牌</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@export</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@template <span class="variable">T</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;(...args: any[]) =&gt; T&#125;</span> <span class="variable">func</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;(T | undefined)&#125;</span> </span>[initialValue=undefined]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">useToken</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  func: (...args: any[]) =&gt; T,</span></span></span><br><span class="line"><span class="function"><span class="params">  initialValue: T | <span class="literal">undefined</span> = <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> createContext(initialValue <span class="keyword">as</span> T);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个典型可注册服务为：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> useToken <span class="keyword">from</span> <span class="string">&#x27;./useToken&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> AppService = useToken(useAppService);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">useAppService</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 可注入其他服务，以嵌套</span></span><br><span class="line">  <span class="comment">// eq:</span></span><br><span class="line">  <span class="comment">// const someOtherService = useSomeOtherService(SomeOtherService)</span></span><br><span class="line">  <span class="keyword">const</span> [appName, setAppName] = useState(<span class="string">&#x27;appName&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    appName,</span><br><span class="line">    setAppName,</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="最小权限-🐾"><a href="#最小权限-🐾" class="headerlink" title="最小权限 🐾"></a>最小权限 🐾</h2><p>人为保证代码结构种，各个组成之间的最小权限，是一个好习惯</p>
+<ul>
+<li>所有大写字母开头的 tsx 文件都是组件</li>
+<li>所有 use 开头的文件，都是服务，其中，useXxxService 是可注入服务，默认将所有组件配套的服务设置为可注入服务，可以方便进行依赖管理</li>
+<li>禁止在组件函数种出现任何非服务注入代码，禁止在组件中写入与视图不想关的</li>
+<li>为复杂结构数据定义 class</li>
+<li>如果可以的话，将单例服务由全局 service 组织，嵌套结构，共享实例，页面初始化 除外</li>
+<li>❌ 禁止深复制</li>
+</ul>
+<p>为何如此？</p>
+<ul>
+<li>当逻辑被放置到服务里，并以函数的形式暴露时，可以被多个组件重复使用</li>
+<li>在单元测试时，服务里的逻辑更容易被隔离。当组件中调用逻辑时，也很容易被模拟</li>
+<li>从组件移除依赖并隐藏实现细节</li>
+<li>保持组件苗条、精简和聚焦</li>
+<li>利用 class 可以减少初始化复杂度，以及因此产生的类型问题</li>
+<li>局管理单例服务，可以一步消灭循环依赖问题（道理同 Redux 替代 Flux）</li>
+<li>深复制有非常严重的性能问题，且容易产生意外变更，尤其是 useEffect 语境下</li>
+</ul>
+<h2 id="JUST-USE-REACT-HOOKS"><a href="#JUST-USE-REACT-HOOKS" class="headerlink" title="JUST USE REACT HOOKS"></a>JUST USE REACT HOOKS</h2><p>抛弃 class 这样的，this 挂载变更的历史方案，不可复用组件会污染整个项目，导致逻辑无法集中于一处，甚至出现耦合， LIFT，SOA，DDD 等架构无从谈起</p>
+<h3 id="项目只存在"><a href="#项目只存在" class="headerlink" title="项目只存在"></a>项目只存在</h3><ul>
+<li>大写并与文件同名的组件，且其中除了注入服务操作外，return 之前，无任何代码</li>
+<li>use 开头并与文件夹同名的服务</li>
+<li>use 开头，Service 结尾，并与文件夹同名的可注入服务</li>
+<li>服务中只存在 基础 hooks，自定义 hooks，第三方 hooks，静态数据，工具函数，工具类</li>
+</ul>
+<h3 id="以下为细化阐述为何如此设计的出发点"><a href="#以下为细化阐述为何如此设计的出发点" class="headerlink" title="以下为细化阐述为何如此设计的出发点"></a>以下为细化阐述为何如此设计的出发点</h3><ul>
+<li>快速定位 <code>Locate</code></li>
+<li>一眼识别 <code>Identify</code></li>
+<li>尽量保持扁平结构 (Flattest)</li>
+<li>尝试 <code>Try</code> 遵循 <code>DRY</code> (<code>Do Not Repeat Yourself</code>, 不重复自己)</li>
+</ul>
+<p>此为 LIFT 原则</p>
+<ul>
+<li>优先将组件视为元素，而并非功能逻辑单位（视图的归视图，业务的归业务）</li>
+<li>隔离原则（属于一个成员的工作，必定属于该成员负责的文件夹，也只能属于该成员负责的文件夹）</li>
+<li>最小依赖（禁止不必要的工具使用，比如当前需求下，引入 Redux/Flux/Dva/Mobx 等工具，并没有解决什么问题，却导致功能更加受限，影响隔离原则比如当两个组件需要服务的不同实例的情况，以上工具属于上个版本或某种特殊需求，比如前后端同构，不能影响这个版本当前需求的架构）</li>
+<li>优先响应式（普及管道风格的函数式方案，大胆使用 useEffect 等 api，不提倡松散的函数组合，只要是视图所用的数据，必须全部都为响应式数据，并响应变更）</li>
+<li>测试友好（边界清晰，风格简洁，隔离完整，即为测试友好）</li>
+<li>设计友好（支持模块化设计）</li>
+</ul>
+<h3 id="建议的技术栈搭配"><a href="#建议的技术栈搭配" class="headerlink" title="建议的技术栈搭配"></a>建议的技术栈搭配</h3><ul>
+<li>create-react-app + react-router-dom + antd + ahooks + styled-components (大多数场景下，强烈推荐！可以上 ProComponent，但是要注意提取功能逻辑，不可将逻辑写于组件)</li>
+<li>umi + ahooks (请删除 models，services，components，utils 等非必要顶层文件夹，禁止使用 dva)</li>
+<li>umi(ssr) + dva + ahooks（同上，但可仅基于 dva 沟通前后端和首屏数据，非 ssr 同样禁用 dva）</li>
+<li>next.js + react suite/material ui + swr（利用不到 useAntdTable 之类的功能，ahooks 就鸡肋了）</li>
+</ul>
+<hr>
+<h1 id="Hook-使你在无需修改组件结构的情况下复用状态逻辑"><a href="#Hook-使你在无需修改组件结构的情况下复用状态逻辑" class="headerlink" title="Hook 使你在无需修改组件结构的情况下复用状态逻辑"></a>Hook 使你在无需修改组件结构的情况下复用状态逻辑</h1><p>当你思维聚焦于组件时，在这种情况下，你是必须逼迫自己，在组件里写业务逻辑，或者重新组织业务逻辑！🙊</p>
+<p>并且，因为 state 是不反应业务逻辑的，它也天然不可以对业务逻辑进行组合</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useSomeTable</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 这个是个表单，抽象的</span></span><br><span class="line">  <span class="keyword">const</span> [form] = Form.useForm()</span><br><span class="line">  <span class="comment">// 这个是个表单联动的表格</span></span><br><span class="line">  <span class="keyword">const</span> &#123;tableProps, loading&#125; = useAntdTable(</span><br><span class="line">     <span class="comment">// 自动处理分页相关问题</span></span><br><span class="line">    (&#123;curren,pageSize&#125;, formData)=&gt;fetch(<span class="string">&#x27;http://sdfdsfsdf&#x27;</span>), <span class="comment">// 抽象的状态请求</span></span><br><span class="line">    &#123;</span><br><span class="line">      form, <span class="comment">// 表单在这里与表格组合，实现联动</span></span><br><span class="line">      defaultParams:&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 很多功能都能集成，只需要一个配置项</span></span><br><span class="line">      debounceInterval: <span class="number">300</span> <span class="comment">// 节流</span></span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    form,loading,tableProps</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form form=&#123;SomeTable.form&#125;&gt;&lt;!--里面全部状态无关，不用看了--&gt;&lt;/Form&gt;</span><br><span class="line">&lt;Table &#123;...tableProps&#125; columns=&#123;&#125; rowKey=<span class="string">&quot;id&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这个组件，存粹只有注入和视图，一丁点的逻辑都没有</p>
+<p>组件里没有逻辑， 相关的逻辑再 useFunc 种就能随意组合，结构什么都都能你来定，结构如果优秀，任何逻辑都是 use 个函数的问题，你不会出现需要写第二遍逻辑的情况，通过组件的 props 进行分流（map + key），你能够非常优雅地处理嵌套复杂结构</p>
+<p>你能将视图和逻辑完全组织为一个结构，交给一个特定的人，完全不用关心他到底是怎么开发的</p>
+<p>这便是 —— <strong>逻辑视图分离</strong>👍</p>
+<hr>
+<h1 id="React-SOA"><a href="#React-SOA" class="headerlink" title="React SOA"></a>React SOA</h1><h2 id="基本的服务"><a href="#基本的服务" class="headerlink" title="基本的服务"></a>基本的服务</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useSimpleService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [val1,setVal1] = useState(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">const</span> [val2,setVal2] = useState(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    setVal2(val1)</span><br><span class="line">  &#125;,[val1])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    val1, setVal1, val2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>叫它 service，是 SOA 模型下的管用叫法，意思是 —— 我只会在这样的结构种写逻辑，组件中的逻辑全部消失（优先将组件视为元素）</li>
+<li>只暴露你需要暴露的状态逻辑（状态逻辑必须一起说，只做状态复用很扯淡，毕竟 2021 年了）</li>
+<li>useRef，同样也可以封装在 Service 中，而且建议如此做，ref 的获取不是视图，是逻辑</li>
+</ul>
+<h2 id="组合服务"><a href="#组合服务" class="headerlink" title="组合服务"></a>组合服务</h2><p>有另外一个服务，useAnotherService</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">userAnotherService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [val,setVal] = useLocalstorage(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">return</span> &#123;vale,setVal&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后与基本服务进行组合</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useSimpleService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [val1,setVal1] = useState(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">const</span> [val2,setVal2] = useState(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">const</span> &#123;setVal&#125; = userAnotherService()</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    setVal2(val1)</span><br><span class="line">  &#125;,[val1])</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    setVal(val2)</span><br><span class="line">  &#125;,[val2])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    val1, setVal1, val2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就能为基本服务动态添加功能</p>
+<ul>
+<li>为什么不直接 <code>import</code>？因为需要框架内的响应式能力，这个叫控制反转，框架将响应式的控制权转交给了开发者</li>
+<li>如果有另外一个服务，单单只要 <code>AnotherService</code> 的功能，你只需要调用 <code>useAnthor Service</code> 就好了</li>
+<li>最好是调用者修改被调用者，可以对比 <code>ahooks</code> 对代 <code>useRef</code> 的改动，就是本着这个次序，因为被调用者可能被多次调用，保证复用性</li>
+<li><code>useEffect</code> 是一种管道模型，如同 <code>rxjs</code> 一般，只是框架帮你按顺序组装而已（你以为为啥非要你按顺序来？），是极限的函数式方案，不存在纯度问题，函数式得不要不要的。但是有个要求，依赖必须写清楚，这个依赖是管道操作中的参数，<code>React</code> 将你的 <code>hook</code> 重新组合成了管道，但是参数必须提供，在它能自动分析依赖之前</li>
+<li>使用了 <code>useAnotherService</code> 的细节被隐藏，形成了一个树形调用结构，这种结构被称作“依赖树”或者“注入树”，别盯着我，名字不是我定的</li>
+</ul>
+<h2 id="注入单例服务"><a href="#注入单例服务" class="headerlink" title="注入单例服务"></a>注入单例服务</h2><p>当前服务如果需要被多个组件使用，服务会被初始化很多次，如何让它只注入一次？</p>
+<p>利用 createContext</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SimpleService = createContext(<span class="literal">null</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">useSimpleService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是，单例需要注入到唯一节点，因此，你需要在所有需要用到这个服务的组件的最顶层：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;SimpleService.Provider value=&#123;useSimpleService()&#125;&gt;</span><br><span class="line">  &#123;props.children&#125;</span><br><span class="line">&lt;/SimpleService.Provider&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样，这个服务的单例就对所有子孙组件敞开了怀抱，同时，所有子孙组件对其的修改都将生效</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomeComponent</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;val1,setVal1&#125; = useContext(SomeService)</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>&#123;setVal1(&#x27;fuck&#x27;)&#125;&gt;val1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>直接在 jsx 的 provider 种 value = {useSomeService()} 在本组件没有任何其它响应式变量的情况下是可行的，因为不会重新初始化，在良好的架构下——组件除注入，无任何逻辑，return 之前没有东西，同时，上下文单独封装组件，可以作为“模块标识”</li>
+<li>这个有共同单例 Service 的一系列组件，被称为模块，它们有自己的“限界上下文”，并且，视图，逻辑，样式都在其中，如果这个模块是按照功能划分的，那么这种 SOA 实现被称为 领域驱动设计(DDD) ，某些架构强推的所谓’微前端’，目的就是得到这个东西</li>
+<li>一定要注意，这个模块的上层数据变更，模块的限界上下文会刷新，这个是默认操作，这也是为何 jsx 直接赋值 的原因，如果你不需要这个东西，可以采用 const value = useService() 包裹，或者直接 memo 这个模块标识组件</li>
+</ul>
+<h2 id="单例服务，解决深层嵌套对象问题"><a href="#单例服务，解决深层嵌套对象问题" class="headerlink" title="单例服务，解决深层嵌套对象问题"></a>单例服务，解决深层嵌套对象问题</h2><p>深层嵌套对象怎么处理？useReducer？immutable?还是直接深复制？</p>
+<p>你首先明白你要实现什么逻辑，深层嵌套对象之所以难处理，是因为你想在子组件实现 <strong>对深层目标的部分变更逻辑</strong></p>
+<p>之前你之所以有这些奇奇怪怪工具甚至深复制的需求，是因为你没有办法将逻辑也拆分给子组件，明白为什么如此</p>
+<p>现在，逻辑可以拆分复用：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useSomeService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [value,setValue] = useState(&#123;</span><br><span class="line">    username: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    password: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    info:&#123;</span><br><span class="line">        nickname:<span class="string">&quot;&quot;</span>,</span><br><span class="line">        others:[]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> &#123;value,setValue&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注入部分省略...</span></span><br></pre></td></tr></table></figure>
+
+<p>修改 info:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setValue(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;res.info.nickname === <span class="string">&#x27;fuck&#x27;</span>;<span class="keyword">return</span> res&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>配合 map 修改数组：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分形部分：</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">5</span>).map(<span class="function">(<span class="params">_,key</span>)=&gt;</span><span class="xml"><span class="tag">&lt;<span class="name">SomeCompo</span> <span class="attr">index</span>=<span class="string">&#123;key&#125;</span> <span class="attr">key</span>=<span class="string">&#123;key&#125;/</span>&gt;</span></span>)</span><br><span class="line"><span class="comment">// 组件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomeComponent</span>(<span class="params">props</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">const</span> &#123;setValue&#125; = useContext(SomeService)</span><br><span class="line">   <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>&#123;setValue(res=&gt;&#123;res.info.others[props.index] = &#x27;fuck&#x27;;return res&#125;)&#125;&#125;&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果需要划分模块，通过 getter，setter 传递这个嵌套结构：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">subInjectedService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;value,setValue&#125; = useContext(SomeService)</span><br><span class="line">  <span class="keyword">const</span> info = useMemo(<span class="function">()=&gt;</span>value.info.others,[value])</span><br><span class="line">  <span class="keyword">const</span> setInfo = useCallback(<span class="function">(<span class="params">val</span>)=&gt;</span>&#123;</span><br><span class="line">    setValue(<span class="function"><span class="params">res</span>=&gt;</span>&#123;res.info.others[props.index] = val;<span class="keyword">return</span> res&#125;)</span><br><span class="line">  &#125;,[])</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    info,setInfo</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 忽略注入部分...</span></span><br></pre></td></tr></table></figure>
+
+<p>这样的话，这个重新划分的模块内部，想要修改上层的数据，只需要通过 info,setInfo 即可</p>
+<ul>
+<li>不用担心纯度和不变性的问题，因为 hooks 都是纯的，没有不纯的情况</li>
+<li>全局副作用是状态+函数全局逻辑封装（分层）考虑的问题，将函数和组件，视图功能逻辑样式全部作为模块，副作用是以模块为单位的，而 info 和 setInfo 的 getter，setter 封装，叫做——模块间通讯</li>
+<li>useReducer 只涉及调试，也就是有个 action 名字方便你定位问题，模块划分如果足够细，你根本不需要这个 action 来记录你的变更，采用 useReducer 与 DDD 原则背离，但是也不会禁止。不过，全局 useReducer 必须明令禁止，这种方式是个灾难，useReducer 必须是以模块为单位，不能更小，也不能更大</li>
+<li>组件和服务一起，处理一部分数据，保证了单例修改，不变性也不用担心，hooks 来保证这个</li>
+<li>在这里，你会发现 props 的功能好像只有’分形’，也就是 map 种将数据的标识传递给子组件，是的 —— 优先使用服务共享状态逻辑</li>
+<li>getter，setter 叫做响应式，如果你不需要响应式修改，setter 可以删除，但是 getter 同时还有防止重新渲染的作用，保留即可，除非纯组件</li>
+</ul>
+<h2 id="服务获取时的类型问题"><a href="#服务获取时的类型问题" class="headerlink" title="服务获取时的类型问题"></a>服务获取时的类型问题</h2><p>如果你使用的是 Typescript ，那么，用泛型约束获得自动类型推断，会让你如虎添翼</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 泛型约束获取注入令牌</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@export</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@template <span class="variable">T</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;(...args: any[]) =&gt; T&#125;</span> <span class="variable">func</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;(T | undefined)&#125;</span> </span>[initialValue=undefined]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">useToken</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  func: (...args: any[]) =&gt; T,</span></span></span><br><span class="line"><span class="function"><span class="params">  initialValue: T | <span class="literal">undefined</span> = <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> createContext(initialValue <span class="keyword">as</span> T);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后将 <code>createContext()</code> 改为 <code>useToken(SomeService)</code> 即可，这样你就拥有了指哪打哪的类型支持，无需单独的类型声明，代码更加清爽</p>
+<ul>
+<li>如果是 <code>Javascript</code> 环境，建议老老实实写 <code>createContext</code> 的 <code>defaultValue</code>，虽然注入之后，子孙组件都不会出现 <code>defaultValue</code>，但是 <code>javascript</code> 语境下有代码提示</li>
+<li>不建议 <code>typescript</code> 下声明 <code>defaultValue</code>，因为模块外的服务调用，应该被禁止，这是 <code>DDD</code> 架构的基础，如果你想要在外部使用单例服务 —— 请将其提升至外部</li>
+</ul>
+<h2 id="顶层注入服务"><a href="#顶层注入服务" class="headerlink" title="顶层注入服务"></a>顶层注入服务</h2><p>平凡提升模块服务层级，可能会产生循环依赖，而且会影响模块的封装度，因此：</p>
+<p>⚠️<strong>优先思考清楚自己应用的模块关系！</strong></p>
+<p>循环依赖产生根源是功能领域，功能模块划分有问题，优先解决根本问题，而不是转移矛盾。如果你实在思考不清楚，又想要立刻开始开发，那么可以尝试顶层注入服务：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useAppService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    someService:useSomeService()</span><br><span class="line">    anotherService:useAnotherService()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>模块间进行嵌套组合将变得无比困难，不再是一个 getter，setter 能够搞定的，如果不是绝对的必要，尽量不要采用此种方式！它有悖于 DDD 原则 —— 分治</li>
+<li>多组件共享不同实例将彻底失败，这不是你愿意看到的</li>
+</ul>
+<h2 id="可选服务"><a href="#可选服务" class="headerlink" title="可选服务"></a>可选服务</h2><p>模块服务划分的另一个巨大优势，就是将逻辑变为可选项，这在重型应用中，几乎就是采用 DDD 的关键</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useServiceByOneLogic</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    activated,</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useServiceByAnotherLogic</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    activated,</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useSomeService</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [...servicList] = [useServiceByOneLogic(),useServiceByAnotherLogic()]</span><br><span class="line">  <span class="comment">// 选择激活的服务</span></span><br><span class="line">  <span class="keyword">const</span> usedService = useMemo(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> service <span class="keyword">of</span> serviceList)&#123;</span><br><span class="line">      <span class="keyword">if</span>(service.activated === <span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> service</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,[serviceList])</span><br><span class="line">  <span class="keyword">return</span> service</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注入过程省略...</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>你也可以通过各种条件筛选服务，这种方式是在前端实现的高可用</li>
+<li>⚠ 注意，服务最好只是内部实现不同，接口应该尽可能相同，否者会出现可选类型</li>
+<li>最典型的应用，就是多家云服务厂商的短信验证（验证码，人机校验等），通过可选服务根据用户网络情况进行筛选，用最适合当前用户的那一个</li>
+<li>还有一个非常有意思的方案，通过服务来做数据 mock，因为服务直接对接视图，你只需要模拟视图数据即可，提供两个服务，一个真实服务，一个 mock 服务，这样是用真实数据还是 mock 数据，都是服务自动判断的，对你来说没有流程差别</li>
+</ul>
+<h2 id="样式封装"><a href="#样式封装" class="headerlink" title="样式封装"></a>样式封装</h2><p>注意，模块是包含了样式的，上文在讲述逻辑和视图的封装，接下来说说样式</p>
+<ul>
+<li>典型的 cssModule， styled-components 之类的方案</li>
+<li>shadowDom，仿真样式（Angular 原生支持，React 可以用 cssModule 之类工具间接实现），可以实现跨技术栈样式封装（没错，所谓 ‘微前端’ 的样式封装）</li>
+<li>样式最好只包含排版，企业 vis 统一性是标准，没有必要违背这个</li>
+</ul>
+<hr>
+<h1 id="继续分析-SOA"><a href="#继续分析-SOA" class="headerlink" title="继续分析 SOA"></a>继续分析 SOA</h1><p>从上一篇文章的例子可以看出什么呢？</p>
+<p>首先，按照功能领域划分文件，可以很快分析出应用的逻辑结构</p>
+<p>也就是逻辑可读性更强，这个可读性不只是针对用户的，还有针对软件的</p>
+<p>比如，<code>TodoService</code> 和 <code>TableHandlerService</code> 有什么关系？</p>
+<h2 id="useTableHandlerService"><a href="#useTableHandlerService" class="headerlink" title="useTableHandlerService"></a>useTableHandlerService</h2><p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121003840.jpg" alt="useTableHandlerService"></p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121003905.jpg" alt="useTodoService"></p>
+<p>这些逻辑关系，仅仅依靠相关工具就能定位，并生成图形，辅助你分析领域间的关系</p>
+<p>谁依赖谁，一目了然 —— 比如 有个 <code>useState</code> 的值 依赖 <code>useLocalStorageState</code>，肉眼看起来比较困难，但是在图中一目了然</p>
+<p>只是，不具名这一点有点神烦！</p>
+<p>还有，<code>React</code>内部因为没有管理好这个部分传递，没办法像 <code>Angular</code> 一样，瞬间生成一大堆密密麻麻的依赖树，这就给 <code>React</code> 在大项目工程化上带来了阻碍</p>
+<p>不过一般项目做不到那么大，领域驱动可以帮助你做到 <code>Angular</code> 项目极限的 95%，剩下那 5%，也只是稍稍痛苦些而已，并且，没有办法给管理者看到完整蓝图</p>
+<p>不过就国内目前前端技术管理者和产品经理的水品，你给他们看 uml 蓝图，我担心他们也看不懂，所以这部分不用太在意，感觉有地方依赖拿不准，只显示这个领域的蓝图就好</p>
+<p>其次，测试边界清晰，且易于模拟</p>
+<p>视图你不用测试，因为没有视图逻辑，什么时候需要视图测试？比如 <code>Form</code> 和 <code>FormItem</code> 等出现嵌套注入的地方，需要进行视图测试，这部分耦合出现的概率非常小，大部分都是第三方框架的工作</p>
+<p>你只需要测试这些 <code>useFunction</code> 就好，并且提供两个个框，比如空组件直接 <code>use</code>，嵌套组件先 <code>provide</code> 再 <code>useContext</code>，然后直接只模拟 <code>useFunction</code> 边界，并提供测试，大家可以尝试一下，以前觉得测试神烦，现在可以试试在清晰领域边界下，测试可以有多愉悦</p>
+<p>最后</p>
+<p>谁再提状态管理我和谁急！</p>
+<p>你看看这个应用，哪里有状态管理插手的地方？任何状态管理库都不行，它是上个时代的遮羞布</p>
+<hr>
+<h1 id="服务间通讯结构"><a href="#服务间通讯结构" class="headerlink" title="服务间通讯结构"></a>服务间通讯结构</h1><h2 id="全局单一服务（类-Redux-方案）"><a href="#全局单一服务（类-Redux-方案）" class="headerlink" title="全局单一服务（类 Redux 方案）"></a>全局单一服务（类 <code>Redux</code> 方案）</h2><p>但是，单一服务是不得已而为之，老版本没有逻辑复用导致的</p>
+<p>在这种方式下，你的调试将变得无比复杂，任何一处变更将牵扯所有本该封装为模块的组件</p>
+<p>所以必须配合相应的调试工具</p>
+<p>所有多人协作项目，采用此种方式，最后的结果只有项目不可维护一条路！</p>
+<h2 id="中台-其他服务（双层结构）"><a href="#中台-其他服务（双层结构）" class="headerlink" title="中台+其他服务（双层结构）"></a>中台+其他服务（双层结构）</h2><p>由一个，<code>appService</code>提供基础服务，并管理服务间的调度，此种方式比第一种要好很多，但是还是有个问题，顶层处理服务关系，永远比服务间处理服务关系来的复杂，具体问题详见上文“顶层注入”</p>
+<h2 id="树形结构模块"><a href="#树形结构模块" class="headerlink" title="树形结构模块"></a>树形结构模块</h2><p>这是理论最优的结构，它的优势不再赘述，上文有提到</p>
+<p>劣势有一个：</p>
+<p>跨模块层级的变更，容易形成循环依赖（也不叫劣势，因为此种变更对于其他方式来说，是灾难）</p>
+<p>理清自己的业务逻辑，有必要划出功能结构图，再开始开发，是个好习惯，同时，功能层级发生改变，应该敏锐意识到，及时提升服务的模块层级即可</p>
+<hr>
+<h1 id="编程范式"><a href="#编程范式" class="headerlink" title="编程范式"></a>编程范式</h1><p>首先，编程范式除了实现方式不同以外，其区别的根源在于 – <strong>关注点不同</strong></p>
+<ul>
+<li>函数的关注点在于 —— 变化</li>
+<li>面向对象的关注点在于 —— 结构</li>
+</ul>
+<p>对于函数，因为结构方便于处理变化，即输入输出是天然关注点，所以 ——</p>
+<p>管理<code>状态</code>和<code>副作用</code>很重要</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">  a = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">  c = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> &#123; a, b, c &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里故意用 var 来声明变量，让大家又更深的体会</p>
+<p>在函数中变更函数外的变量 —— <strong>破坏了函数的封装性</strong>🚫</p>
+<p>这种破坏极其危险，比如上例，如果其他函数修改了 a，在 重新 赋值之前，你知道 a 是多少么？如果函数很长，你如何确定本地变量 a 是否覆盖外部变量？</p>
+<p>无封装的函数，不可能有<code>可装配性</code>和<code>可调试性</code></p>
+<p>所以，使用函数封装逻辑，不能引入任何副作用！注意，这个是强制的，在任何多人协作，多模块多资源的项目中 ——</p>
+<p><strong>封装是第一要务，更是基本要求</strong>❗</p>
+<p>所以，你必须将数据（或者说状态）全部包裹在函数内部，不可以在函数内修改任何函数以外的数据！</p>
+<p>所以，函数天然存在一个缺点 —— 封装性需要人为保证（即你需要自己要求自己，写出无副作用函数）</p>
+<p>当然，还存在很多优点 —— 只需要针对输入输出测试，更加符合物体实际运行情况（变化是哲学基础）</p>
+<p>这部分没有加重点符号，是因为它不重要 —— 对一个思想方法提优缺点，只有指导意义，因为思想方法可以综合运用，不受限制</p>
+<p>再来看看面相对象，来看看类结构：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">  a = <span class="number">1</span></span><br><span class="line">  b = <span class="number">2</span></span><br><span class="line">  c = <span class="number">3</span></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.changeA()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">changeA</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个结构一眼看去就具有 —— 自解释性，自封装性</p>
+<p>还有一个涉及应用领域的优势 —— 对观念系统的模拟 —— 这个词不打着重符，不需要太关心，翻译过来就是，可以直译人脑中的观念（动物，人，车等等）</p>
+<p>但它也有非常严重的问题 —— 初始化，自解耦麻烦，组合麻烦</p>
+<p>需要运用到大量的’构建’，’运行’设计模式！</p>
+<p>对的，设计模式的那些名字就是怎么来的</p>
+<p>其实，你仔细一想，就能明白为什么会这样 ——</p>
+<p>如果你关注变化，想要对真实世界直接模拟，你就需要处理静态数据，需要自己对一个领域进行人为解释<br>如果你关注结构，想要对人的观念进行模拟，你就需要处理运行时问题，需要自己处理一个运行时对象的生成问题</p>
+<p>鱼与熊掌，不可兼得，按住了这头，那头就会翘起来，你按住了那头，这头就会翘起来</p>
+<p>想要只通过一个编程范式解决所有问题，就像用手去抓沙子，最后你什么都得不到</p>
+<h2 id="极限的函数式，面向对象"><a href="#极限的函数式，面向对象" class="headerlink" title="极限的函数式，面向对象"></a>极限的函数式，面向对象</h2><p>通过函数和对象（注意是对象，类是抽象的，观念中的对象）的分析，很容易发现他们的优势</p>
+<p>函数 —— 测试简单，模拟真实（效率高）</p>
+<p>对象 —— 自封装性，模拟观念（继承多态）</p>
+<p>将两者发扬光大，更加极限地使用，你会得到以下衍生范式：</p>
+<p>管道/流</p>
+<p>既然函数只需要对输入输出进行测试，那么，我将无数函数用函数串联起来，就形成了只有统一输入输出的结构</p>
+<p>听不懂？换个说法 ——</p>
+<p>只需要 e2e 测试，不需要单元测试！</p>
+<p>如果我加上类型校验，就可以构造出 —— <strong>理想无 bug 系统</strong></p>
+<p>这样的话，你就只剩调试，没有测试（如果顶层加个校验取代 e2e 的话）</p>
+<p>而且，还有模式识别，异步亲和性等很多好处，甚至可以自建设计语言（比如麻省老教材《如何设计计算机语言》就是以 lisp 作为标准）</p>
+<p>在 js 中， Cycle.js 和 Rxjs 就是极限的管道风格函数式，还有大家熟悉并且讨厌的 Node.js 的 Stream 也是如此，即便他是用 类 实现的，骨子里也是浓浓的函数式</p>
+<p>分析一下这样的系统，你会发现 ——</p>
+<p>它首先关注底层逻辑 —— 也就是 or/c , is-a，and/c，not/c 这样的函数，最后再组装</p>
+<p>按照范畴学的语言（就是函数式的数学解释，不想看这个可以不看，只是补充说明）：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-075c3b7e4f9e34c6f81a0d865f53096a_720w.jpg" alt="范畴学"></p>
+<p>u of i2，i2 of g 的讲法，与它的真实运行方向，是相反的！</p>
+<p>函数的组合方式，与开发目标的构建方式，也是相反的！</p>
+<p>它的构建方法叫做 —— <strong>自底向上</strong></p>
+<p>这也是为啥你在很多 JS 的库中发现了好多零零碎碎的东西，还有为何会有 lodash，ramda 等粒度非常小的库了</p>
+<p>在极限函数式编程下 ——</p>
+<p>我先做出来，再看能干什么，比先确定干什么，再做，更重要！</p>
+<p>因为这部分，可以第三方甚至官方自己提供！</p>
+<p>所以，<strong>函数式是库的第一优先级构建范式</strong>！因为作为库的提供者，你根本不可能预测用户会用这个库来干什么</p>
+<h2 id="领域模块"><a href="#领域模块" class="headerlink" title="领域模块"></a>领域模块</h2><p>函数式可以将其优势通过管道发挥到极致，面向对象一样可以将其优势发挥到极致，这便是领域模块</p>
+<p>领域，就是一系列相同目的，相同功能的资源的集合</p>
+<p>比如，学校，公司，这两个类，如果分别封装了大量的其他类以及相关资源，共同构成一个整体，自行管理，自行测试，甚至自行构建发布，对外提供统一的接口，那这就是领域</p>
+<p>这么说，如果实现了一个类和其相关资源的自行管理，自行测试，这就是 —— <strong>DDD</strong></p>
+<p>如果实现了对其的自行构建发布，这就是 —— <strong>微服务</strong></p>
+<p>这种模型给了应用规模化的能力 —— 横向，纵向扩展能力</p>
+<p>还有高可用，即类的组合间的松散耦合范式</p>
+<p>对于这样的范式，你首先思考的是 —— 你要做什么！</p>
+<p>这就是 ——</p>
+<p>**这种模型给了应用规模化的能力 —— 横向，纵向扩展能力</p>
+<p>还有高可用，即类的组合间的松散耦合范式</p>
+<p>对于这样的范式，你首先思考的是 —— 你要做什么！</p>
+<p>这就是 —— <strong>自顶向下</strong></p>
+<ul>
+<li>我要做什么应用？</li>
+<li>这个应用有哪些功能？</li>
+<li>我该怎么组织我的资源和代码？</li>
+<li>该怎么和其他职能合作？</li>
+<li>工期需要多久？</li>
+</ul>
+<p>现实告诉你，单用任何一种都不行<br>开发过程中，不止有自底向上封装的工具，还有自顶向下设计的结构</p>
+<p>产品经理不会把要用多少个 isObject 判断告诉你，他只会告诉你应用有哪些功能</p>
+<p>同理，再丰富细致的功能划分，没有底层一个个工具函数，也完成不了任何工作</p>
+<p>这个世界的确处在变化之中，世界的本质就是变化，就是函数，但是软件是交给人用，交给人开发的</p>
+<p><strong>观念系统和实际运行，缺一不可！</strong></p>
+<p>凡是动不动就跟你说某某框架函数式，某某应用要用函数式开发的人，大多都学艺不精，根本没有理解这些概念的本质</p>
+<p>人类编程历史如此久远，真正的面向用户的纯粹函数式无 bug 系统，还没有出现过……</p>
+<p>当然，其在人工智能，科研等领域有无可替代的作用。不过，是人，就有组织，有公司，进而有职能划分，大家只会通过观念系统进行交流 —— 你所说的每一个词汇，都是观念，都是类！</p>
+<h2 id="React-提倡函数式"><a href="#React-提倡函数式" class="headerlink" title="React 提倡函数式"></a>React 提倡函数式</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OOStyle</span></span>&#123;</span><br><span class="line">  name: string</span><br><span class="line">  password: string</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">  <span class="keyword">get</span> <span class="title">nameStr</span>()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="title">changePassword</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">OOStyleFactory</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> OOStyle(<span class="comment">/* ... */</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是面向对象风格的写法（注意，只是风格，不是指只有这个是面向对象）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcStyle</span>(<span class="params">name,password</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    name,</span><br><span class="line">    password,</span><br><span class="line">    <span class="function"><span class="title">getName</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="function"><span class="title">changePassword</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个是函数风格的写法（注意，这只是风格，这同时也是面向对象）</p>
+<p>这两种风格的逻辑是一样的，唯一的区别，只在于<code>可读性</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">不要理解错，这里的可读性，还包括对于程序而言的可读性，即：</span><br><span class="line">自动生成文档，自动生成代码结构</span><br><span class="line">或者由产品设计直接导出代码框架等功能</span><br></pre></td></tr></table></figure>
+
+<p>但是函数风格牺牲了可读性，得到了灵活性这一点，也是值得考虑的</p>
+<p>编程其实是个权衡过程，对于我来说，我愿意</p>
+<ul>
+<li>在处理复杂结构时使用 面向对象 风格</li>
+<li>在处理复杂逻辑时，使用 函数 风格<br>各取所长，才是最佳方案！</li>
+</ul>
+<h3 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// redux reducer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">todoApp</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> state === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> initialState</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这里暂不处理任何 action，</span></span><br><span class="line">  <span class="comment">// 仅返回传入的 state。</span></span><br><span class="line">  <span class="keyword">return</span> state</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这其实就是用函数风格实现的 面向对象 封装，没有这一步，你无法进行顶层设计！</p>
+<p>用类的写法来转换一下 <code>redux</code> 的写法：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MonistRedux</span></span>&#123;</span><br><span class="line">  <span class="comment">// initial，想要不变性可以将 name,password 组合为 state</span></span><br><span class="line">  name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  password = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="comment">// 惰性初始化（配合工厂）</span></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="built_in">this</span>.password = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// action</span></span><br><span class="line">  <span class="function"><span class="title">changeName</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="只有-函数-的封装性才受副作用限制"><a href="#只有-函数-的封装性才受副作用限制" class="headerlink" title="只有 函数 的封装性才受副作用限制"></a>只有 函数 的封装性才受副作用限制</h3><p>注意这一点，React 程序员非常容易犯的错误，就是到了 class 里面还在想纯度的问题，恨不得将每个成员函数都变成纯函数</p>
+<p>没必要以词害意，需要融汇贯通</p>
+<p>同样，以上例子也说明，如果你的技术栈提供直接生成对象的方案 —— <strong>你可以只用函数直接完成面向对象和函数式的设计</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ImAClass</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我就说这个是类！为什么不行？</p>
+<p>他要成员变量有成员变量，要成员函数有成员函数，封装，多态，哪个特性没有？</p>
+<p>什么？继承？这年头还有搞面向对象的提继承？组合优于继承是常识！</p>
+<p>抛弃了继承，你需要<code>this</code>么？你不需要，本来你就不需要<code>this</code>（除了装饰器等附加逻辑，但是函数本身就能够实现附加逻辑 —— 高阶函数）</p>
+<p>同样，你也可以综合面向对象和函数式的特点，各取所长，对你的项目进行顶层构建和底层实现</p>
+<p>这也是很方便的</p>
+<h2 id="Hooks，Composition，ngModule"><a href="#Hooks，Composition，ngModule" class="headerlink" title="Hooks，Composition，ngModule"></a>Hooks，Composition，ngModule</h2><p>我们来看看上面的那个函数风格的类</p>
+<p>像不像什么东西？</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useThisClass</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [val1,setVal1] = useState(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">const</span> [val2,setVal2] = useState(<span class="number">0</span>)</span><br><span class="line">  useEffect(<span class="function">()=&gt;</span>&#123;&#125;,[])</span><br><span class="line">  <span class="keyword">const</span> otherObject = useOtherClass()</span><br><span class="line">  <span class="keyword">return</span> &#123;val1,setVal1,val2,setVal2,otherObject&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Hooks 恭喜各位，用得开心！</p>
+<p>以 React 为例，老一代的 React 在 组件结构上是管道，也就是单向数据流，但是对于我们这些使用者来说，我们写的逻辑，基本上是放养状态，根本没有接入 React 的体系，完全游离在函数式风格以外：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-4e499fc0f8b9bfc2ed7b21c2ec1604dd_720w.jpg" alt="老一代的 React"></p>
+<p>换句话来说，只有 React 写的代码才叫函数式风格，你写的顶多叫函数！</p>
+<p>你没有办法把逻辑写在 React 的组件之外，注意，是完全没有办法！</p>
+<p>好办，我逻辑全部写在顶层组件，那不就行了？</p>
+<p><img src="https://pic4.zhimg.com/80/v2-07e9326d1abf8af509f2fa86320617cf_1440w.jpg" alt="新一代的 React"></p>
+<p>（其中 <code>s/a</code> 指的是 <code>state</code>，<code>action</code>）</p>
+<p>为什么要有 <code>state</code>，<code>action</code>？</p>
+<p>为什么要在每个组件里用 <code>s/a</code> ？</p>
+<p><code>action</code> 其实是用命令模式，将逻辑复写为状态，以便 <code>Context</code> 传递，为何？</p>
+<p>因为生命周期在组件里，<code>setState</code>在组件的<code>this</code>上</p>
+<p>换句话说，框架没有提供给你，将用户代码附加于框架之上的能力！</p>
+<p>这个能力，叫做 <code>IOC</code> 控制反转，即 框架将功能控制权移交到你的手上</p>
+<p>不要把这个类 <code>Redux</code>开发模式作为最自然的开发方式，否则你会非常痛苦！</p>
+<h2 id="只有集成度不高的系统，才需要中介模式，才需要-MVC"><a href="#只有集成度不高的系统，才需要中介模式，才需要-MVC" class="headerlink" title="只有集成度不高的系统，才需要中介模式，才需要 MVC"></a>只有集成度不高的系统，才需要中介模式，才需要 MVC</h2><p>之前的 <code>React/Vue</code> 集成度不高，没有 <code>Redux</code> 作为中介者 <code>Controller</code>，你无法将用户态代码在架构层级和 <code>React/Vue</code> 产生联系，并且这个层级天然应该用领域模块的思想方法来处理问题</p>
+<p>因为<strong>框架没有这个能力</strong>，所以你才需要这些工具</p>
+<p>所谓的状态管理，所谓的单一 <code>Store</code> ，都是没有<code>IOC</code>的妥协之举，并且是在完全抛弃面向对象思想的基础上强行用函数式语言解释的后果，是一种畸形的技术产物，是框架未达到最终形态之前的临时方案，不要作为核心技术去学习，这些东西不是核心技术！</p>
+<p>回头看看 <code>React</code> 那些暧昧的话语，有些值得玩味：</p>
+<ul>
+<li><code>Hook</code> 使你在无需修改组件结构的情况下复用状态逻辑 （注意！是状态逻辑，不是状态，是状态逻辑一起复用，不是状态复用）</li>
+<li>我们推荐用 自定义<code>hooks</code> 探索更多可能</li>
+<li>提供渐进式策略，提供 <code>useReducer</code> 实现大对象操作（好的领域封装哪来的操作大对象？）</li>
+</ul>
+<p>他决口不提 面向对象，领域驱动，和之前的设计失误，是因为他需要顾及影响和社区生态，但是使用者不要被这些欺骗！</p>
+<p>当你有了 <code>hooks</code>，<code>Composition</code> ，<code>Service/Module</code> 的时候，你应该主动抛弃所有类似</p>
+<ul>
+<li>状态管理</li>
+<li>一定要写纯函数</li>
+<li>副作用要一起处理</li>
+<li>一定要保证不变形</li>
+</ul>
+<p>这之类的所有言论，因为在你手上，不仅仅只有函数式一件武器</p>
+<p>你还有面向对象和领域驱动</p>
+<p>用领域驱动解决高层级问题，用函数式解决低层级问题，才是最佳开发范式</p>
+<p>也就是说，函数式和面向对象，没有好坏，他们只是两个关注点不同的思想方法而已</p>
+<p>你要是被这种思想方法影响，眼里只有对错 ——</p>
+<h2 id="实际上是被忽悠了"><a href="#实际上是被忽悠了" class="headerlink" title="实际上是被忽悠了"></a>实际上是被忽悠了</h2><hr>
+<h1 id="管道风格的函数式（unidirectional-network-单项数据流）"><a href="#管道风格的函数式（unidirectional-network-单项数据流）" class="headerlink" title="管道风格的函数式（unidirectional network 单项数据流）"></a>管道风格的函数式（unidirectional network 单项数据流）</h1><p>这是函数式语言基本特性，将一个个符合封装要求的函数串联起来，你就能得到统一<code>输入输出</code></p>
+<p>函数将沦为算式，单测作用将消失，理想无 bug 系统呼之欲出</p>
+<p>它会形如以下结构：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func1( func2 (), func3( func4 (startParams) ) )</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func1().func2().func3().func4()</span><br></pre></td></tr></table></figure>
+
+<p>看到这些形态，大家会首先想到什么？</p>
+<p>没错 <code>jsx</code> 就是第一种结构（是的，<strong>jsx 是正宗函数式</strong>，纯粹无副作用，无需测试，仅需输入输出校验调试）</p>
+<p>也没错，<code>promise.then().then()</code> 就是第二种，将<strong>函数式</strong>处理并发，异步的优势发挥了出来</p>
+<p>那第二种和第一种，有什么区别呢？</p>
+<p>区别就是 ——</p>
+<h2 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h2><p>函数是运行时的结构，如果<strong>没有利用模式匹配</strong>，每次函数执行只有一个结果，那么整个串行函数管道的返回也只会有一个结果</p>
+<p>如果利用了呢？它将会向路牌一样，指示着逻辑倒流到特定的 <code>lambda</code> 函数中，形成分形结构</p>
+<p>请注意，这个分形结构不只是空间上的，还有时间上的</p>
+<p>这，就是调度！！！</p>
+<p>说的很悬奥，大家领会一下意思就可以了，如果想要了解更多，直接去成熟工具处了解，他们有更多详细的说明：</p>
+<p>微软出品的 <a target="_blank" rel="noopener" href="https://mcxiaoke.gitbooks.io/rxdocs/content/Intro.html">ReactiveX</a> （脱胎于 <code>linq</code>），就是这方面的集大成者，网络上有非常多的讲解，还有视频演示</p>
+<h2 id="Hooks-api-就是-React-的调度控制权"><a href="#Hooks-api-就是-React-的调度控制权" class="headerlink" title="Hooks api 就是 React 的调度控制权"></a>Hooks api 就是 React 的调度控制权</h2><h3 id="useState-整个单项数据流的调度发起者"><a href="#useState-整个单项数据流的调度发起者" class="headerlink" title="useState 整个单项数据流的调度发起者"></a>useState 整个单项数据流的调度发起者</h3><p>React 将它的调度控制权，拱手交到了你的手上，这就是 hooks，它的意义绝对不仅仅只是“在函数式组件中修改状态”那么简单</p>
+<p>useState，加上 useReducer (个人不推荐，但是与 useState 返回类型一致)</p>
+<p>属于： 响应式对象（注意，这里的对象是 subject，不是 object，有人能帮忙翻译一下么？）</p>
+<p>dispatch 是整个应用开始渲染的根源</p>
+<p>没错，this.setState 也有同样功能（但是仅仅是组件内）</p>
+<h3 id="useEffect-整个单项数据流调度的指挥者"><a href="#useEffect-整个单项数据流调度的指挥者" class="headerlink" title="useEffect 整个单项数据流调度的指挥者"></a>useEffect 整个单项数据流调度的指挥者</h3><p>useEffect <strong>是分形指示器</strong></p>
+<p>在 Rxjs 中 被称作 操作函数（operational function），将你的某部分变更，衍射到另一处变更</p>
+<p>在这个 api 中，大量模式匹配得以正常工作</p>
+<h3 id="useMemo-整个单项数据流调度的控制者"><a href="#useMemo-整个单项数据流调度的控制者" class="headerlink" title="useMemo 整个单项数据流调度的控制者"></a>useMemo 整个单项数据流调度的控制者</h3><p>最后，useMemo</p>
+<p>它能够通过只判断响应值是否改变，而输出控制</p>
+<p>当然，你可以用 if 语句在 useEffect 中判断是否改变来实现，但是 —— <strong>模式匹配就是为了不写 if 啊~</strong></p>
+<p>单独提出 useMemo，是为了将 设计部分 和 运行时调度控制 部分分离，即静态和动态分离</p>
+<p>调度永远是你真正开始写函数式代码，最应该考虑的东西，它是精华</p>
+<p>纠结什么是什么并不重要，即便 <code>useMemo = useEffect + if + useState</code>，这些也不是你用这部分 api 的时候应该考虑的问题</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>你明白这些，再加上 hooks 书写时的要求：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不要在循环，条件或嵌套函数中调用 Hook，确保总是在你的 React 函数的最顶层调用他们。遵守这条规则，你就能确保 Hook 在每一次渲染中都按照同样的顺序被调用。这让 React 能够在多次的useState和useEffect调用之间保持 hook 状态的正确。</span><br></pre></td></tr></table></figure>
+
+<p>你就能明白，为什么很多人说 <code>React hooks</code> 和 <code>Rx</code> 是同一个东西了</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">但是请注意，React 只是将它自己的调度控制权交给你，你若是自己再用 rx 等调度框架，且不说 requestAnimationFrame 的调度频道React占了，两个调度机制，弥合起来会非常麻烦，小心出现不可调式的大bug</span><br></pre></td></tr></table></figure>
+
+<p>函数式在处理业务逻辑上，有着非常恐怖的锋利程度，学好了百利而无一害</p>
+<p>但是请注意，函数式作为对计算过程的一般抽象，只在组件服务层级以下发挥作用，用它处理通讯，算法，异步，并发都是上上之选</p>
+<p>但是在软件架构层面，函数式没有任何优势，组件层级以上，永远用面向对象的思维审视，是个非常好的习惯~</p>
+<hr>
+<h1 id="组件明明就只是逻辑和状态（服务）调配的地方，它压根就不应该有逻辑"><a href="#组件明明就只是逻辑和状态（服务）调配的地方，它压根就不应该有逻辑" class="headerlink" title="组件明明就只是逻辑和状态（服务）调配的地方，它压根就不应该有逻辑"></a>组件明明就只是逻辑和状态（服务）调配的地方，它压根就不应该有逻辑</h1><p>把逻辑放到服务里</p>
+<ul>
+<li>坚持在组件中只包含与视图相关的逻辑。所有其它逻辑都应该放到服务中。</li>
+<li>坚持把可复用的逻辑放到服务中，保持组件简单，聚焦于它们预期目的。</li>
+<li>为何？当逻辑被放置到服务里，并以函数的形式暴露时，可以被多个组件重复使用。</li>
+<li>为何？在单元测试时，服务里的逻辑更容易被隔离。当组件中调用逻辑时，也很容易被模拟。</li>
+<li>为何？从组件移除依赖并隐藏实现细节。</li>
+<li>为何？保持组件苗条、精简和聚焦。</li>
+</ul>
+<hr>
+<h1 id="React-DDD-下如何处理类型问题？"><a href="#React-DDD-下如何处理类型问题？" class="headerlink" title="React DDD 下如何处理类型问题？"></a>React DDD 下如何处理类型问题？</h1><h2 id="泛型约束-InjectionToken"><a href="#泛型约束-InjectionToken" class="headerlink" title="泛型约束 InjectionToken"></a>泛型约束 InjectionToken</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 泛型约束，对注入数据的类型推断支持</span><br><span class="line"> *</span><br><span class="line"> * @export</span><br><span class="line"> * @template T</span><br><span class="line"> * @param &#123;(...args: any) &#x3D;&gt; T&#125; useFunc</span><br><span class="line"> * @param &#123;(T | undefined)&#125; [initialData&#x3D;undefined]</span><br><span class="line"> * @returns</span><br><span class="line"> *&#x2F;</span><br><span class="line">export default function getServiceToken&lt;T&gt;(</span><br><span class="line">  useFunc: (...args: any) &#x3D;&gt; T,</span><br><span class="line">  initialData: T | undefined &#x3D; undefined</span><br><span class="line">) &#123;</span><br><span class="line">  return createContext(initialData as T);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，你的 <code>useContext</code> 就能有完整类型支持了</p>
+<h2 id="虚拟数据泛型约束"><a href="#虚拟数据泛型约束" class="headerlink" title="虚拟数据泛型约束"></a>虚拟数据泛型约束</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 获得虚拟的服务数据</span><br><span class="line"> *</span><br><span class="line"> * @export</span><br><span class="line"> * @template T</span><br><span class="line"> * @param &#123;(...args: any) &#x3D;&gt; T&#125; useFunc</span><br><span class="line"> * @param &#123;(T | undefined)&#125; [initialData&#x3D;undefined]</span><br><span class="line"> * @returns</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function getMockService&lt;T&gt;(</span><br><span class="line">  useFunc: (...args: any) &#x3D;&gt; T,</span><br><span class="line">  initialData: T | undefined &#x3D; undefined</span><br><span class="line">) &#123;</span><br><span class="line">  return initialData as T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类服务"><a href="#类服务" class="headerlink" title="类服务"></a>类服务</h2><p>类服务在功能上，其实和函数服务是一样的</p>
+<p>函数返回对象，本身也是构造方式之一，属于 js 特色 （返回数组的话，本质也是对象）</p>
+<p>所以功能上来说，函数服务完全可以覆盖类服务，实现面向对象</p>
+<p>但是，需求可不止有功能一说：</p>
+<ul>
+<li>需要有更好自解释性</li>
+<li>需要更好自封装性</li>
+<li>需要更好的可读性（自动生成文档，自动分析）</li>
+</ul>
+<p>类型自动化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function getClassContext&lt;T&gt;(constructor: new (...args: any) &#x3D;&gt; T) &#123;</span><br><span class="line">  return createContext((undefined as unknown) as T);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现一个类"><a href="#实现一个类" class="headerlink" title="实现一个类"></a>实现一个类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * some service</span><br><span class="line"> *</span><br><span class="line"> * @export</span><br><span class="line"> * @class SomeService</span><br><span class="line"> *&#x2F;</span><br><span class="line">export class SomeService &#123;</span><br><span class="line">  static Context &#x3D; getClassContext(SomeService);</span><br><span class="line">  name: string;</span><br><span class="line">  setName: Dispatch&lt;SetStateAction&lt;string&gt;&gt;;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    &#x2F;&#x2F; eslint-disable-next-line react-hooks&#x2F;rules-of-hooks</span><br><span class="line">    const [name, setName] &#x3D; useState(&quot;&quot;);</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.setName &#x3D; setName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用这个类"><a href="#使用这个类" class="headerlink" title="使用这个类"></a>使用这个类</h2><p>最后，自动分析类的结构：</p>
+<p>可自动文档化，在配合其他工具实现框架外需求时，能够带给你方便的使用体验</p>
+<p>但是注意，目前官方是禁止在 class 中使用 hooks 的</p>
+<p>需要禁用提示</p>
+<h2 id="同时，需要保证在-constructor-中使用-hooks"><a href="#同时，需要保证在-constructor-中使用-hooks" class="headerlink" title="同时，需要保证在 constructor 中使用 hooks"></a>同时，需要保证在 constructor 中使用 hooks</h2><hr>
+<h1 id="React-DDD-下的一些常见问题-FAQ"><a href="#React-DDD-下的一些常见问题-FAQ" class="headerlink" title="React DDD 下的一些常见问题 FAQ"></a>React DDD 下的一些常见问题 FAQ</h1><h2 id="React-DDD-下，class-风格组件能用么？"><a href="#React-DDD-下，class-风格组件能用么？" class="headerlink" title="React DDD 下，class 风格组件能用么？"></a>React DDD 下，class 风格组件能用么？</h2><p>最好不要用，因为 class 风格组件的逻辑无法提取，无法连接到统一的服务注入树中，因此<strong>会破坏应用的单一数据原则，破坏封装复用性</strong></p>
+<p>所以尽量不要使用，至于目前 <code>getSnapshotBeforeUpdate</code>，<code>getDerivedStateFromError</code> 和 <code>componentDidCatch</code> 的等价写法 <code>Hooks</code> 尚未加入，这其实并不是大问题，因为在管道风格中，错误优先表征为状态，比如 <code>useRequest</code> 中的 <code>error</code></p>
+<h2 id="React-DDD-是相比-之前的-类-redux-分层是更简单还是更难？"><a href="#React-DDD-是相比-之前的-类-redux-分层是更简单还是更难？" class="headerlink" title="React DDD 是相比 之前的 类 redux 分层是更简单还是更难？"></a>React DDD 是相比 之前的 类 redux 分层是更简单还是更难？</h2><p>简单太多了，整个 <code>React DDD</code> 的体系只需要 useXxx 表示服务 Xxx 表示组件，只需要用几个 hooks api，通过注入提供上下文，不需要高阶组件，好的模式也不需要 render props，更不需要太过重视性能调优（别担心性能问题，除了高消耗运算惰性加载以外），你只是无法在组件层级处理错误而已，个人认为，错误还是在用户端处理吧</p>
+<p>尤其是在 Typescript 下，你代码的几乎任何一处都有完整的类型提示，不需要你去附加类型声明或者指定 interface</p>
+<p>但是，它会将业务问题提前暴露，在没有想好业务逻辑关系的情况下，请不要下手写代码，但是这也不是它的缺点，因为在逻辑错乱的情况下，分层直接会变得不可维护</p>
+<h2 id="React-DDD-需要用到什么工具么？"><a href="#React-DDD-需要用到什么工具么？" class="headerlink" title="React DDD 需要用到什么工具么？"></a>React DDD 需要用到什么工具么？</h2><p>不需要，直接使用 <code>React hooks</code> 就好，没有其他工具需求</p>
+<h2 id="React-DDD-性能会有问题么？"><a href="#React-DDD-性能会有问题么？" class="headerlink" title="React DDD 性能会有问题么？"></a>React DDD 性能会有问题么？</h2><p>不会，React DDD 的方案性能比 class 风格组件 + 类 redux 分层要强得多，而且你可以精细化控制组件的调度和响应式，下限比 redux 上限还要高，上限几乎可以摸到框架极限</p>
+<h2 id="React-DDD-适合大体量项目么？"><a href="#React-DDD-适合大体量项目么？" class="headerlink" title="React DDD 适合大体量项目么？"></a>React DDD 适合大体量项目么？</h2><p>是的，从最小体量项目，到超大体量项目，React DDD 都很适合，原因在于回归面向对象，承认面向对象对顶层设计有优势的同时，业务逻辑采用极限函数式开发</p>
+<p>无论在架构上，还是业务逻辑实现上，都会将效率，可复用性，封装度，集成度，可调式，可测试性直接拉满，所以不用担心</p>
+<h2 id="React-DDD-效率高么？"><a href="#React-DDD-效率高么？" class="headerlink" title="React DDD 效率高么？"></a>React DDD 效率高么？</h2><p>它不是高不高的问题，它是直接可以将大部分业务效率直接提高十倍的大杀器，而且还有很多第三方库可以被直接使用，让第三方帮你处理逻辑，比如 ahooks，swr 等等</p>
+<p>于此同时，它直接跟业界主流工程化模式对接，有领域模块的加持，多人协作将变得更加有效率，也能形成特别多的技术资产</p>
+<h2 id="Redux-之类的工具还有意义么？"><a href="#Redux-之类的工具还有意义么？" class="headerlink" title="Redux 之类的工具还有意义么？"></a>Redux 之类的工具还有意义么？</h2><p>没有意义了，它只是解决框架没有 IOC 情况下，保持和框架相同的单向数据流，保持用户态代码的脱耦而已，由于状态分散不易测试，提供一个切面给你调试而已</p>
+<p>这种方案相当于强制在前端封层，相当不合理，同时 typescript 支持还很差</p>
+<p>在框架有 IOC 的情况下，用户代码的状态逻辑实际上形成了一个和组件结构统一的树，称之为逻辑树或者注入树，依赖树，很自然地与组件相统一，很自然地保证单向数据流和一致性</p>
+<p>所以，Redux 之类的工具最好不要用，妄图在应用顶层一个服务解决问题的方法，都很傻</p>
+<h2 id="现有项目能直接改成-React-DDD-么？"><a href="#现有项目能直接改成-React-DDD-么？" class="headerlink" title="现有项目能直接改成 React DDD 么？"></a>现有项目能直接改成 React DDD 么？</h2><p>这是它最大的缺点，不能！</p>
+<p>因为问题的根源出在框架上，IOC 应该是框架的大变更，个人认为 React 应该直接暴力更新，摒弃所有老旧写法，如同 15 年的 Angular 一样，虽然有阵痛，但是对提升社区的好处大于坏处，当然，这是没有考虑市场的想法</p>
+<p>如果你想更纯粹使用 React DDD，最好还是采取重构的方案</p>
+<h2 id="React-DDD-下，应该怎么划分文件结构？"><a href="#React-DDD-下，应该怎么划分文件结构？" class="headerlink" title="React DDD 下，应该怎么划分文件结构？"></a>React DDD 下，应该怎么划分文件结构？</h2><p>按照功能划分，你的功能有哪些包含关系，你的文件结构就是如何</p>
+<p>你的功能在哪个范围需要提供限界上下文，哪里就进行服务注入</p>
+<p>所以类似拆分 store，action，models 之类的文件夹，就不要有了，前端没有数据库，即便有，也没有到需要抽象 dao 的程度，即便抽象 dao，dao 本身也是不符合工程化和 DDD 的</p>
+<h2 id="所以微前端可以由-React-DDD-实现是么？"><a href="#所以微前端可以由-React-DDD-实现是么？" class="headerlink" title="所以微前端可以由 React DDD 实现是么？"></a>所以微前端可以由 React DDD 实现是么？</h2><p>是的，有了限界上下文，分开开发，分开测试，分开部署都可以实现</p>
+<p>但是一定要在相同框架内，个人认为前端采用不同框架开发是个伪需求</p>
+<p>现如今 <code>Angular</code>，<code>React</code>，<code>Vue</code>，都有 <code>IOC</code>，写法都可以互通</p>
+<p>你要讲模块剥离，直接构建的时候把模块文件夹 <code>cp</code> 到指定目录，覆盖掉占位的文件夹即可</p>
+<p>不过注意，‘微应用’需要有模拟顶层 <code>context</code> 的可选服务，当然，这些东西不管你怎么实现都是需要的</p>
+<p>至于说重构兼容老代码而采用 <code>shadowDom</code> 和 <code>iframe</code> 的，我只能说，作为终端开发，重构兼容老代码只是临时状态，他不能作为架构，更不能作为一个技术来推广</p>
+<h2 id="React-DDD-和-Angular-的架构好像，为什么？"><a href="#React-DDD-和-Angular-的架构好像，为什么？" class="headerlink" title="React DDD 和 Angular 的架构好像，为什么？"></a>React DDD 和 Angular 的架构好像，为什么？</h2><p>因为 Angular 15 年首先实现了 IOC，组件中推荐不要写逻辑，也是 Angular 最早提出的方案</p>
+<p><code>service</code>（状态逻辑单元），<code>module</code>（service+component+template+css+staticAssets…），领域模块封装也是 <code>Angular</code> 最早提出的，但是因为当时它走太快，社区没跟上，生命周期复用也麻烦，因为采用装饰器，组件还保留了一个壳，推进最佳实践的难度比较大</p>
+<p>而 <code>React</code> 的 <code>hooks</code> 可以更加抽象，也更简单直接，直接就是两个函数，服务注入也是通过组件，也就是强制与组件保持一致</p>
+<p>这时候再推动 <code>DDD</code> 就非常容易且水到渠成了</p>
+<p>但是 <code>Angular</code> 的很多特性 <code>React</code> 还不支持，比如组件样式封装，多语言依赖到视图，服务摇树，动态组件摇树，异步服务（<code>suspense</code>，<code>concurrent</code> 还在试验阶段），还有真正解决性能问题的大杀器 <code>platform-webworker</code>（能够在应用层级支持浏览器高刷）</p>
+<p>但是这些需求，在没有超大体量（世界级应用）下，用到的可能性很小，不妨碍 <code>React</code> 的普适性</p>
+<p>而且 React 社区更活跃，管道风格函数是对社区的依赖是很强的，这方面 <code>Angular</code> 干写 <code>rxjs</code> 管道有些磨人</p>
+<h2 id="React-DDD-会是未来趋势么？"><a href="#React-DDD-会是未来趋势么？" class="headerlink" title="React DDD 会是未来趋势么？"></a>React DDD 会是未来趋势么？</h2><p>这点我觉得毫无疑问，因为 <code>DDD</code> 是整个软甲开发架构设计的趋势，而且这个趋势伴随着 微服务 的普及已经不可逆转，只要前端承认自己是编程，这个趋势同样也逃不过去</p>
+<p>前端还是单节点，但是未来会有端到端</p>
+<p>这个东西现在的可用性易用性在 <code>React</code> 语境下已经相当高了，未来也只会更有用</p>
+<p>其他的不用说，光效率的提升，就可以让开发者大呼过瘾了</p>
+<p>只是 <code>React/Vue</code> 还有很多历史问题需要解决，等这些问题解决了， <code>DDD</code> 肯定会大跨步向前的</p>
+<h2 id="管道流难度会不会很高？"><a href="#管道流难度会不会很高？" class="headerlink" title="管道流难度会不会很高？"></a>管道流难度会不会很高？</h2><p>是的，作为极限函数式开发，在给你提供更好的类型支持，容易调试测试的支持后，首当其冲的，就是纯粹函数式的爆炸难度</p>
+<p>正常模式下，你是需要先化简范畴运算式再写代码的，不过这明显老学究了，哈哈哈</p>
+<p>但是，<code>React hooks</code> 有非常活跃的社区，你不需要自己实现封装很多逻辑，这部分可以直接求助于社区实现</p>
+<p>需要你实现的管道功能很少</p>
+<p>不像 <code>Angular</code> 写 <code>rxjs</code> ，管道需要自己根据一百多个操作函数配置，脑力负担太大，并且操作函数都是抽象的，调度权限给到你之后，复杂度又加了个 3 次方</p>
+<p><code>React</code> 的管道复用第三方，大多都是直接面向业务的，比如 <code>swr</code> 和 <code>ahooks</code> ，要直接很多</p>
+<p>所以在，真正需要你写的管道逻辑并不多，这一点值得庆幸</p>
+<p>但是，管道风格也是未来趋势，可以说管道和领域，分别是函数式和面向对象推演到极致的结果，两者都是最佳范式，两者都得学习</p>
+<p>你只需要学思想方法，而且这样的思想方法，放诸四海皆可，任何编程平台，除了特别纯粹的那种：无类型 <code>lisp</code> 和无 <code>lambdajava</code>，基本上这些概念都是想通且能够交流的</p>
+<p>管道也是存在于编程的方方面面，<code>elasticSearch</code>，<code>mongo aggregation</code>，<code>node stream</code>，<code>graphQL</code>，等等等等…</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/74.HookDDD/">https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/74.HookDDD/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/React/">React</a><a class="post-meta__tags" href="/tags/DDD/">DDD</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/14/react%20ddd/81.ReactDDD%E9%85%8D%E5%90%88Typescript/"><img class="prev-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">React DDD 配合 Typescript</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/17/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/73.grid/"><img class="next-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20201217102303.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Grid 布局</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%EF%BC%8C%E5%90%84%E8%87%AA%E5%8F%AA%E7%AE%A1%E5%90%84%E8%87%AA%E7%9A%84%E6%A8%A1%E5%9D%97%EF%BC%8C%E9%A1%B6%E5%B1%82%E5%86%8D%E6%9D%A5%E8%BF%9B%E8%A1%8C%E7%BB%84%E8%A3%85%E5%92%8C%E5%88%86%E9%85%8D"><span class="toc-number">1.</span> <span class="toc-text">领域驱动，各自只管各自的模块，顶层再来进行组装和分配</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE%E7%9A%84%E5%BD%92%E8%AF%95%E5%9B%BE%EF%BC%8C%E9%80%BB%E8%BE%91%E7%9A%84%E5%BD%92%E9%80%BB%E8%BE%91"><span class="toc-number">1.1.</span> <span class="toc-text">视图的归试图，逻辑的归逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">跨组件数据传递？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0-DDD"><span class="toc-number">1.3.</span> <span class="toc-text">函数 DDD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%A4%8D%E7%94%A8"><span class="toc-number">1.4.</span> <span class="toc-text">生命周期复用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E7%8E%87"><span class="toc-number">1.5.</span> <span class="toc-text">效率</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-Hooks-%E7%89%88%E6%9C%AC%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">React Hooks 版本架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C-LIFT-%E5%8E%9F%E5%88%99"><span class="toc-number">2.1.</span> <span class="toc-text">执行 LIFT 原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-SOA-%E5%AE%9E%E7%8E%B0%E8%B7%A8%E7%BB%84%E4%BB%B6%E9%80%BB%E8%BE%91%E5%A4%8D%E7%94%A8"><span class="toc-number">2.2.</span> <span class="toc-text">利用 SOA 实现跨组件逻辑复用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E6%9D%83%E9%99%90-%F0%9F%90%BE"><span class="toc-number">2.3.</span> <span class="toc-text">最小权限 🐾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JUST-USE-REACT-HOOKS"><span class="toc-number">2.4.</span> <span class="toc-text">JUST USE REACT HOOKS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%8F%AA%E5%AD%98%E5%9C%A8"><span class="toc-number">2.4.1.</span> <span class="toc-text">项目只存在</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E4%B8%8B%E4%B8%BA%E7%BB%86%E5%8C%96%E9%98%90%E8%BF%B0%E4%B8%BA%E4%BD%95%E5%A6%82%E6%AD%A4%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%87%BA%E5%8F%91%E7%82%B9"><span class="toc-number">2.4.2.</span> <span class="toc-text">以下为细化阐述为何如此设计的出发点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E8%AE%AE%E7%9A%84%E6%8A%80%E6%9C%AF%E6%A0%88%E6%90%AD%E9%85%8D"><span class="toc-number">2.4.3.</span> <span class="toc-text">建议的技术栈搭配</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hook-%E4%BD%BF%E4%BD%A0%E5%9C%A8%E6%97%A0%E9%9C%80%E4%BF%AE%E6%94%B9%E7%BB%84%E4%BB%B6%E7%BB%93%E6%9E%84%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%A4%8D%E7%94%A8%E7%8A%B6%E6%80%81%E9%80%BB%E8%BE%91"><span class="toc-number">3.</span> <span class="toc-text">Hook 使你在无需修改组件结构的情况下复用状态逻辑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-SOA"><span class="toc-number">4.</span> <span class="toc-text">React SOA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.1.</span> <span class="toc-text">基本的服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.2.</span> <span class="toc-text">组合服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E5%8D%95%E4%BE%8B%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.3.</span> <span class="toc-text">注入单例服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%9C%8D%E5%8A%A1%EF%BC%8C%E8%A7%A3%E5%86%B3%E6%B7%B1%E5%B1%82%E5%B5%8C%E5%A5%97%E5%AF%B9%E8%B1%A1%E9%97%AE%E9%A2%98"><span class="toc-number">4.4.</span> <span class="toc-text">单例服务，解决深层嵌套对象问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E8%8E%B7%E5%8F%96%E6%97%B6%E7%9A%84%E7%B1%BB%E5%9E%8B%E9%97%AE%E9%A2%98"><span class="toc-number">4.5.</span> <span class="toc-text">服务获取时的类型问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B6%E5%B1%82%E6%B3%A8%E5%85%A5%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.6.</span> <span class="toc-text">顶层注入服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.7.</span> <span class="toc-text">可选服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F%E5%B0%81%E8%A3%85"><span class="toc-number">4.8.</span> <span class="toc-text">样式封装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD%E5%88%86%E6%9E%90-SOA"><span class="toc-number">5.</span> <span class="toc-text">继续分析 SOA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#useTableHandlerService"><span class="toc-number">5.1.</span> <span class="toc-text">useTableHandlerService</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E9%97%B4%E9%80%9A%E8%AE%AF%E7%BB%93%E6%9E%84"><span class="toc-number">6.</span> <span class="toc-text">服务间通讯结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8D%95%E4%B8%80%E6%9C%8D%E5%8A%A1%EF%BC%88%E7%B1%BB-Redux-%E6%96%B9%E6%A1%88%EF%BC%89"><span class="toc-number">6.1.</span> <span class="toc-text">全局单一服务（类 Redux 方案）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E5%8F%B0-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1%EF%BC%88%E5%8F%8C%E5%B1%82%E7%BB%93%E6%9E%84%EF%BC%89"><span class="toc-number">6.2.</span> <span class="toc-text">中台+其他服务（双层结构）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E6%A8%A1%E5%9D%97"><span class="toc-number">6.3.</span> <span class="toc-text">树形结构模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">编程范式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%E9%99%90%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%EF%BC%8C%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="toc-number">7.1.</span> <span class="toc-text">极限的函数式，面向对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%86%E5%9F%9F%E6%A8%A1%E5%9D%97"><span class="toc-number">7.2.</span> <span class="toc-text">领域模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-%E6%8F%90%E5%80%A1%E5%87%BD%E6%95%B0%E5%BC%8F"><span class="toc-number">7.3.</span> <span class="toc-text">React 提倡函数式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Redux"><span class="toc-number">7.3.1.</span> <span class="toc-text">Redux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E6%9C%89-%E5%87%BD%E6%95%B0-%E7%9A%84%E5%B0%81%E8%A3%85%E6%80%A7%E6%89%8D%E5%8F%97%E5%89%AF%E4%BD%9C%E7%94%A8%E9%99%90%E5%88%B6"><span class="toc-number">7.3.2.</span> <span class="toc-text">只有 函数 的封装性才受副作用限制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hooks%EF%BC%8CComposition%EF%BC%8CngModule"><span class="toc-number">7.4.</span> <span class="toc-text">Hooks，Composition，ngModule</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AA%E6%9C%89%E9%9B%86%E6%88%90%E5%BA%A6%E4%B8%8D%E9%AB%98%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E6%89%8D%E9%9C%80%E8%A6%81%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F%EF%BC%8C%E6%89%8D%E9%9C%80%E8%A6%81-MVC"><span class="toc-number">7.5.</span> <span class="toc-text">只有集成度不高的系统，才需要中介模式，才需要 MVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E4%B8%8A%E6%98%AF%E8%A2%AB%E5%BF%BD%E6%82%A0%E4%BA%86"><span class="toc-number">7.6.</span> <span class="toc-text">实际上是被忽悠了</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E9%A3%8E%E6%A0%BC%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%EF%BC%88unidirectional-network-%E5%8D%95%E9%A1%B9%E6%95%B0%E6%8D%AE%E6%B5%81%EF%BC%89"><span class="toc-number">8.</span> <span class="toc-text">管道风格的函数式（unidirectional network 单项数据流）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6"><span class="toc-number">8.1.</span> <span class="toc-text">调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hooks-api-%E5%B0%B1%E6%98%AF-React-%E7%9A%84%E8%B0%83%E5%BA%A6%E6%8E%A7%E5%88%B6%E6%9D%83"><span class="toc-number">8.2.</span> <span class="toc-text">Hooks api 就是 React 的调度控制权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#useState-%E6%95%B4%E4%B8%AA%E5%8D%95%E9%A1%B9%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E8%B0%83%E5%BA%A6%E5%8F%91%E8%B5%B7%E8%80%85"><span class="toc-number">8.2.1.</span> <span class="toc-text">useState 整个单项数据流的调度发起者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useEffect-%E6%95%B4%E4%B8%AA%E5%8D%95%E9%A1%B9%E6%95%B0%E6%8D%AE%E6%B5%81%E8%B0%83%E5%BA%A6%E7%9A%84%E6%8C%87%E6%8C%A5%E8%80%85"><span class="toc-number">8.2.2.</span> <span class="toc-text">useEffect 整个单项数据流调度的指挥者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useMemo-%E6%95%B4%E4%B8%AA%E5%8D%95%E9%A1%B9%E6%95%B0%E6%8D%AE%E6%B5%81%E8%B0%83%E5%BA%A6%E7%9A%84%E6%8E%A7%E5%88%B6%E8%80%85"><span class="toc-number">8.2.3.</span> <span class="toc-text">useMemo 整个单项数据流调度的控制者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">8.2.4.</span> <span class="toc-text">最后</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E6%98%8E%E6%98%8E%E5%B0%B1%E5%8F%AA%E6%98%AF%E9%80%BB%E8%BE%91%E5%92%8C%E7%8A%B6%E6%80%81%EF%BC%88%E6%9C%8D%E5%8A%A1%EF%BC%89%E8%B0%83%E9%85%8D%E7%9A%84%E5%9C%B0%E6%96%B9%EF%BC%8C%E5%AE%83%E5%8E%8B%E6%A0%B9%E5%B0%B1%E4%B8%8D%E5%BA%94%E8%AF%A5%E6%9C%89%E9%80%BB%E8%BE%91"><span class="toc-number">9.</span> <span class="toc-text">组件明明就只是逻辑和状态（服务）调配的地方，它压根就不应该有逻辑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-DDD-%E4%B8%8B%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%B1%BB%E5%9E%8B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">10.</span> <span class="toc-text">React DDD 下如何处理类型问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F-InjectionToken"><span class="toc-number">10.1.</span> <span class="toc-text">泛型约束 InjectionToken</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%95%B0%E6%8D%AE%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F"><span class="toc-number">10.2.</span> <span class="toc-text">虚拟数据泛型约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E6%9C%8D%E5%8A%A1"><span class="toc-number">10.3.</span> <span class="toc-text">类服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%B1%BB"><span class="toc-number">10.4.</span> <span class="toc-text">实现一个类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%BF%99%E4%B8%AA%E7%B1%BB"><span class="toc-number">10.5.</span> <span class="toc-text">使用这个类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%97%B6%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BF%9D%E8%AF%81%E5%9C%A8-constructor-%E4%B8%AD%E4%BD%BF%E7%94%A8-hooks"><span class="toc-number">10.6.</span> <span class="toc-text">同时，需要保证在 constructor 中使用 hooks</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-DDD-%E4%B8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-FAQ"><span class="toc-number">11.</span> <span class="toc-text">React DDD 下的一些常见问题 FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E4%B8%8B%EF%BC%8Cclass-%E9%A3%8E%E6%A0%BC%E7%BB%84%E4%BB%B6%E8%83%BD%E7%94%A8%E4%B9%88%EF%BC%9F"><span class="toc-number">11.1.</span> <span class="toc-text">React DDD 下，class 风格组件能用么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E6%98%AF%E7%9B%B8%E6%AF%94-%E4%B9%8B%E5%89%8D%E7%9A%84-%E7%B1%BB-redux-%E5%88%86%E5%B1%82%E6%98%AF%E6%9B%B4%E7%AE%80%E5%8D%95%E8%BF%98%E6%98%AF%E6%9B%B4%E9%9A%BE%EF%BC%9F"><span class="toc-number">11.2.</span> <span class="toc-text">React DDD 是相比 之前的 类 redux 分层是更简单还是更难？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E4%BB%80%E4%B9%88%E5%B7%A5%E5%85%B7%E4%B9%88%EF%BC%9F"><span class="toc-number">11.3.</span> <span class="toc-text">React DDD 需要用到什么工具么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E6%80%A7%E8%83%BD%E4%BC%9A%E6%9C%89%E9%97%AE%E9%A2%98%E4%B9%88%EF%BC%9F"><span class="toc-number">11.4.</span> <span class="toc-text">React DDD 性能会有问题么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E9%80%82%E5%90%88%E5%A4%A7%E4%BD%93%E9%87%8F%E9%A1%B9%E7%9B%AE%E4%B9%88%EF%BC%9F"><span class="toc-number">11.5.</span> <span class="toc-text">React DDD 适合大体量项目么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E6%95%88%E7%8E%87%E9%AB%98%E4%B9%88%EF%BC%9F"><span class="toc-number">11.6.</span> <span class="toc-text">React DDD 效率高么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redux-%E4%B9%8B%E7%B1%BB%E7%9A%84%E5%B7%A5%E5%85%B7%E8%BF%98%E6%9C%89%E6%84%8F%E4%B9%89%E4%B9%88%EF%BC%9F"><span class="toc-number">11.7.</span> <span class="toc-text">Redux 之类的工具还有意义么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE%E8%83%BD%E7%9B%B4%E6%8E%A5%E6%94%B9%E6%88%90-React-DDD-%E4%B9%88%EF%BC%9F"><span class="toc-number">11.8.</span> <span class="toc-text">现有项目能直接改成 React DDD 么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E4%B8%8B%EF%BC%8C%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E5%88%92%E5%88%86%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%EF%BC%9F"><span class="toc-number">11.9.</span> <span class="toc-text">React DDD 下，应该怎么划分文件结构？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E4%BB%A5%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%8F%AF%E4%BB%A5%E7%94%B1-React-DDD-%E5%AE%9E%E7%8E%B0%E6%98%AF%E4%B9%88%EF%BC%9F"><span class="toc-number">11.10.</span> <span class="toc-text">所以微前端可以由 React DDD 实现是么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E5%92%8C-Angular-%E7%9A%84%E6%9E%B6%E6%9E%84%E5%A5%BD%E5%83%8F%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">11.11.</span> <span class="toc-text">React DDD 和 Angular 的架构好像，为什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-DDD-%E4%BC%9A%E6%98%AF%E6%9C%AA%E6%9D%A5%E8%B6%8B%E5%8A%BF%E4%B9%88%EF%BC%9F"><span class="toc-number">11.12.</span> <span class="toc-text">React DDD 会是未来趋势么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E6%B5%81%E9%9A%BE%E5%BA%A6%E4%BC%9A%E4%B8%8D%E4%BC%9A%E5%BE%88%E9%AB%98%EF%BC%9F"><span class="toc-number">11.13.</span> <span class="toc-text">管道流难度会不会很高？</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2021/01/14/react%20ddd/74.HookDDD/'
+    this.page.identifier = '2021/01/14/react ddd/74.HookDDD/'
+    this.page.title = 'React DDD'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

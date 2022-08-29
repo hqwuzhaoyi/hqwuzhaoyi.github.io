@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prajna's blog - personal notes</title><meta name="keywords" content="19970527"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Scent of code">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prajna&#39;s blog">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="Scent of code">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="19970527">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-08-29 03:13:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210607232803.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Prajna's blog</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 生命周期"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期">rust 生命周期</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/rust/">rust</a></span></div><div class="content">
+
+分配在堆和栈上的内存有其各自的作用域，它们的生命周期是动态的。
+全局变量、静态变量、字符串字面量、代码等内容，在编译时，会被编译到可执行文件中的 BSS/Data/RoData/Text 段，然后在加载时，装入内存。因而，它们的生命周期和进程的生命周期一致，所以是静态的。
+所以，函数指针的生命周期也是静态的，因为函数在 Text 段中，只要进程活着，其内存一直存在。
+
+生命周期标注的目的是，在参数和返回值之间建立联系或者约束。调用函数时，传入的参数的生命周期需要大于等于（outlive）标注的生命周期。
+在 Rust 中，除非显式地做 Box::leak() / Box::into_raw() / ManualDrop 等动作，一般来说，堆内存的生命周期，会默认和其栈内存的生命周期绑定在一起。
+在这种默认情况下，在每个函数的作用域中，编译器就可以对比值和其引用的生命周期，来确保“引用的生命周期不超出值的生命周期”。
+根据所有权规则，值的生命周期可以确认，它可以一直存活到所有者离开作用域；而引用的生命周期不能超过值的生命周期。在同一个作用域下，这是显而易见的。然而，当发生函数调用时， ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 所有权"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权">rust 所有权</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/rust/">rust</a></span></div><div class="content">总结
+
+所有权：一个值只能被一个变量所拥有，且同一时刻只能有一个所有者，当所有者离开作用域，其拥有的值被丢弃，内存得到释放。
+Move 语义：赋值或者传参会导致值 Move，所有权被转移，一旦所有权转移，之前的变量就不能访问。
+Copy 语义：如果值实现了 Copy trait，那么赋值或传参会使用 Copy 语义，相应的值会被按位拷贝（浅拷贝），产生新的值。
+
+
+规则：
+
+一个值在同一时刻只有一个所有者。当所有者离开作用域，其拥有的值会被丢弃。赋值或者传参会导致值 Move，所有权被转移，一旦所有权转移，之前的变量就不能访问。
+如果值实现了 Copy trait，那么赋值或传参会使用 Copy 语义，相应的值会被按位拷贝，产生新的值。
+一个值可以有多个只读引用。
+一个值可以有唯一一个活跃的可变引用。可变引用（写）和只读引用（读）是互斥的关系，就像并发下数据的读写互斥那样。
+引用的生命周期不能超出值的生命周期。
+
+变量在函数调用时发生了什么1234567891011121314151617fn main() &#123;    let data = vec![10, 42, 9, 8] ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 初学"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学">rust 初学</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-02-03T00:00:00.000Z" title="发表于 2022-02-03 00:00:00">2022-02-03</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/rust/">rust</a></span></div><div class="content">概览基本概念
+
+Rust 定义变量、函数和数据结构
+
+控制流程
+
+例子下载 url 为 md 文件在 terminal 输入 cargo run -- https://www.rust-lang.org rust.md
+即是把 https://www.rust-lang.org 下载到 rust.md
+Cargo.toml
+12345678910[package]name = &quot;scrape_url&quot;version = &quot;0.1.0&quot;edition = &quot;2021&quot;# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html[dependencies]reqwest = &#123; version = &quot;0.11&quot;, features = [&#x27;blocking&#x27;] &#125;html2md = &quot;0.2&quot;
+
+main.rs
+12345 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具">     <img class="post_bg" src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js 实用工具"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具">js 实用工具</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-12-16T00:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JS/">JS</a></span></div><div class="content">deleteNillValueFromObject删除undefined,null,[],&#123;&#125;从Object
+12345678const deleteNillValueFromObject = obj =&gt; &#123;  // &#123;a:1, b: 2, c: null, d: []&#125;  const noEmpty = (val, key) =&gt; &#123;    return !(R.isNil(val) || R.isEmpty(val));  &#125;;  const removeEmptyFromObject = R.curry(R.pickBy(noEmpty));  return removeEmptyFromObject(obj);&#125;;
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试">     <img class="post_bg" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/Raspberry_PI.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派初试"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试">树莓派初试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-12-15T00:00:00.000Z" title="发表于 2021-12-15 00:00:00">2021-12-15</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/linux/">linux</a></span></div><div class="content">环境国内镜像debian (bullseye)
+编辑 /etc/apt/sources.list 文件，删除原文件所有内容，用以下内容取代
+12deb http://mirrors.aliyun.com/raspbian/raspbian/ bullseye main non-free contribdeb-src http://mirrors.aliyun.com/raspbian/raspbian/ bullseye main non-free contrib
+
+编辑 /etc/apt/sources.list.d/raspi.list 文件，删除原文件所有内容，用以下内容取代：
+12deb http://mirrors.aliyun.com/raspberrypi/ bullseye main
+
+docker 搭建 home assistant12345678docker run -d \  --name homeassistant \  --privileged \  --restart=unless-stopped \  -e TZ=MY_TIME_ZONE \  -v /P ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/10/03/github%20action%20secrect/" title="github action 私钥部署">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="github action 私钥部署"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/10/03/github%20action%20secrect/" title="github action 私钥部署">github action 私钥部署</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-10-03T00:00:00.000Z" title="发表于 2021-10-03 00:00:00">2021-10-03</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/github/">github</a></span></div><div class="content">生成公私钥1ssh-keygen -t rsa -b 4096 -C &quot;$(git config user.email)&quot; -f github-deploy-key -N &quot;&quot;
+
+目录中生成两个文件：
+
+github-deploy-key.pub — 公钥文件
+github-deploy-key — 私钥文件
+
+公钥和私钥切记要添加到 .gitignore 中！！！
+GitHub 添加公钥在 GitHub 中博客工程中按照 Settings-&gt;Deploy keys-&gt;Add deploy key 找到对应的页面，然后进行公钥添加。该页面中 Title 自定义即可，Key 中添加 github-deploy-key.pub 文件中的内容。
+切记要勾选 Allow write access，否则会出现无法部署的情况。
+GitHub 添加私钥在 GitHub 中博客工程中按照 Settings-&gt;Secrets-&gt;Add a new secrets 找到对应的页面，然后进行私钥添加。该页面中 Name 自定义即可，Value  ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/08/29/docker%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" title="docker 安装问题">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker 安装问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/08/29/docker%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" title="docker 安装问题">docker 安装问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-08-29T00:00:00.000Z" title="发表于 2021-08-29 00:00:00">2021-08-29</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/docker/">docker</a></span></div><div class="content">docker enginedocker engine
+docker engine 安装后执行 sudo docker run hello-world
+报错
+123╰─ sudo docker run hello-worlddocker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.See &#x27;docker run --help&#x27;.
+
+解决办法123sudo service docker statussudo service docker start
+
+curl 挂代理docker compose
+1curl --socks5 172.28.128.1:7890
+</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/08/01/%E5%87%BD%E6%95%B0%E5%BC%8F/%E5%87%BD%E6%95%B0%E5%BC%8F%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B01/" title="函数式入门笔记1">     <img class="post_bg" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210801121046.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="函数式入门笔记1"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/08/01/%E5%87%BD%E6%95%B0%E5%BC%8F/%E5%87%BD%E6%95%B0%E5%BC%8F%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B01/" title="函数式入门笔记1">函数式入门笔记1</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-08-01T00:00:00.000Z" title="发表于 2021-08-01 00:00:00">2021-08-01</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%87%BD%E6%95%B0%E5%BC%8F/">函数式</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F/">函数式</a></span></div><div class="content">引用
+JavaScript 函数式编程（一）
+JavaScript 函数式编程（二）
+JavaScript 函数式编程（三）
+怎么学习函数式编程?
+学习 Computational Trinitarianism 应按照怎样的学习路径
+Learn You a Haskell for Great Good!
+Composing Software: The Book
+类型论驿站写作计划
+
+纯函数纯函数的定义是，对于相同的输入，永远会得到相同的输出，而且没有任何可观察的副作用，也不依赖外部环境的状态
+函数的柯里化传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数。
+事实上柯里化是一种“预加载”函数的方法，通过传递较少的参数，得到一个已经记住了这些参数的新函数，某种意义上讲，这是一种对参数的“缓存”，是一种非常高效的编写函数的方法：
+1234567891011121314151617import &#123; curry &#125; from &quot;lodash&quot;;//首先柯里化两个纯函数var match = curry((reg, str) =&gt; str. ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/07/20/webpack/webpack%E7%AC%94%E8%AE%B0/" title="webpack 笔记">     <img class="post_bg" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210720223312.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="webpack 笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/07/20/webpack/webpack%E7%AC%94%E8%AE%B0/" title="webpack 笔记">webpack 笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-07-20T00:00:00.000Z" title="发表于 2021-07-20 00:00:00">2021-07-20</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/webpack/">webpack</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%BA%90%E7%A0%81/">源码</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/webpack/">webpack</a></span></div><div class="content">Webpack 核心原理一文吃透 Webpack 核心原理
+主体框架
+核心流程解析
+初始化阶段
+初始化参数：从配置文件、 配置对象、Shell 参数中读取，与默认配置结合得出最终的参数
+创建编译器对象：用上一步得到的参数创建 Compiler 对象
+初始化编译环境：包括注入内置插件、注册各种模块工厂、初始化 RuleSet 集合、加载配置的插件等
+开始编译：执行 Compiler 对象的 run 方法
+确定入口：根据配置中的 entry 找出所有的入口文件，调用 compilation.addEntry 将入口文件转换为 dependence 对象
+
+
+构建阶段
+编译模块(make)：根据 entry 对应的 dependence 创建 module 对象，调用 loader 将模块转译为标准 JS 内容，调用 JS 解释器将内容转换为 AST 对象，从中找出该模块依赖的模块，再 递归 本步骤直到所有入口依赖的文件都经过了本步骤的处理
+完成模块编译：上一步递归处理所有能触达到的模块后，得到了每个模块被翻译后的内容以及它们之间的 依赖关系图
+
+
+生成阶段
+输出资源(seal)：根据入口和 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/06/01/react%20%E6%BA%90%E7%A0%81/11.%E7%AE%80%E5%8D%95react/" title="react 源码-迷你 react">     <img class="post_bg" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hexo/20210602220241.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="react 源码-迷你 react"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/06/01/react%20%E6%BA%90%E7%A0%81/11.%E7%AE%80%E5%8D%95react/" title="react 源码-迷你 react">react 源码-迷你 react</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-06-01T00:00:00.000Z" title="发表于 2021-06-01 00:00:00">2021-06-01</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/react-%E6%BA%90%E7%A0%81/">react 源码</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/react/">react</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%BA%90%E7%A0%81/">源码</a></span></div><div class="content">迷你 react迷你 react 和真正的源码有哪些区别呢
+在 render 阶段我们遍历了整颗 Fiber 树，在源码中如果节点什么都没改变会命中优化的逻辑，然后跳过这个节点的遍历commit 我们也遍历了整颗 Fiber 树，源码中只遍历带有 effect 的 Fiber 节点，也就是遍历 effectList每次遍历的时候我们都是新建节点，源码中某些条件会复用节点没有用到优先级
+第一步：渲染器和入口函数12345678910111213141516171819202122const React = &#123;  createElement,  render,&#125;;const container = document.getElementById(&quot;root&quot;);const updateValue = (e) =&gt; &#123;  reRender(e.target.value);&#125;;const reRender = (value) =&gt; &#123;  const element = (    &lt;div&gt;       ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#content-inner">13</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Wu Zhaoyi</div><div class="author-info__description">Scent of code</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hqwuzhaoyi"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 生命周期"/></a><div class="content"><a class="title" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期">rust 生命周期</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 所有权"/></a><div class="content"><a class="title" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权">rust 所有权</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 初学"/></a><div class="content"><a class="title" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学">rust 初学</a><time datetime="2022-02-03T00:00:00.000Z" title="发表于 2022-02-03 00:00:00">2022-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具"><img src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js 实用工具"/></a><div class="content"><a class="title" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具">js 实用工具</a><time datetime="2021-12-16T00:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试"><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/Raspberry_PI.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派初试"/></a><div class="content"><a class="title" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试">树莓派初试</a><time datetime="2021-12-15T00:00:00.000Z" title="发表于 2021-12-15 00:00:00">2021-12-15</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/electronic-muisc/"><span class="card-category-list-name">electronic muisc</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/node/"><span class="card-category-list-name">node</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react/"><span class="card-category-list-name">react</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react-ddd/"><span class="card-category-list-name">react ddd</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/react-%E6%BA%90%E7%A0%81/"><span class="card-category-list-name">react 源码</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/rust/"><span class="card-category-list-name">rust</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/vue/"><span class="card-category-list-name">vue</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/webpack/"><span class="card-category-list-name">webpack</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/BEM/" style="font-size: 1.21em; color: #999ea4">BEM</a> <a href="/tags/CSS/" style="font-size: 1.21em; color: #999ea4">CSS</a> <a href="/tags/DDD/" style="font-size: 1.33em; color: #99a2af">DDD</a> <a href="/tags/ES6/" style="font-size: 1.16em; color: #999b9e">ES6</a> <a href="/tags/Future-House/" style="font-size: 1.1em; color: #999">Future House</a> <a href="/tags/Git/" style="font-size: 1.1em; color: #999">Git</a> <a href="/tags/HTML/" style="font-size: 1.16em; color: #999b9e">HTML</a> <a href="/tags/HTML5/" style="font-size: 1.16em; color: #999b9e">HTML5</a> <a href="/tags/IE/" style="font-size: 1.21em; color: #999ea4">IE</a> <a href="/tags/IndexDB/" style="font-size: 1.16em; color: #999b9e">IndexDB</a> <a href="/tags/JS/" style="font-size: 1.5em; color: #99a9bf">JS</a> <a href="/tags/JSONP/" style="font-size: 1.1em; color: #999">JSONP</a> <a href="/tags/Linux/" style="font-size: 1.27em; color: #99a0a9">Linux</a> <a href="/tags/Music/" style="font-size: 1.27em; color: #99a0a9">Music</a> <a href="/tags/Nginx/" style="font-size: 1.1em; color: #999">Nginx</a> <a href="/tags/Problem/" style="font-size: 1.1em; color: #999">Problem</a> <a href="/tags/React/" style="font-size: 1.33em; color: #99a2af">React</a> <a href="/tags/Server/" style="font-size: 1.1em; color: #999">Server</a> <a href="/tags/TypeScript/" style="font-size: 1.1em; color: #999">TypeScript</a> <a href="/tags/Vue/" style="font-size: 1.39em; color: #99a4b4">Vue</a> <a href="/tags/WSL/" style="font-size: 1.21em; color: #999ea4">WSL</a> <a href="/tags/bit/" style="font-size: 1.1em; color: #999">bit</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/docker/" style="font-size: 1.16em; color: #999b9e">docker</a> <a href="/tags/eslint/" style="font-size: 1.1em; color: #999">eslint</a> <a href="/tags/github/" style="font-size: 1.1em; color: #999">github</a> <a href="/tags/ip/" style="font-size: 1.1em; color: #999">ip</a> <a href="/tags/jQuery/" style="font-size: 1.21em; color: #999ea4">jQuery</a> <a href="/tags/koa/" style="font-size: 1.16em; color: #999b9e">koa</a> <a href="/tags/less/" style="font-size: 1.27em; color: #99a0a9">less</a> <a href="/tags/linux/" style="font-size: 1.1em; color: #999">linux</a> <a href="/tags/md/" style="font-size: 1.16em; color: #999b9e">md</a> <a href="/tags/ngrok/" style="font-size: 1.1em; color: #999">ngrok</a> <a href="/tags/node/" style="font-size: 1.27em; color: #99a0a9">node</a> <a href="/tags/react/" style="font-size: 1.44em; color: #99a7ba">react</a> <a href="/tags/regexp/" style="font-size: 1.1em; color: #999">regexp</a> <a href="/tags/request/" style="font-size: 1.16em; color: #999b9e">request</a> <a href="/tags/shell/" style="font-size: 1.27em; color: #99a0a9">shell</a> <a href="/tags/svg/" style="font-size: 1.1em; color: #999">svg</a> <a href="/tags/v2ray/" style="font-size: 1.1em; color: #999">v2ray</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "I&#x27;ve seen things you people wouldn&#x27;t believe.,Attack ships on fire off the shoulder of Orion.,I&#x27;ve watched c-beams glitter in the dark near the Tannhauser Gate.,All those ... moments will be lost in time, like tears...in rain.,Time to die.".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: false,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = 'I&#x27;ve seen things you people wouldn&#x27;t believe.'
+  }
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script>"use strict";if("serviceWorker"in navigator){navigator.serviceWorker.register("service-worker.js").then((function(reg){reg.onupdatefound=function(){var installingWorker=reg.installing;installingWorker.onstatechange=function(){switch(installingWorker.state){case"installed":if(navigator.serviceWorker.controller){console.log("New or updated content is available.")}else{console.log("Content is now available offline!")}break;case"redundant":console.error("The installing service worker became redundant.");break}}}}))["catch"]((function(e){console.error("Error during service worker registration:",e)}))}</script></body></html>

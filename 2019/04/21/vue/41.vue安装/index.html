@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>vue 安装 | Prajna's blog</title><meta name="keywords" content="vue"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 安装 node,git2. git bash3. 淘宝 NPM 镜像npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org 4. 全局安装 vue-clicnpm install -g vue-cli 5. 创建一个基于 webpack 模板的新项目vue init webpack my-project 6. 模板 Pro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue 安装">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2019/04/21/vue/41.vue%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="1. 安装 node,git2. git bash3. 淘宝 NPM 镜像npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org 4. 全局安装 vue-clicnpm install -g vue-cli 5. 创建一个基于 webpack 模板的新项目vue init webpack my-project 6. 模板 Pro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png">
+<meta property="article:published_time" content="2019-04-21T20:46:25.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.656Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2019/04/21/vue/41.vue%E5%AE%89%E8%A3%85/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vue 安装</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-04-21T20:46:25.000Z" title="发表于 2019-04-21 20:46:25">2019-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.656Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/vue/">vue</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">574</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="vue 安装"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-安装-node-git"><a href="#1-安装-node-git" class="headerlink" title="1. 安装 node,git"></a>1. 安装 node,git</h1><h1 id="2-git-bash"><a href="#2-git-bash" class="headerlink" title="2. git bash"></a>2. git bash</h1><h1 id="3-淘宝-NPM-镜像"><a href="#3-淘宝-NPM-镜像" class="headerlink" title="3. 淘宝 NPM 镜像"></a>3. 淘宝 NPM 镜像</h1><p><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
+<h1 id="4-全局安装-vue-cli"><a href="#4-全局安装-vue-cli" class="headerlink" title="4. 全局安装 vue-cli"></a>4. 全局安装 vue-cli</h1><p><code>cnpm install -g vue-cli</code></p>
+<h1 id="5-创建一个基于-webpack-模板的新项目"><a href="#5-创建一个基于-webpack-模板的新项目" class="headerlink" title="5. 创建一个基于 webpack 模板的新项目"></a>5. 创建一个基于 webpack 模板的新项目</h1><p><code>vue init webpack my-project</code></p>
+<h1 id="6-模板"><a href="#6-模板" class="headerlink" title="6. 模板"></a>6. 模板</h1><ol>
+<li>Project name<br> 项目的名称，括号里面是你创建模板时候的名称，如果想要用这个名称直接按 Enter 键就可以了，或者是自己写一个新名字。</li>
+<li>Project description<br> 项目的描述，自己写，不是必填项，然后按下 Enter 键。</li>
+<li>Author zhang<br> 项目作者，自己写，不是必填项，然后按下 Enter 键。</li>
+<li>vue build<br> 是否安装编译器，到选择 Vue build 方式时，有两种方式，第一种为 standaloe 方式，第二种 runtime-only 为 runtime 方式。<br> runtime 打包的是 /node_modules/vue/dist/vue.common.js standalone 打包的是 /node_modules/vue/dist/vue.js<br> runtime 和 standalone 这两种方式对普通用户使用起来没区别，选择第一个大多数用户使用的就可以了，然后按下 Enter 键。</li>
+<li>Install vue-router<br> 是否 vue 安装路由，选择 y，按下 Enter 键。</li>
+<li>Use EsLint to lint your code<br> 是否使用 ESLint，ESLint 是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格， 也就是需要按照规范格式来写代码。可以选择 y 或者是 n，按自己习惯需要，在这里选择 n，按下 Enter 键。</li>
+<li>Set up unit tests<br> 是否安装测试工具，选择 n，按下 Enter 键。</li>
+<li>Setup e2e tests with Nightwatch?<br> 是否安装 e2e 测试工具，选择 n，按下 Enter 键。</li>
+<li>Should we run <code>npm install</code> for you after the project has been created? (recom<br> 项目创建后，是否直接使用命令安装依赖？<br> 第一个：是的，使用 npm 命令安装<br> 第二个：是的，使用 Yarn 命令安装<br> 第三个：不，自己手动安装<br> 这里直接回车就可以了，或者是根据自己需求来安装选择命令安装。</li>
+</ol>
+<h1 id="7-进入项目文件夹"><a href="#7-进入项目文件夹" class="headerlink" title="7. 进入项目文件夹"></a>7. 进入项目文件夹</h1><p><code>cd my-project</code></p>
+<h1 id="8-安装依赖"><a href="#8-安装依赖" class="headerlink" title="8. 安装依赖"></a>8. 安装依赖</h1><p><code>cnpm install</code></p>
+<h1 id="9-node-modules"><a href="#9-node-modules" class="headerlink" title="9. node_modules"></a>9. node_modules</h1><p>在根目录下看自己的项目文件夹，会发现结构里面多了一个 node_modules 文件夹，该文件夹里的内容就是之前安装的依赖</p>
+<h1 id="10-运行项目"><a href="#10-运行项目" class="headerlink" title="10. 运行项目"></a>10. 运行项目</h1><p><code>npm run dev</code></p>
+<h1 id="11-http-localhost-8080"><a href="#11-http-localhost-8080" class="headerlink" title="11. http://localhost:8080/#/"></a>11. <a target="_blank" rel="noopener" href="http://localhost:8080/#/">http://localhost:8080/#/</a></h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2019/04/21/vue/41.vue%E5%AE%89%E8%A3%85/">https://hqwuzhaoyi.github.io/2019/04/21/vue/41.vue%E5%AE%89%E8%A3%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vue/">vue</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/05/01/vue/48.vue-imooc-mall/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">vue-imooc-mall</div></div></a></div><div class="next-post pull-right"><a href="/2019/04/17/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/40.ES%E4%B8%AD%E6%A8%A1%E6%8B%9Fclass/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ES 中模拟 class</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85-node-git"><span class="toc-number">1.</span> <span class="toc-text">1. 安装 node,git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-git-bash"><span class="toc-number">2.</span> <span class="toc-text">2. git bash</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%B7%98%E5%AE%9D-NPM-%E9%95%9C%E5%83%8F"><span class="toc-number">3.</span> <span class="toc-text">3. 淘宝 NPM 镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85-vue-cli"><span class="toc-number">4.</span> <span class="toc-text">4. 全局安装 vue-cli</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8E-webpack-%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="toc-number">5.</span> <span class="toc-text">5. 创建一个基于 webpack 模板的新项目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E6%A8%A1%E6%9D%BF"><span class="toc-number">6.</span> <span class="toc-text">6. 模板</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">7.</span> <span class="toc-text">7. 进入项目文件夹</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-number">8.</span> <span class="toc-text">8. 安装依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-node-modules"><span class="toc-number">9.</span> <span class="toc-text">9. node_modules</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="toc-number">10.</span> <span class="toc-text">10. 运行项目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-http-localhost-8080"><span class="toc-number">11.</span> <span class="toc-text">11. http:&#x2F;&#x2F;localhost:8080&#x2F;#&#x2F;</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2019/04/21/vue/41.vue%E5%AE%89%E8%A3%85/'
+    this.page.identifier = '2019/04/21/vue/41.vue安装/'
+    this.page.title = 'vue 安装'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

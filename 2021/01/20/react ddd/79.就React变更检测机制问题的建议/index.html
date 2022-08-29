@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>就 React 变更检测机制问题的建议 | Prajna's blog</title><meta name="keywords" content="React,DDD"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载自前端备忘录-江湖术士 二话不多说，先上代码： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667import &amp;#123;  createContext,  Profiler,  useCont">
+<meta property="og:type" content="article">
+<meta property="og:title" content="就 React 变更检测机制问题的建议">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/79.%E5%B0%B1React%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%BB%BA%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="转载自前端备忘录-江湖术士 二话不多说，先上代码： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667import &amp;#123;  createContext,  Profiler,  useCont">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png">
+<meta property="article:published_time" content="2021-01-20T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.652Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="DDD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/79.%E5%B0%B1React%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%BB%BA%E8%AE%AE/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">就 React 变更检测机制问题的建议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-20T00:00:00.000Z" title="发表于 2021-01-20 00:00:00">2021-01-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.652Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react-ddd/">react ddd</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="就 React 变更检测机制问题的建议"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>转载自<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/plightfield">前端备忘录-江湖术士</a></p>
+<p>二话不多说，先上代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">  createContext,</span><br><span class="line">  Profiler,</span><br><span class="line">  useContext,</span><br><span class="line">  useEffect,</span><br><span class="line">  useState,</span><br><span class="line">&#125; from &quot;react&quot;;</span><br><span class="line"></span><br><span class="line">const Service &#x3D; createContext(null);</span><br><span class="line"></span><br><span class="line">function useService() &#123;</span><br><span class="line">  const [check, setCheck] &#x3D; useState(&quot;&quot;);</span><br><span class="line">  useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      setCheck(&quot;change&quot;);</span><br><span class="line">    &#125;, 3000);</span><br><span class="line">  &#125;, []);</span><br><span class="line">  return &#123; check, setCheck &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ChangeSome() &#123;</span><br><span class="line">  const service &#x3D; useContext(Service);</span><br><span class="line">  return (</span><br><span class="line">    &lt;div</span><br><span class="line">      onClick&#x3D;&#123;() &#x3D;&gt; &#123;</span><br><span class="line">        service.setCheck(&quot;checked&quot;);</span><br><span class="line">      &#125;&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      测试</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function TestDeepCompo(props) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div data-count&#x3D;&#123;props.count&#125;&gt;</span><br><span class="line">      &#123;props.count &gt; 0 ? (</span><br><span class="line">        &lt;TestDeepCompo count&#x3D;&#123;props.count - 1&#125; &#x2F;&gt;</span><br><span class="line">      ) : (</span><br><span class="line">        &#x2F;&#x2F; &lt;Provider&gt;</span><br><span class="line">        &lt;Profiler id&#x3D;&quot;local&quot; onRender&#x3D;&#123;console.log&#125;&gt;</span><br><span class="line">          &lt;ChangeSome &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;Profiler&gt;</span><br><span class="line">        &#x2F;&#x2F; &lt;&#x2F;Provider&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Provider(props) &#123;</span><br><span class="line">  const service &#x3D; useService();</span><br><span class="line">  return &lt;Service.Provider value&#x3D;&#123;service&#125;&gt;&#123;props.children&#125;&lt;&#x2F;Service.Provider&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function App() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div className&#x3D;&quot;App&quot;&gt;</span><br><span class="line">      &lt;Provider&gt;</span><br><span class="line">        &lt;Profiler id&#x3D;&quot;app&quot; onRender&#x3D;&#123;console.log&#125;&gt;</span><br><span class="line">          &lt;TestDeepCompo count&#x3D;&#123;1000&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;Profiler&gt;</span><br><span class="line">      &lt;&#x2F;Provider&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App;</span><br></pre></td></tr></table></figure>
+
+<p>大家可以新建一个项目试一下，这里为了图方便写了高阶组件，不过还是建议大家不要用高阶组件，<code>IOC</code> 本身就是为了消灭高阶组件，继承，而出现的</p>
+<p>这是一个查看 <code>React</code> 深度变更性能的代码，在千层深度组件中：</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001133.png" alt="深度变更性能的代码"></p>
+<p>结果是，在我的电脑上，统计一下时间：</p>
+<p>初始化各个 Fiber 节点</p>
+<p>local: 1.89 ms app: 53 ms</p>
+<p>更新</p>
+<p>local: 0ms app: 2ms</p>
+<p>多花费了 50ms 2ms 左右的时间，20ms 之后生效</p>
+<p>注意，这个部分，不可被优化，大家可以试试，使劲浑身解数，包括但不限于 React.memo，useMemo，或者按照官方最佳实践，来只用上下文传递 setter</p>
+<p>是的，很多人说，这个变更检测毫无意义，因为我只在最底层修改了数据，你只需要定位依赖，然后检测最底层就好</p>
+<p>也就是说，这极端情况下的 20 ms，避免不了</p>
+<p>会在性能监控上留下这样的痕迹：</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001323.png" alt="性能监控1"></p>
+<p>然后，熟悉 ng platform-webworker 的同学首先坐不住了，不是说提倡 120 hz 高刷么？提交变更必须控制在 4ms 以内么？不然为啥上多线程？</p>
+<p>Vue 同学也坐不住了，为啥不把变更检测控制在组件级别？我还能手动 markDirty，手动 changeDetect ，别说千层，万层我也不怕</p>
+<p>淡定，这个是协调 m-vm(p) 的消耗，视图提交时是完整的，也就是说，这个操作会在 20 Ms 2ms 后，提交视图渲染，在 4ms 左右之后（一般的 patch 生效时间，嵌套太多可能会久一点），被用户看到</p>
+<p>用户看到时，并不会觉得卡顿</p>
+<p>ng 同学说不对！我 ng 一个 requestAnimationFrame 调度，来组织个动画，你的视图也需要同步的话，这 20ms ，简直要了我的命！而且 React 干嘛侵占本该我 大 rx 用的调度频道？</p>
+<p>先别急，首先，这 20 ms 是极端情况，初始化，一般也就 几毫秒 的样子</p>
+<p>ng 同学说：不行！几毫秒也不行，我是高刷屏+safari，react 调度不行的，还是让 rx 来吧！</p>
+<p>急吼吼干啥？首先，你既然是流调度，加个 debounceTime 再和 react 同步不行么？只要保证这个 time 盖过了 react 的 调度时间，不就可以么？</p>
+<p>ng 同学说：是吼！但是这样不丝滑！</p>
+<p>而且，你就算是用 rx 调度，你就以为逃得过 react 的调度魔爪么？你难道就可以完全不用 context 么？</p>
+<p>ng 同学说：还是不丝滑！</p>
+<p>额，加个 transition？css 解决如何？</p>
+<p>然后 ng 同学的处女座毛病就犯了，觉得这样不纯粹，没有真正解决问题云云</p>
+<p>这些场景都太极端了！</p>
+<p>追求这些极端情况的思想本身就需要调节，这样是不对的</p>
+<p>我们写代码，遇到这样极端的情况很罕见，不需要为了极端情况而改变架构和降低使用体验</p>
+<p>比起这几十毫秒的时间，你还是多想想如何保证代码质量吧</p>
+<hr>
+<p>而且，如果你用 Context 真的出现了肉眼可见的性能问题，建议还是先查看代码中是不是没有贯彻惰性初始化，这也是为数不多的强制要求</p>
+<p>惰性初始化才能让你感受到肉眼可见的延迟，1000 层已经是极限，再多框架可就撂挑子了</p>
+<p>框架实现得怎么样，那是框架的事情，我们写代码写得怎么样，才是我们能控制的事情</p>
+<p>你说 fiber 不行，源代码乱得一匹，调度太烂，还是 ng 大多线程好</p>
+<p>是是是，反正我啥都用，也不用跟你生气</p>
+<p>但是看着我 ——</p>
+<p><strong>你对 React DDD 这些简洁的写法，难道真的不动心么？</strong></p>
+<p>几毫秒而已，让它去吧</p>
+<p>对了，可能会有人说这个例子还不够极限，那我们再改一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function TestDeepCompo(props) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div data-count&#x3D;&#123;props.count&#125;&gt;</span><br><span class="line">      &#123;props.count &gt; 0 ? (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">          &lt;TestDeepCompo count&#x3D;&#123;props.count - 1&#125; &#x2F;&gt;</span><br><span class="line">          &lt;ChangeSome &#x2F;&gt;</span><br><span class="line">          &lt;ChangeSome &#x2F;&gt;</span><br><span class="line">          &lt;ChangeSome &#x2F;&gt;</span><br><span class="line">          &lt;ChangeSome &#x2F;&gt;</span><br><span class="line">          &lt;ChangeSome &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;&gt;</span><br><span class="line">      ) : (</span><br><span class="line">        &#x2F;&#x2F; &lt;Provider&gt;</span><br><span class="line">        &lt;Profiler id&#x3D;&quot;local&quot; onRender&#x3D;&#123;console.log&#125;&gt;</span><br><span class="line">          &lt;ChangeSome &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;Profiler&gt;</span><br><span class="line">        &#x2F;&#x2F; &lt;&#x2F;Provider&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001451.png" alt="深度变更性能的代码1"></p>
+<p>这下够极限了么？</p>
+<p>1000 层级，每一层级都有响应式变量，有 5 个</p>
+<p>变更检测多花 91 ms</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001533.png" alt="性能监控2"></p>
+<p>91ms，还是没有到体感程度</p>
+<p>但是如果我们加个其他逻辑</p>
+<p><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001613.png" alt="未惰性初始化"><br><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001652.png" alt="性能监控2"><br><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001709.png" alt="时间1"><br><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001727.png" alt="惰性初始化"><br><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121002025.png" alt="性能监控3"><br><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210121001745.png" alt="时间2"></p>
+<p>可以看到，一个惰性初始化，把 调度 时间 从 740 水平，直接降到了 94</p>
+<p>所以，还是希望大家搞清楚，最大消耗的源头，在哪里</p>
+<p>不要死抓着那些地方不放</p>
+<p>有惰性初始化，是，你的 context 还是会有意外，但是这些意外能干啥？就算千层下，你做好惰性初始化，也能把时间压到百毫秒内</p>
+<p>他只是新建 workInProgress，你 memo 没变化，他不会动</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/79.%E5%B0%B1React%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%BB%BA%E8%AE%AE/">https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/79.%E5%B0%B1React%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%BB%BA%E8%AE%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/React/">React</a><a class="post-meta__tags" href="/tags/DDD/">DDD</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/20/react%20ddd/77.ReactHooks%E6%9E%81%E9%99%90%E5%87%BD%E6%95%B0%E5%BC%8F/"><img class="prev-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">React Hooks 极限函数式</div></div></a></div><div class="next-post pull-right"><a href="/2021/01/20/react%20ddd/80.ReactDDD%E4%B8%8B%E6%80%A7%E8%83%BD%E8%B0%83%E5%BA%A6%E8%AF%A6%E8%A7%A3/"><img class="next-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210114112348.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">就 React DDD 下性能调度详解</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Wu Zhaoyi</div><div class="author-info__description">Scent of code</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hqwuzhaoyi"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 生命周期"/></a><div class="content"><a class="title" href="/2022/02/08/rust/3.%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="rust 生命周期">rust 生命周期</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 所有权"/></a><div class="content"><a class="title" href="/2022/02/08/rust/2.%E6%89%80%E6%9C%89%E6%9D%83/" title="rust 所有权">rust 所有权</a><time datetime="2022-02-08T00:00:00.000Z" title="发表于 2022-02-08 00:00:00">2022-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/material-8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rust 初学"/></a><div class="content"><a class="title" href="/2022/02/03/rust/1.rust%E5%88%9D%E5%AD%A6/" title="rust 初学">rust 初学</a><time datetime="2022-02-03T00:00:00.000Z" title="发表于 2022-02-03 00:00:00">2022-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具"><img src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js 实用工具"/></a><div class="content"><a class="title" href="/2021/12/16/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/74.%E5%AE%9E%E7%94%A8js/" title="js 实用工具">js 实用工具</a><time datetime="2021-12-16T00:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试"><img src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/hqwuzhaoyi.github.io/Raspberry_PI.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派初试"/></a><div class="content"><a class="title" href="/2021/12/15/%E6%A0%91%E8%8E%93%E6%B4%BE/first/" title="树莓派初试">树莓派初试</a><time datetime="2021-12-15T00:00:00.000Z" title="发表于 2021-12-15 00:00:00">2021-12-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2021/01/20/react%20ddd/79.%E5%B0%B1React%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%BB%BA%E8%AE%AE/'
+    this.page.identifier = '2021/01/20/react ddd/79.就React变更检测机制问题的建议/'
+    this.page.title = '就 React 变更检测机制问题的建议'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

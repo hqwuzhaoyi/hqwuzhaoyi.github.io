@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>wordpress 建站(ubuntu) | Prajna's blog</title><meta name="keywords" content="Server"><meta name="author" content="Wu Zhaoyi,hqwuzhaoyi@foxmail.com"><meta name="copyright" content="Wu Zhaoyi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="安装 docker卸载 docker 旧版本查看是否安装 docker，已经安装的版本1sudo docker --version  卸载旧版本1sudo apt remove docker docker-engine docker.io  如果要按照 EE 版本，还需要卸载 CE 版本1sudo apt remove docker docker-engine docker-ce docker.i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wordpress 建站(ubuntu)">
+<meta property="og:url" content="https://hqwuzhaoyi.github.io/2020/01/10/66.wordpress%E5%BB%BA%E7%AB%99/index.html">
+<meta property="og:site_name" content="Prajna&#39;s blog">
+<meta property="og:description" content="安装 docker卸载 docker 旧版本查看是否安装 docker，已经安装的版本1sudo docker --version  卸载旧版本1sudo apt remove docker docker-engine docker.io  如果要按照 EE 版本，还需要卸载 CE 版本1sudo apt remove docker docker-engine docker-ce docker.i">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/wordpress.png">
+<meta property="article:published_time" content="2020-01-10T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T03:13:16.648Z">
+<meta property="article:author" content="Wu Zhaoyi">
+<meta property="article:tag" content="Server">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/wordpress.png"><link rel="shortcut icon" href="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/favicon.ico?versionId=CAEQIBiBgICUj6fpxhciIGVlZDJjMTcyMGRkMjQ0MGViNDIyOWEyNDdkOGI5YjQ5"><link rel="canonical" href="https://hqwuzhaoyi.github.io/2020/01/10/66.wordpress%E5%BB%BA%E7%AB%99/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4af216cebbf1ef8bfe277df5447157c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"LPQ2BDF707","apiKey":"b955341b8b62ac31533e2e1ff3aa5fd0","indexName":"wzy","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-29 03:13:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Prajna's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/git20210416184339.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">123</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/wordpress.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Prajna's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">wordpress 建站(ubuntu)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-01-10T00:00:00.000Z" title="发表于 2020-01-10 00:00:00">2020-01-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-29T03:13:16.648Z" title="更新于 2022-08-29 03:13:16">2022-08-29</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="wordpress 建站(ubuntu)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="安装-docker"><a href="#安装-docker" class="headerlink" title="安装 docker"></a>安装 docker</h1><h2 id="卸载-docker-旧版本"><a href="#卸载-docker-旧版本" class="headerlink" title="卸载 docker 旧版本"></a>卸载 docker 旧版本</h2><h3 id="查看是否安装-docker，已经安装的版本"><a href="#查看是否安装-docker，已经安装的版本" class="headerlink" title="查看是否安装 docker，已经安装的版本"></a>查看是否安装 docker，已经安装的版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker --version</span><br></pre></td></tr></table></figure>
+
+<h3 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt remove docker docker-engine docker.io</span><br></pre></td></tr></table></figure>
+
+<h3 id="如果要按照-EE-版本，还需要卸载-CE-版本"><a href="#如果要按照-EE-版本，还需要卸载-CE-版本" class="headerlink" title="如果要按照 EE 版本，还需要卸载 CE 版本"></a>如果要按照 EE 版本，还需要卸载 CE 版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt remove docker docker-engine docker-ce docker.io</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-docker-的准备"><a href="#安装-docker-的准备" class="headerlink" title="安装 docker 的准备"></a>安装 docker 的准备</h2><h3 id="刷新-apt-包的索引"><a href="#刷新-apt-包的索引" class="headerlink" title="刷新 apt 包的索引"></a>刷新 apt 包的索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装必要的软件包以允许通过-Https-来使用-Docker-的存储库"><a href="#安装必要的软件包以允许通过-Https-来使用-Docker-的存储库" class="headerlink" title="安装必要的软件包以允许通过 Https 来使用 Docker 的存储库"></a>安装必要的软件包以允许通过 Https 来使用 Docker 的存储库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加-Docker-的-GPG-密钥"><a href="#添加-Docker-的-GPG-密钥" class="headerlink" title="添加 Docker 的 GPG 密钥"></a>添加 Docker 的 GPG 密钥</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu&#x2F;gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证-GPG-密钥的指纹"><a href="#验证-GPG-密钥的指纹" class="headerlink" title="验证 GPG 密钥的指纹"></a>验证 GPG 密钥的指纹</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key fingerprint 0EBFCD88</span><br><span class="line"></span><br><span class="line">-----------------------------------------------------------</span><br><span class="line">## 下面是验证成功的输出：</span><br><span class="line">pub   rsa4096 2017-02-22 [SCEA]</span><br><span class="line">      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88</span><br><span class="line">uid                         Docker Release (CE deb) &lt;docker@docker.com&gt;</span><br><span class="line">sub   rsa4096 2017-02-22 [S]</span><br><span class="line">-----------------------------------------------------------</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="指定稳定版的知识库"><a href="#指定稳定版的知识库" class="headerlink" title="指定稳定版的知识库"></a>指定稳定版的知识库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository &quot;deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu $(lsb_release -cs) stable&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装最新版-docker"><a href="#安装最新版-docker" class="headerlink" title="安装最新版 docker"></a>安装最新版 docker</h2><h3 id="更新软件包索引并安装-Docker-CE"><a href="#更新软件包索引并安装-Docker-CE" class="headerlink" title="更新软件包索引并安装 Docker CE"></a>更新软件包索引并安装 Docker CE</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+
+<h3 id="建立-docker-用户组"><a href="#建立-docker-用户组" class="headerlink" title="建立 docker 用户组"></a>建立 docker 用户组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="将当前用户加入-docker-组"><a href="#将当前用户加入-docker-组" class="headerlink" title="将当前用户加入 docker 组"></a>将当前用户加入 docker 组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查安装是否成功"><a href="#检查安装是否成功" class="headerlink" title="检查安装是否成功"></a>检查安装是否成功</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-docker-compose"><a href="#安装-docker-compose" class="headerlink" title="安装 docker compose"></a>安装 docker compose</h2><h3 id="确认最新的-compose-版本"><a href="#确认最新的-compose-版本" class="headerlink" title="确认最新的 compose 版本"></a>确认最新的 compose 版本</h3><p>从官方开源位置<a target="_blank" rel="noopener" href="https://github.com/docker/compose/releases">compose release page on GitHub</a>上找到最新的稳定版的版本号。截止到本博文发文，最新的版本号是 1.23.2.</p>
+<h3 id="下载-compose"><a href="#下载-compose" class="headerlink" title="下载 compose"></a>下载 compose</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##  注意根据上一步的调查结果更换为合适的版本号。目前最新版是1.23.2.</span><br><span class="line">sudo curl -L https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.23.2&#x2F;docker-compose-&#96;uname -s&#96;-&#96;uname -m&#96; -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置执行权限"><a href="#设置执行权限" class="headerlink" title="设置执行权限"></a>设置执行权限</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查安装是否正常完成"><a href="#检查安装是否正常完成" class="headerlink" title="检查安装是否正常完成"></a>检查安装是否正常完成</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker-compose --version</span><br><span class="line"></span><br><span class="line">------------------------</span><br><span class="line">正常完成的情况下，会输出如下说明。（1.23.2版的情况）</span><br><span class="line">docker-compose version 1.23.2, build 1110ad01</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置-docker-compose-启动文件"><a href="#配置-docker-compose-启动文件" class="headerlink" title="配置 docker-compose 启动文件"></a>配置 docker-compose 启动文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;3&#39;</span><br><span class="line">services:</span><br><span class="line">        db:</span><br><span class="line">                image: mysql:5.7</span><br><span class="line">                volumes:</span><br><span class="line">                        - .&#x2F;db_data:&#x2F;var&#x2F;lib&#x2F;mysql</span><br><span class="line">                ports:</span><br><span class="line">                        - &quot;3306:3306&quot;</span><br><span class="line">                restart: always</span><br><span class="line">                environment:</span><br><span class="line">                        MYSQL_ROOT_PASSWORD: 123456</span><br><span class="line">                        MYSQL_DATABASE: wordpress</span><br><span class="line">                        MYSQL_USER: wordpress</span><br><span class="line">                        MYSQL_PASSWORD: 123456</span><br><span class="line"></span><br><span class="line">        web:</span><br><span class="line">                depends_on:</span><br><span class="line">                        - db</span><br><span class="line">                image: wordpress:latest</span><br><span class="line">                volumes:</span><br><span class="line">                        - .&#x2F;web_data:&#x2F;var&#x2F;www&#x2F;html</span><br><span class="line">                ports:</span><br><span class="line">                        - &quot;80:80&quot;</span><br><span class="line">                restart: always</span><br><span class="line">                environment:</span><br><span class="line">                        WORDPRESS_DB_HOST: db:3306</span><br><span class="line">                        WORDPRESS_DB_USER: wordpress</span><br><span class="line">                        WORDPRESS_DB_PASSWORD: 123456</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>version</td>
+<td>配置文件的版本，默认为 3. 也有 3.1, 3.2.</td>
+</tr>
+<tr>
+<td>services</td>
+<td>服务：服务下面放置各个 docker 容器的配置。</td>
+</tr>
+<tr>
+<td>db/web/…</td>
+<td>自定义的 docker 容器的名字</td>
+</tr>
+<tr>
+<td>image</td>
+<td>docker 镜像指定。格式为[镜像名字:tag]. 容器就是镜像的实例，所以这个指定很关键。如果本地没有相应的镜像，会自动从 docker.com 的公共仓库去拉取。这一点强吧!</td>
+</tr>
+<tr>
+<td>volumes</td>
+<td>数据卷指定。可以指定多个。如果不指定可读写数据卷，docker 一旦停止，用户数据也会随之消失。指定格式 HOST_DIRECTORY:CONTAINER_DIRECTORY:ReadWriteOption 主机的目录应该设置为相对路径，不然 docker 可能找不到要映射的目录。默认的读写属性为可以读写。</td>
+</tr>
+<tr>
+<td>ports</td>
+<td>端口映射。格式：HOST_PORTS:CONTAINER_PORTS。 mysql 数据库访问默认端口为 3306，web 服务器默认访问端口为 80，如果不指定的话，外面访问不了</td>
+</tr>
+<tr>
+<td>restart</td>
+<td>指定容器退出后的重启策略，always 为始终重启。生产环境中推荐配置为 always 或者 unless-stopped</td>
+</tr>
+<tr>
+<td>environment</td>
+<td>环境变量设置。这里设置的数据库用户名密码等，会自动反映到数据库中。注意不同服务(容器)之间的环境变量内容要匹配</td>
+</tr>
+</tbody></table>
+<h1 id="启动-docker-并验证"><a href="#启动-docker-并验证" class="headerlink" title="启动 docker 并验证"></a>启动 docker 并验证</h1><p>进入到上面步骤生成配置文件所在的目录，并执行下面的命令，既可以启动 wordpress.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>启动参数 up ：它将尝试自动完成包括构建镜像，（重新）创建服务，启动服务，并关联服务相关容器的一系列操作。链接的服务都将会被自动启动，除非已经处于运行状态。<br>-d：守护方式启动。 即后台方式启动各个容器。</p>
+<p>这个时候，打开网页<a target="_blank" rel="noopener" href="http://localhost/">http://localhost/</a> 即可看到 wordpress 的语言选择界面。</p>
+<p>下面再列举一些常用的 compose 命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#查看compose版本</span><br><span class="line">docker-compose version</span><br><span class="line">#列出项目中目前的所有容器（注意默认项目名是当前的目录名，需要先进入本目录）</span><br><span class="line">docker-compose ps</span><br><span class="line">#停止当前的compose项目（注意默认项目名是当前的目录名，需要先进入本目录）</span><br><span class="line">docker-compose stop</span><br><span class="line">#重启动当前的compose项目（注意默认项目名是当前的目录名，需要先进入本目录）</span><br><span class="line">docker-compose restart</span><br><span class="line">#查看运行中的容器</span><br><span class="line">docker container ls</span><br></pre></td></tr></table></figure>
+
+<p>补充说明：<br>docker-compose 命令选项<br>-f, –file FILE 指定使用的 Compose 模板文件，默认为 docker-compose.yml ，可以多次指定。<br>-p, –project-name NAME 指定项目名称，默认将使用所在目录名称作为项目名。</p>
+<h1 id="修改-gcp-用户密码"><a href="#修改-gcp-用户密码" class="headerlink" title="修改 gcp 用户密码"></a>修改 gcp 用户密码</h1><h2 id="通过sudo-su命令切换到root用户"><a href="#通过sudo-su命令切换到root用户" class="headerlink" title="通过sudo su命令切换到root用户"></a>通过<code>sudo su</code>命令切换到<code>root</code>用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su &#x2F;&#x2F;切换到root用户</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改-SSH-配置文件-etc-ssh-sshd-config"><a href="#修改-SSH-配置文件-etc-ssh-sshd-config" class="headerlink" title="修改 SSH 配置文件/etc/ssh/sshd_config"></a>修改 SSH 配置文件<code>/etc/ssh/sshd_config</code></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config &#x2F;&#x2F;编辑文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="找到-PermitRootLogin-和-Pa-sswordAuthentication"><a href="#找到-PermitRootLogin-和-Pa-sswordAuthentication" class="headerlink" title="找到 PermitRootLogin 和 Pa sswordAuthentication"></a>找到 PermitRootLogin 和 Pa sswordAuthentication</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Authentication:</span><br><span class="line">PermitRootLogin yes &#x2F;&#x2F;默认为no，需要开启root用户访问改为</span><br><span class="line"></span><br><span class="line"># Change to no to disable tunnelled clear text passwords</span><br><span class="line">PasswordAuthentication yes &#x2F;&#x2F;默认为no，改为yes开启密码登陆</span><br></pre></td></tr></table></figure>
+
+<h2 id="重启-SSH-服务"><a href="#重启-SSH-服务" class="headerlink" title="重启 SSH 服务"></a>重启 SSH 服务</h2><h3 id="Ubuntu-Debian-适用"><a href="#Ubuntu-Debian-适用" class="headerlink" title="Ubuntu Debian 适用"></a>Ubuntu Debian 适用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;init.d&#x2F;ssh restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="Cent-OS7-适用"><a href="#Cent-OS7-适用" class="headerlink" title="Cent OS7 适用"></a>Cent OS7 适用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd.service</span><br></pre></td></tr></table></figure>
+
+<h2 id="进行以下操作，可使用-putty、iterm-等客户端通过用户名和密码访问实例"><a href="#进行以下操作，可使用-putty、iterm-等客户端通过用户名和密码访问实例" class="headerlink" title="进行以下操作，可使用 putty、iterm 等客户端通过用户名和密码访问实例"></a>进行以下操作，可使用 putty、iterm 等客户端通过用户名和密码访问实例</h2><h3 id="为现有用户设置一个密码，先查看当前登陆"><a href="#为现有用户设置一个密码，先查看当前登陆" class="headerlink" title="为现有用户设置一个密码，先查看当前登陆"></a>为现有用户设置一个密码，先查看当前登陆</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">who  &#x2F;&#x2F;使用who查看当前登陆用户</span><br></pre></td></tr></table></figure>
+
+<h3 id="可以看到当前登陆了-mapgun-和-root-用户，修改指定用户密码即可"><a href="#可以看到当前登陆了-mapgun-和-root-用户，修改指定用户密码即可" class="headerlink" title="可以看到当前登陆了 mapgun 和 root 用户，修改指定用户密码即可"></a>可以看到当前登陆了 mapgun 和 root 用户，修改指定用户密码即可</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd pajna &#x2F;&#x2F;pajna改为想要修改的用户名</span><br></pre></td></tr></table></figure>
+
+<h3 id="新增一个用户"><a href="#新增一个用户" class="headerlink" title="新增一个用户"></a>新增一个用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd name  &#x2F;&#x2F;新增用户</span><br><span class="line">passwd name  &#x2F;&#x2F;设置用户密码</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置-root-密码"><a href="#设置-root-密码" class="headerlink" title="设置 root 密码"></a>设置 root 密码</h3><p>如果使用 root 密码登陆，需要设置 root 用户密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd root</span><br></pre></td></tr></table></figure>
+
+<h1 id="vim-格式化-所有代码"><a href="#vim-格式化-所有代码" class="headerlink" title="vim 格式化 所有代码"></a>vim 格式化 所有代码</h1><ol>
+<li>按两下小写 g，即 gg，定位光标到第一行。</li>
+<li>按住 Shift+v，即大写 V，进入可视化编辑的列编辑模式。</li>
+<li>Shift+g，即大写 G，选中整个代码。</li>
+<li>按下等号=，格式化所有代码。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:hqwuzhaoyi@foxmail.com">Wu Zhaoyi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hqwuzhaoyi.github.io/2020/01/10/66.wordpress%E5%BB%BA%E7%AB%99/">https://hqwuzhaoyi.github.io/2020/01/10/66.wordpress%E5%BB%BA%E7%AB%99/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hqwuzhaoyi.github.io" target="_blank">Prajna's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Server/">Server</a></div><div class="post_share"><div class="social-share" data-image="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/wordpress.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/02/05/electronic%20muisc/m02.%E4%B9%90%E7%90%86/"><img class="prev-cover" src="https://wuzhaoyi-xyz.oss-cn-beijing.aliyuncs.com/music%20theory.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">乐理</div></div></a></div><div class="next-post pull-right"><a href="/2020/01/09/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/65.js%E5%A4%8D%E4%B9%A0/"><img class="next-cover" src="https://wuzhaoyi.oss-cn-shanghai.aliyuncs.com/imgs/top_img/JavaScript-logo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">js 复习</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-docker"><span class="toc-number">1.</span> <span class="toc-text">安装 docker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD-docker-%E6%97%A7%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.</span> <span class="toc-text">卸载 docker 旧版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85-docker%EF%BC%8C%E5%B7%B2%E7%BB%8F%E5%AE%89%E8%A3%85%E7%9A%84%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.1.</span> <span class="toc-text">查看是否安装 docker，已经安装的版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.2.</span> <span class="toc-text">卸载旧版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E8%A6%81%E6%8C%89%E7%85%A7-EE-%E7%89%88%E6%9C%AC%EF%BC%8C%E8%BF%98%E9%9C%80%E8%A6%81%E5%8D%B8%E8%BD%BD-CE-%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.3.</span> <span class="toc-text">如果要按照 EE 版本，还需要卸载 CE 版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-docker-%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">1.2.</span> <span class="toc-text">安装 docker 的准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B7%E6%96%B0-apt-%E5%8C%85%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.1.</span> <span class="toc-text">刷新 apt 包的索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85%E4%BB%A5%E5%85%81%E8%AE%B8%E9%80%9A%E8%BF%87-Https-%E6%9D%A5%E4%BD%BF%E7%94%A8-Docker-%E7%9A%84%E5%AD%98%E5%82%A8%E5%BA%93"><span class="toc-number">1.2.2.</span> <span class="toc-text">安装必要的软件包以允许通过 Https 来使用 Docker 的存储库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-Docker-%E7%9A%84-GPG-%E5%AF%86%E9%92%A5"><span class="toc-number">1.2.3.</span> <span class="toc-text">添加 Docker 的 GPG 密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81-GPG-%E5%AF%86%E9%92%A5%E7%9A%84%E6%8C%87%E7%BA%B9"><span class="toc-number">1.2.4.</span> <span class="toc-text">验证 GPG 密钥的指纹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E7%A8%B3%E5%AE%9A%E7%89%88%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93"><span class="toc-number">1.2.5.</span> <span class="toc-text">指定稳定版的知识库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88-docker"><span class="toc-number">1.3.</span> <span class="toc-text">安装最新版 docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%B4%A2%E5%BC%95%E5%B9%B6%E5%AE%89%E8%A3%85-Docker-CE"><span class="toc-number">1.3.1.</span> <span class="toc-text">更新软件包索引并安装 Docker CE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-docker-%E7%94%A8%E6%88%B7%E7%BB%84"><span class="toc-number">1.3.2.</span> <span class="toc-text">建立 docker 用户组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E5%BD%93%E5%89%8D%E7%94%A8%E6%88%B7%E5%8A%A0%E5%85%A5-docker-%E7%BB%84"><span class="toc-number">1.3.3.</span> <span class="toc-text">将当前用户加入 docker 组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E5%AE%89%E8%A3%85%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-number">1.3.4.</span> <span class="toc-text">检查安装是否成功</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-docker-compose"><span class="toc-number">1.4.</span> <span class="toc-text">安装 docker compose</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E8%AE%A4%E6%9C%80%E6%96%B0%E7%9A%84-compose-%E7%89%88%E6%9C%AC"><span class="toc-number">1.4.1.</span> <span class="toc-text">确认最新的 compose 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-compose"><span class="toc-number">1.4.2.</span> <span class="toc-text">下载 compose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%89%A7%E8%A1%8C%E6%9D%83%E9%99%90"><span class="toc-number">1.4.3.</span> <span class="toc-text">设置执行权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E5%AE%89%E8%A3%85%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8%E5%AE%8C%E6%88%90"><span class="toc-number">1.4.4.</span> <span class="toc-text">检查安装是否正常完成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-docker-compose-%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">配置 docker-compose 启动文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-docker-%E5%B9%B6%E9%AA%8C%E8%AF%81"><span class="toc-number">3.</span> <span class="toc-text">启动 docker 并验证</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-gcp-%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">修改 gcp 用户密码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87sudo-su%E5%91%BD%E4%BB%A4%E5%88%87%E6%8D%A2%E5%88%B0root%E7%94%A8%E6%88%B7"><span class="toc-number">4.1.</span> <span class="toc-text">通过sudo su命令切换到root用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-SSH-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-etc-ssh-sshd-config"><span class="toc-number">4.2.</span> <span class="toc-text">修改 SSH 配置文件&#x2F;etc&#x2F;ssh&#x2F;sshd_config</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%BE%E5%88%B0-PermitRootLogin-%E5%92%8C-Pa-sswordAuthentication"><span class="toc-number">4.3.</span> <span class="toc-text">找到 PermitRootLogin 和 Pa sswordAuthentication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%90%AF-SSH-%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.4.</span> <span class="toc-text">重启 SSH 服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu-Debian-%E9%80%82%E7%94%A8"><span class="toc-number">4.4.1.</span> <span class="toc-text">Ubuntu Debian 适用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cent-OS7-%E9%80%82%E7%94%A8"><span class="toc-number">4.4.2.</span> <span class="toc-text">Cent OS7 适用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E8%A1%8C%E4%BB%A5%E4%B8%8B%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%8F%AF%E4%BD%BF%E7%94%A8-putty%E3%80%81iterm-%E7%AD%89%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%80%9A%E8%BF%87%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B"><span class="toc-number">4.5.</span> <span class="toc-text">进行以下操作，可使用 putty、iterm 等客户端通过用户名和密码访问实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E7%8E%B0%E6%9C%89%E7%94%A8%E6%88%B7%E8%AE%BE%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%AF%86%E7%A0%81%EF%BC%8C%E5%85%88%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%99%BB%E9%99%86"><span class="toc-number">4.5.1.</span> <span class="toc-text">为现有用户设置一个密码，先查看当前登陆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E5%BD%93%E5%89%8D%E7%99%BB%E9%99%86%E4%BA%86-mapgun-%E5%92%8C-root-%E7%94%A8%E6%88%B7%EF%BC%8C%E4%BF%AE%E6%94%B9%E6%8C%87%E5%AE%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%8D%B3%E5%8F%AF"><span class="toc-number">4.5.2.</span> <span class="toc-text">可以看到当前登陆了 mapgun 和 root 用户，修改指定用户密码即可</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7"><span class="toc-number">4.5.3.</span> <span class="toc-text">新增一个用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-root-%E5%AF%86%E7%A0%81"><span class="toc-number">4.5.4.</span> <span class="toc-text">设置 root 密码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim-%E6%A0%BC%E5%BC%8F%E5%8C%96-%E6%89%80%E6%9C%89%E4%BB%A3%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">vim 格式化 所有代码</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Wu Zhaoyi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://hqwuzhaoyi.github.io/2020/01/10/66.wordpress%E5%BB%BA%E7%AB%99/'
+    this.page.identifier = '2020/01/10/66.wordpress建站/'
+    this.page.title = 'wordpress 建站(ubuntu)'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wuzhaoyi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
